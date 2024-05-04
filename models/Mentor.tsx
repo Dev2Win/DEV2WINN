@@ -1,4 +1,5 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
+
 
 const MentorSchema = new mongoose.Schema({
     first_name: { type: String, required: true},
