@@ -17,6 +17,7 @@ export async function POST(req: Request) {
   }
 
   // Get the headers
+  /* eslint-disable camelcase */
   const headerPayload = headers();
   const svix_id = headerPayload.get("svix-id");
   const svix_timestamp = headerPayload.get("svix-timestamp");
@@ -57,8 +58,10 @@ export async function POST(req: Request) {
   const eventType = evt.type;
 
   // CREATE User in mongodb
+
   if (eventType === "user.created") {
-    const { id, email_addresses, image_url, first_name, last_name, username } =
+    
+    const { id, email_addresses, first_name, last_name } =
       evt.data;
 
     const user = {
