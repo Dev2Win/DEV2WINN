@@ -9,7 +9,7 @@ import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 
 const inter = Inter({ subsets: ["latin"] });
-// logoImageUrl: "/icons/yoom-logo.svg",
+// logoImageUrl: "/icons/dev2win-logo.svg",
 export const metadata: Metadata = {
   title: "Dev2Win",
   description: "Career Development App",
