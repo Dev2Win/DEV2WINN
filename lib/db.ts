@@ -1,29 +1,33 @@
-import mongoose from "mongoose";
+import mongoose, { Mongoose } from "mongoose";
 
-let isConnected = false;
- const URL = process.env.MONGODB_URL 
+const MONGODB_URL = process.env.MONGODB_URL!;
+
+interface MongooseConn {
+  conn: Mongoose | null;
+  promise: Promise<Mongoose> | null;
+}
+
+let cached: MongooseConn = (global as any).mongoose;
+
+if (!cached) {
+  cached = (global as any).mongoose = {
+    conn: null,
+    promise: null,
+  };
+}
 
 export const connectToDB = async () => {
-  mongoose.set("strictQuery", true);
+  if (cached.conn) return cached.conn;
 
-  if (isConnected) {
-    console.log("MongoDB is already connected");
-    return;
-  }
+  cached.promise =
+    cached.promise ||
+    mongoose.connect(MONGODB_URL, {
+      dbName: "clerk-next14-db",
+      bufferCommands: false,
+      connectTimeoutMS: 30000,
+    });
 
-  try {
-    if (URL && typeof URL === 'string') {
-        await mongoose.connect(URL
-         
-        );
-      } else {
-        console.error('MongoDB URL environment variable is not set or is not a string.');
-      }
+  cached.conn = await cached.promise;
 
-    isConnected = true;
-
-    console.log("MongoDB is connected successfully");
-  } catch (error) {
-    console.log(error);
-  }
+  return cached.conn;
 };
