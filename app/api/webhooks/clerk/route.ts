@@ -1,5 +1,7 @@
 
-import { createUser } from "@/lib/connect";
+
+import { connectToDB } from "@/lib/db";
+import { Mentee } from "@/models/Mentee";
 
 import { WebhookEvent,clerkClient } from "@clerk/nextjs/server";
 import { headers } from "next/headers";
@@ -75,8 +77,9 @@ export async function POST(req: Request) {
     };
 
     console.log(user);
-
-    const newUser = await createUser(user);
+       await connectToDB()
+    const newUser = new Mentee(user);
+    await newUser.save()
 
     if (newUser) {
       await clerkClient.users.updateUserMetadata(id, {
