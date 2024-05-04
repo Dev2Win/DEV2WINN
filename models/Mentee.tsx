@@ -1,16 +1,16 @@
 const mongoose = require("mongoose");
 
  const MenteeSchema = new mongoose.Schema({
-  first_name: { type: String, required: true},
-  last_name: { type: String, required: true},
+  firstName: { type: String},
+  lastName: { type: String},
   email: { type: String, required: true, unique: true },
-  password: { type: String, required: true, unique: true },
-  career_path:{type: String, required:true},
+  password: { type: String, unique: true },
+  career_path:{type: String},
   desired_skills: [{ type :String}],
-  experience_level:{type:String , required: true}, // novice , experienced , professional
-  industry_pref: [{type:String , required: true}], // health , agriculture , mines , law , based on career choice
+  experience_level:{type:String }, // novice , experienced , professional
+  industry_pref: [{type:String }], // health , agriculture , mines , law , based on career choice
   availability: [{ type :String}], // weekdays and weekends and everyday 
-  education_status:{type:String , required: true },// degree , high school diploma , masters , phd
+  education_status:{type:String },// degree , high school diploma , masters , phd
   chats: {
     type: [{ type: mongoose.Schema.Types.ObjectId, ref: "Chat" }],
     default: [],
