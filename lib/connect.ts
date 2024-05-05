@@ -11,3 +11,14 @@ export async function createUser(user: any) {
       console.log(error);
     }
   }
+
+  // determine usertype
+let userType: 'mentee' | 'mentor' | null = null;
+
+export function setUserType(type: 'mentee' | 'mentor') {
+  userType = type;
+}
+
+export function getUserType() {
+  return userType;
+}
