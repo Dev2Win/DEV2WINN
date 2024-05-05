@@ -8,27 +8,27 @@ export const sidebarLinks = [
  
   {
     imgURL: '/icons/previous.svg',
-    route: '/dashboard/previous',
+    route: '/dashboard/chat',
     label: 'Chat',
   },
   {
     imgURL: '/icons/Video.svg',
-    route: '/dashboard/recordings',
+    route: '/dashboard/meet',
     label: 'Meet',
   },
   {
     imgURL: '/icons/upcoming.svg',
-    route: '/dashboard/upcoming',
+    route: '/dashboard/mentors',
     label: 'Mentors&Peers',
   },
   {
     imgURL: '/icons/add-personal.svg',
-    route: '/dashboard/personal-room',
+    route: '/dashboard/resources',
     label: 'Resources',
   },
   {
     imgURL: '/icons/upcoming.svg',
-    route: '/dashboard/upcoming',
+    route: '/dashboard/profile',
     label: 'Profile',
   },
 ];
