@@ -6,7 +6,7 @@ export const POST = async(req:any)=>{
     const { userType } = await req.json();
     setUserType(userType);
 
-    return NextResponse.json({message:'success'})
+    return NextResponse.json({message:'usertype received'})
 }
 
 
