@@ -110,3 +110,13 @@
     width: 100%;
   }
 }
+
+
+/* @keyframes scrollingTop {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(calc(-30px * 3))
+  }
+} */
