@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { FaUser } from 'react-icons/fa';
-import Stepper from '@/components/Stepper';
+
 
 type CardType = 'mentor' | 'mentee';
 
