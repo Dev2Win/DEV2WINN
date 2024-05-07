@@ -4,17 +4,22 @@ import { MdOutlineMenu, MdClose} from "react-icons/md";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
 import Navigation from "./Navigation";
+import Logo from "@/public/images/logo.jpg"
+import Image from "next/image";
 export default function Navbar() {
   const pathname = usePathname()
   const [menuClick, setHandleMenuClick] = useState(false)
 
   return (
-    <section className="relative">
+    <section className="relative w-full">
     <nav className="sticky top-0 left-0 z-[1000] w-full
     flex flex-row items-center justify-between p-5 xl:px-8 2xl:px-36 bg-white">
-      <div>
-      <h1 className="text-[#19154E] text-xl font-extrabold
-        tracking-[-0.3px]">Dev2Win</h1>
+      <div className="flex flex-row items-center gap-1">
+        <Image src={Logo} alt="logo" width={23} height={21} />
+        <h1 className="text-[#19154E] text-xl font-extrabold
+          tracking-[-0.3px]">
+           Dev2Win
+        </h1>
       </div>
 
       <div className="hidden xl:flex">

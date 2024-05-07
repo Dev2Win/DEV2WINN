@@ -87,23 +87,23 @@ for (let i = 0; i < maxRetries; i++) {
   await new Promise((resolve) => setTimeout(resolve, retryDelay));
 }
 
-if (userType === null) {
-  console.error('User type not received after maximum retries');
-  return new Response('Error: User type not received', { status: 500 });
-}
+  if (userType === null) {
+    console.error('User type not received after maximum retries');
+    return new Response('Error: User type not received', { status: 500 });
+  }
 
-let newUser;
+  let newUser;
 
-if (userType === 'mentee') {
-  // Call a fn to to create a mentee user
-  newUser = await createUser(user);
-} else if (userType === 'mentor') {
-  // Call a fn to create a mentor user
-  newUser = await createUser(user);
-} else {
-  // Handle other cases or return an error
-  return new Response("Invalid user type", { status: 400 });
-}
+    if (userType === 'mentee') {
+      // Call a fn to to create a mentee user
+      newUser = await createUser(user);
+    } else if (userType === 'mentor') {
+      // Call a fn to create a mentor user
+      newUser = await createUser(user);
+    } else {
+      // Handle other cases or return an error
+      return new Response("Invalid user type", { status: 400 });
+    }
 
  
     if (newUser) {
