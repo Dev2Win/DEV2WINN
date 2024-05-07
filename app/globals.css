@@ -110,3 +110,8 @@
     width: 100%;
   }
 }
+
+/* ================step indicator=============== */
+.step-item::before{
+ @apply content-[''] absolute w-full h-[3px] bg-[#7421FC] rounded-full right-2/4 top-1/3 -translate-y-2/4;
+}
