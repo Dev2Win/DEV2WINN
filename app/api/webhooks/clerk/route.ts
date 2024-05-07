@@ -1,6 +1,6 @@
 
 
-import { createUser, getUserType } from "@/lib/connect";
+import { createUser} from "@/lib/connect";
 import { WebhookEvent,clerkClient } from "@clerk/nextjs/server";
 import { headers } from "next/headers";
 import { NextResponse } from "next/server";
@@ -80,10 +80,10 @@ const maxRetries = 1000; // Maximum number of retries
 const retryDelay = 1000; // Delay between retries (in milliseconds)
 
 for (let i = 0; i < maxRetries; i++) {
-  userType = getUserType();
-  if (userType !== null) {
-    break;
-  }
+  // userType = getUserType();
+  // if (userType !== null) {
+  //   break;
+  // }
   await new Promise((resolve) => setTimeout(resolve, retryDelay));
 }
 
@@ -99,7 +99,7 @@ for (let i = 0; i < maxRetries; i++) {
       newUser = await createUser(user);
     } else if (userType === 'mentor') {
       // Call a fn to create a mentor user
-      newUser = await createUser(user);
+      // newUser = await createUser(user);
     } else {
       // Handle other cases or return an error
       return new Response("Invalid user type", { status: 400 });
