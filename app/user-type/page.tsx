@@ -1,20 +1,42 @@
-'use client'
-
+'use client';
 import React, { useState } from 'react';
 import { FaUser } from 'react-icons/fa';
-
 
 type CardType = 'mentor' | 'mentee';
 
 const Page = () => {
-    const [changeBorder, setChangeBorder] = useState(false);
-    const [selectedCard, setSelectedCard] = useState<CardType | null>(null);
-  
-    const handleBorderChange = (card: CardType) => {
-      setChangeBorder(!changeBorder);
-      setSelectedCard(card);
-    };
-  
+  const [changeBorder, setChangeBorder] = useState(false);
+  const [selectedCard, setSelectedCard] = useState<CardType | null>(null);
+
+  const handleBorderChange = (card: CardType) => {
+    setChangeBorder(!changeBorder);
+    setSelectedCard(card);
+  };
+
+  const handleContinue = async () => {
+    if (selectedCard) {
+      try {
+        // Send API request with the selected card value
+        const response = await fetch('api/users', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ userType: selectedCard }),
+        });
+
+        if (response.ok) {
+         
+          console.log('Card selected successfully:');
+        } else {
+        
+          console.error('Error selecting card:');
+        }
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    }
+  };
 
   return (
     <section className="flex flex-col justify-center items-center h-screen max-w-md mx-auto">
@@ -24,9 +46,7 @@ const Page = () => {
       <div className="flex gap-4 my-3">
         <div
           className={`flex flex-col border ${
-            selectedCard === 'mentor'
-              ? 'border-purple-1'
-              : 'border-black/10'
+            selectedCard === 'mentor' ? 'border-purple-1' : 'border-black/10'
           } px-4 py-2 rounded cursor-pointer hover:border-purple-1/60 shadow-sm`}
           onClick={() => handleBorderChange('mentor')}
         >
@@ -36,9 +56,7 @@ const Page = () => {
         </div>
         <div
           className={`flex flex-col border ${
-            selectedCard === 'mentee'
-              ? 'border-purple-1'
-              : 'border-black/10'
+            selectedCard === 'mentee' ? 'border-purple-1' : 'border-black/10'
           } px-4 py-2 rounded cursor-pointer hover:border-purple-1/60 shadow-sm`}
           onClick={() => handleBorderChange('mentee')}
         >
@@ -47,7 +65,9 @@ const Page = () => {
           <p className="text-[14px]">Coach a mentee</p>
         </div>
       </div>
-      <button className="bg-purple-1 px-4 py-2 rounded w-[80%] text-white mt-5">Continue</button>
+      <button className="bg-purple-1 px-4 py-2 rounded w-[80%] text-white mt-5" onClick={handleContinue}>
+        Continue
+      </button>
     </section>
   );
 };

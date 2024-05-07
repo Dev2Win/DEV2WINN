@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 
- const MenteeSchema = new mongoose.Schema({
+ const MenteSchema = new mongoose.Schema({
   firstName: { type: String},
   lastName: { type: String},
   email: { type: String, required: true, unique: true },
@@ -19,5 +19,5 @@ import mongoose from "mongoose";
   date: { type: Date, default: Date.now },
 });
 
-export const  Mentee = mongoose.model("Mentee", MenteeSchema);
+export const  Mentee = mongoose.model("Mente", MenteSchema);
 
