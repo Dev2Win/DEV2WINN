@@ -5,6 +5,13 @@ import Prince from "@/public/images/Prince.webp"
 import Jeffery from "@/public/images/Jeffery.webp"
 import Michael from "@/public/images/Michael.webp"
 
+import {
+    Img01, Img02, Img03, 
+    Img04, Img05, Img06,
+    Img07, Img08, Img09, Img10
+  } from "@/public/images"
+  
+
 export const featureData = [
     {
         icon: (
@@ -124,4 +131,17 @@ export const teamData = [
         image: Michael,
         key: "michael-kokonu"
     },
+]
+
+export const ImagesData = [
+    { image: Img01, id: "1" },
+    { image: Img02, id: "2" },
+    { image: Img03, id: "3" },
+    { image: Img04, id: "4" },
+    { image: Img05, id: "5" },
+    { image: Img06, id: "6" },
+    { image: Img07, id: "7" },
+    { image: Img08, id: "8" },
+    { image: Img09, id: "9" },
+    { image: Img10, id: "10" },
 ]
