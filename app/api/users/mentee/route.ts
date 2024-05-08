@@ -5,29 +5,22 @@ import Mentee from "@/models/Mentee";
 import { connectToDB } from "@/lib/db";
 
 
-export const POST = async (req:Request)=>{
-   // extra information from request body
-   // this information will come from the request body
-   // hardcoded it for now
-   const user = {
-      career_path: "Software Engineering",
-   }
+export const POST = async (request: Request)=>{
+   const user = await request.json()
+   const clerkUser = await currentUser()
 
-   // copied the userid from mongo to test
-   const userId = "663b868e52f47d352c9b8420"
-   
-   if (!userId) {
-    return NextResponse.json({ message: "User not found" }, { status: 404 });
+   await connectToDB()
+   const loggedInUser = await User.findById({ clerkId : clerkUser?.id }) 
+
+   if (!loggedInUser) {
+      return NextResponse.json({ message: "User not found" }, { status: 404 });
    }
 
    const menteeUser = {
-      userId: userId,
+      userId: loggedInUser._id,
       ...user
    }
-   console.log(menteeUser)
 
-   await connectToDB()
    const createdMenteeUser = await Mentee.create(menteeUser)
-
    return NextResponse.json({ message: "SUCCESS", user: createdMenteeUser })
 }
