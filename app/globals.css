@@ -112,6 +112,25 @@
 }
 
 /* ================step indicator=============== */
-.step-item::before{
- @apply content-[''] absolute w-full h-[3px] bg-[#7421FC] rounded-full right-2/4 top-1/3 -translate-y-2/4;
+.step-item:not(:first-child):before{
+ @apply content-[''] absolute w-full h-[3px] bg-gray-300 right-2/4 top-1/3 -translate-y-2/4;
 }
+
+.step{
+  @apply w-8 h-8 flex relative text-sm z-10 items-center justify-center rounded-full bg-gray-300 text-white font-semibold
+}
+
+.active .step{
+  @apply bg-purple-1
+}
+.complete .step{
+  @apply bg-purple-1
+}
+.complete small{
+  @apply text-black
+}
+
+.complete:not(:first-child):before,
+.active:not(:first-child):before{
+  @apply bg-purple-1;
+ }
