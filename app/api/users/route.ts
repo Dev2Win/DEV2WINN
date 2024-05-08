@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { setUserType } from '@/lib/connect';
 
 
 
@@ -8,14 +7,14 @@ export const POST = async (req: NextRequest) => {
     const res = await req.json();
     const {userType}=  res
 
-    if (!userType || !['mentor', 'mentee'].includes(userType)) {
+    if (!userType ) {
       return NextResponse.json(
         { message: 'Invalid userType provided' },
         { status: 400 }
       );
     }
 
-    await setUserType(userType);
+    
 
     return NextResponse.json(
       { message: 'userType received', userType },

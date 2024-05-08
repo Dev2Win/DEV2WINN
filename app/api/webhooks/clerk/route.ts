@@ -1,6 +1,6 @@
 
 
-import { createUser} from "@/lib/connect";
+import { createUser } from "@/lib/connect";
 import { WebhookEvent,clerkClient } from "@clerk/nextjs/server";
 import { headers } from "next/headers";
 import { NextResponse } from "next/server";
@@ -8,7 +8,7 @@ import { Webhook } from "svix";
 
 
 export async function POST(req: Request) {
-
+  // You can find this in the Clerk Dashboard -> Webhooks -> choose the webhook
   const WEBHOOK_SECRET = process.env.WEBHOOK_SECRET;
 
   if (!WEBHOOK_SECRET) {
@@ -74,36 +74,9 @@ export async function POST(req: Request) {
     };
 
 
-   // Wait for the user type endpoint to be triggered
-let userType = null;
-const maxRetries = 1000; // Maximum number of retries
-const retryDelay = 1000; // Delay between retries (in milliseconds)
+  const newUser = await createUser(user)
 
-for (let i = 0; i < maxRetries; i++) {
-  // userType = getUserType();
-  // if (userType !== null) {
-  //   break;
-  // }
-  await new Promise((resolve) => setTimeout(resolve, retryDelay));
-}
 
-  if (userType === null) {
-    console.error('User type not received after maximum retries');
-    return new Response('Error: User type not received', { status: 500 });
-  }
-
-  let newUser;
-
-    if (userType === 'mentee') {
-      // Call a fn to to create a mentee user
-      newUser = await createUser(user);
-    } else if (userType === 'mentor') {
-      // Call a fn to create a mentor user
-      // newUser = await createUser(user);
-    } else {
-      // Handle other cases or return an error
-      return new Response("Invalid user type", { status: 400 });
-    }
 
  
     if (newUser) {
