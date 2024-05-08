@@ -62,23 +62,19 @@ export async function POST(req: Request) {
 
   if (eventType === "user.created") {
     
-    const { id, email_addresses, first_name, last_name } =
-      evt.data;
+    const { id, email_addresses, first_name, last_name, username } = evt.data;
 
-    const user = {
+    // had to change this to mentee type for testing
+    const generalUser = {
       clerkId: id,
+      firstName: first_name!,
+      lastName: last_name!,
+      userName: username!,
       email: email_addresses[0].email_address,
-      firstName: first_name,
-      lastName: last_name,
-     
     };
 
+    const newUser = await createUser(generalUser)
 
-  const newUser = await createUser(user)
-
-
-
- 
     if (newUser) {
       await clerkClient.users.updateUserMetadata(id, {
         publicMetadata: {
@@ -90,8 +86,6 @@ export async function POST(req: Request) {
     return NextResponse.json({ message: "New user created", user: newUser });
   }
 
-  console.log(`Webhook with and ID of ${id} and type of ${eventType}`);
-  console.log("Webhook body:", body);
 
   return new Response("", { status: 200 });
 }
