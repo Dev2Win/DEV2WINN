@@ -1,9 +1,8 @@
-import Mentor from "@/models/Mentor";
-import { NextApiRequest } from "next";
+
 import { NextResponse } from "next/server";
 
 
-export const GET = async(req:NextApiRequest,{params}:any)=>{
+export const GET = async(req:Request,{params}:any)=>{
  try {
     console.log(params,req);
  }
