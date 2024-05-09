@@ -1,105 +1,95 @@
- 'use client'
+'use client';
+import React, { useState } from 'react';
+import { FaUser } from 'react-icons/fa';
+import { redirect } from 'next/navigation'
+import Link from 'next/link';
 
 
-import { useState } from 'react';
-import StepOneForm from '@/components/StepOneForm';
-import StepTwoForm from '@/components/StepTwoForm';
-import StepThreeForm from '@/components/StepThreeForm';
-import StepFourForm from '@/components/StepFourForm';
+ type CardType = 'mentor' | 'mentee';
 
 
-export type FormValues = {
-  title: string;
-  bio: string;
-  careerChoice: string;
-  educationLevel: string;
-  industry: string;
-  experience: string;
-  achievement: string;
-  availability: string;
-};
+function Page() {
+  const [changeBorder, setChangeBorder] = useState(false);
+  const [selectedCard, setSelectedCard] = useState<CardType | null>(null);
 
-
-const MultiStepPage = () => {
-  const [currentStep, setCurrentStep] = useState(1);
-  const [complete, setComplete] = useState(false);
-  const steps: string[] = ['start', 'career', 'education', 'finish'];
-  const [formData, setFormData] = useState<FormValues>({
-    title: '',
-    bio: '',
-    careerChoice: '',
-    educationLevel: '',
-    industry: '',
-    experience: '',
-    achievement: '',
-    availability: '',
-  });
-
-
-  const handleFormChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => 
-      ({...prevData, [name]: value})
-  )};
-
-  const handleNext = () => {
-    setCurrentStep((prevStep) => prevStep + 1);
+  const handleBorderChange = (card: CardType) => {
+    setChangeBorder(!changeBorder);
+    setSelectedCard(card);
   };
 
-  const handlePrevious = () => {
-    setCurrentStep((prevStep) => prevStep - 1);
-  };
+  
+  const handleUserType = (event: React.MouseEvent<HTMLButtonElement>, card: CardType) => {
+      if(card === 'mentor'){
+        redirect('/profile/mentor')
+     } else if (card === 'mentee') 
+      {
+      redirect('/profile/mentee')
+     }
+  }
 
-  const handleSubmit = () => {
-    console.log('Form submitted!');
-    setComplete(true);
+  const handleContinue = async () => {
+    if (selectedCard) {
+      try {
+        // Send API request with the selected card value
+        const response = await fetch('api/users', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ userType: selectedCard }),
+        });
 
+        if (response.ok) {
+         
+          console.log('Card selected successfully:');
+        } else {
+        
+          console.error('Error selecting card:');
+        }
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    }
   };
 
   return (
-    <div >
-       
-      {currentStep === 1 && 
-        <StepOneForm 
-          onNext={handleNext} 
-          formData={formData} 
-          handleFormChange={handleFormChange}
-          complete={complete}
-          currentStep={currentStep}
-          steps={steps}
-        />}
-        
-      {currentStep === 2 && 
-        <StepTwoForm 
-          onNext={handleNext} 
-          onPrevious={handlePrevious} 
-          formData={formData} 
-          handleFormChange={handleFormChange}
-          complete={complete}
-          currentStep={currentStep} 
-          steps={steps}
-          />} 
+    <section className="flex flex-col justify-center items-center h-screen max-w-md mx-auto">
+      <h1 className="font-bold text-3xl mb-4">Dev2Win</h1>
+       <div className='max-w-md'>
+       </div>
+      <h1 className="my-8 font-semibold text-xl">Which user type do you prefer ?</h1>
+      <div className="flex gap-4 my-3 w-[80%]">
+        <div
+          className={`flex flex-col border ${
+            selectedCard === 'mentor' ? 'border-purple-1' : 'border-black/20'
+          } px-4 py-2 rounded cursor-pointer hover:border-purple-1/60 shadow-sm w-[50%]`}
+          onClick={() => handleBorderChange('mentor')}
+        >
+          <FaUser className={`${selectedCard === 'mentor' ? 'text-purple-1' : 'text-black'} mb-4`} />
+          <h1 className="font-semibold">Mentor</h1>
+          <p className="text-[14px]">Coach a mentee</p>
+        </div>
+        <div
+          className={`flex flex-col border ${
+            selectedCard === 'mentee' ? 'border-purple-1' : 'border-black/20'
+          } px-4 py-2 rounded cursor-pointer hover:border-purple-1/60 shadow-sm w-[50%]`}
+          onClick={() => handleBorderChange('mentee')}
+        >
+          <FaUser className={`${selectedCard === 'mentee' ? 'text-purple-1' : 'text-black'} mb-4`} />
+          <h1 className="font-semibold">Mentee</h1>
+          <p className="text-[14px]">Coach a mentee</p>
+        </div>
+      </div>
       
-      {currentStep === 3 && 
-        <StepThreeForm 
-          onNext={handleNext} 
-          onPrevious={handlePrevious}
-          complete={complete}
-          currentStep={currentStep} 
-          steps={steps}
-        />}
-     
-      {currentStep === 4 && 
-        <StepFourForm 
-        onSubmit={handleSubmit} 
-        onPrevious={handlePrevious} 
-        complete={complete}
-        currentStep={currentStep}
-        steps={steps}
-      />}
-    </div>
+      {selectedCard && (
+         <Link href={`/profile/${selectedCard}`}
+             className='bg-purple-1 py-2 rounded text-center w-[80%] text-white mt-5 hover:bg-dark-4 transition-all'>
+            Continue
+        </Link>
+      )}
+      
+    </section>
   );
 };
 
-export default MultiStepPage;
-
+export default Page;
