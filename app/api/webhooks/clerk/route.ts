@@ -1,6 +1,6 @@
 
 
-import { createUser, getUserType } from "@/lib/connect";
+import { createUser } from "@/lib/connect";
 import { WebhookEvent,clerkClient } from "@clerk/nextjs/server";
 import { headers } from "next/headers";
 import { NextResponse } from "next/server";
@@ -8,7 +8,7 @@ import { Webhook } from "svix";
 
 
 export async function POST(req: Request) {
-
+  // You can find this in the Clerk Dashboard -> Webhooks -> choose the webhook
   const WEBHOOK_SECRET = process.env.WEBHOOK_SECRET;
 
   if (!WEBHOOK_SECRET) {
@@ -62,50 +62,19 @@ export async function POST(req: Request) {
 
   if (eventType === "user.created") {
     
-    const { id, email_addresses, first_name, last_name } =
-      evt.data;
+    const { id, email_addresses, first_name, last_name, username } = evt.data;
 
-    const user = {
+    // had to change this to mentee type for testing
+    const generalUser = {
       clerkId: id,
+      firstName: first_name!,
+      lastName: last_name!,
+      userName: username!,
       email: email_addresses[0].email_address,
-      firstName: first_name,
-      lastName: last_name,
-     
     };
 
+    const newUser = await createUser(generalUser)
 
-   // Wait for the user type endpoint to be triggered
-let userType = null;
-const maxRetries = 1000; // Maximum number of retries
-const retryDelay = 1000; // Delay between retries (in milliseconds)
-
-for (let i = 0; i < maxRetries; i++) {
-  userType = getUserType();
-  if (userType !== null) {
-    break;
-  }
-  await new Promise((resolve) => setTimeout(resolve, retryDelay));
-}
-
-  if (userType === null) {
-    console.error('User type not received after maximum retries');
-    return new Response('Error: User type not received', { status: 500 });
-  }
-
-  let newUser;
-
-    if (userType === 'mentee') {
-      // Call a fn to to create a mentee user
-      newUser = await createUser(user);
-    } else if (userType === 'mentor') {
-      // Call a fn to create a mentor user
-      newUser = await createUser(user);
-    } else {
-      // Handle other cases or return an error
-      return new Response("Invalid user type", { status: 400 });
-    }
-
- 
     if (newUser) {
       await clerkClient.users.updateUserMetadata(id, {
         publicMetadata: {
@@ -117,8 +86,6 @@ for (let i = 0; i < maxRetries; i++) {
     return NextResponse.json({ message: "New user created", user: newUser });
   }
 
-  console.log(`Webhook with and ID of ${id} and type of ${eventType}`);
-  console.log("Webhook body:", body);
 
   return new Response("", { status: 200 });
 }

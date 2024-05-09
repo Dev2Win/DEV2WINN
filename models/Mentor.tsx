@@ -1,13 +1,15 @@
-import mongoose from "mongoose";
+import mongoose, { Schema } from "mongoose";
 
 
 const MentorSchema = new mongoose.Schema({
-    first_name: { type: String, required: true},
-    last_name: { type: String, required: true},
-    email: { type: String, required: true, unique: true },
-    password: { type: String, required: true, unique: true },
+  userId: { type: Schema.Types.ObjectId, ref: "User" },
     career_preferences: [{type: String , required : true}],
-    com_products_building: [{type: String , }],// products the openverse community is working and mentors associated with any
+     industry_pref: [{type:String, required: false }],
+     expertise: [{ type :String, required: false }], 
+     education: [{ type :String, required: false }],
+     experience_level:{type:String, required: false }, 
+     work_experience: [{ type :String, required: false }], 
+     availability: [{ type :String, required: false }],
     date: { type: Date, default: Date.now },
     chats: {
         type: [{ type: mongoose.Schema.Types.ObjectId, ref: "Chat" }],

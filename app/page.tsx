@@ -2,7 +2,6 @@
 
 import Image from "next/image"
 import Link from "next/link"
-
 import Herosection from "@/components/shared/Herosection";
 import WhatWeOffer from "@/components/shared/WhatWeOffer";
 import gallImage01 from "@/public/images/gallImage01.webp"
@@ -17,8 +16,8 @@ import Navbar from "@/components/shared/Navbar";
 export default function Home() {
   return (
     <>
-      <Navbar/>
       <main className="px-5">
+        <Navbar/>
         <Herosection />
         <WhatWeOffer />
         <section className="mt-28 2xl:px-32 w-full flex flex-col xl:flex-row
