@@ -22,9 +22,26 @@ function StepTwoForm({onNext, onPrevious, formData, handleFormChange, steps, cur
       <div className='max-w-md'>
          <Stepper currentStep={currentStep} complete={complete} steps={steps}/>
        </div>
-      <h2 className='text-xl font-semibold my-6'>Career and Education</h2>
+      <h2 className='text-xl font-semibold my-6'>Experience level</h2>
+
+      <div className='w-[80%] my-1'>
+          <label htmlFor="expertise" className='font-semibold text-gray-700 text-sm'>Area of Expertise</label>
+          <select
+            id="expertise"
+            name="expertise"
+            value={formData.expertise}
+            onChange={handleFormChange}
+            className='my-1 px-2 py-1 text-sm text-gray-700 block w-full border border-gray-300 rounded-md shadow-sm focus:outline-black/20'
+            required
+          >
+            <option value="" className='text-gray-400'>Area of Expertise</option>
+            <option value="frontend">Frontend</option>
+            <option value="backend">Backend</option>
+            <option value="fullstack">Fullstack</option>
+          </select>
+         </div>
         
-         <div className='w-[80%] my-1'>
+         <div className='w-[80%] my-3'>
           <label htmlFor="experience" className='font-semibold text-gray-700 text-sm'>Level of experience</label>
           <select
             id="experience"
@@ -39,37 +56,6 @@ function StepTwoForm({onNext, onPrevious, formData, handleFormChange, steps, cur
             <option value="intermediate">Intermediate</option>
             <option value="expert">Expert</option>
           </select>
-         </div>
-
-         <div className='w-[80%] my-1'>
-          <label htmlFor="education" className='font-semibold text-gray-700 text-sm'>Level of Education</label>
-          <select
-            id="education"
-            name="education"
-            value={formData.education}
-            onChange={handleFormChange}
-            className='my-1 px-2 py-1 text-sm text-gray-700 block w-full border border-gray-300 rounded-md shadow-sm focus:outline-black/20'
-            required
-          >
-            <option value="" className='text-gray-400'>Level of Education</option>
-            <option value="diploma">Diploma</option>
-            <option value="degree">Degree</option>
-            <option value="masters">Master's level</option>
-          </select>
-         </div>
-
-         <div className='w-[80%] my-1'>
-          <label htmlFor="review" className='font-semibold text-gray-700 text-sm'>Reviews from Mentee</label>
-          <textarea
-            id="review"
-            name="review"
-            placeholder='Reviews from mentee'
-            value={formData.review}
-            onChange={handleFormChange}
-            rows={3}
-            className="my-1 px-2 py-1 block w-full border border-gray-300 rounded-md shadow-sm focus:outline-black/20"
-            required
-          ></textarea>
          </div>
 
          <div className='flex justify-between items-center gap-8 w-[80%]'>

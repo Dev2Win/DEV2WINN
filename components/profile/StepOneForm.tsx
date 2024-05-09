@@ -1,6 +1,6 @@
 'use client'
 
-import React, {useState} from 'react'
+import React from 'react'
 import { FormValues } from '@/app/profile/mentee/page';
 import Stepper from './Stepper';
 

@@ -11,11 +11,13 @@ export type FormValues = {
   title: string;
   bio: string;
   careerChoice: string;
-  review: string;
+  education: string;
   industry: string;
   experience: string;
+  achievement: string;
   availability: string;
-  education: string;
+  expertise: string; 
+
 };
 
 
@@ -27,11 +29,13 @@ const MultiStepPage = () => {
     title: '',
     bio: '',
     careerChoice: '',
-    review: '',
+    education: '',
     industry: '',
     experience: '',
+    achievement: '',
     availability: '',
-    education: '',
+    expertise: ''
+
   });
 
 
