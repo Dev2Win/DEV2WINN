@@ -8,6 +8,15 @@ type ParamsProps = {
     }
 }
 
+// fetching a specific mentee information
+export const GET = async (request: Request, { params }: ParamsProps) => {
+    const { menteeId } = params 
+
+    await connectToDB()
+    const menteeInfo = await Mentee.findById({ menteeId })
+    return NextResponse.json({ message: "SUCCESS", user: menteeInfo })
+}
+
 // using PATCH coz not all fields will be updated by the user
 export const PATCH =  async (request: Request,{ params }: ParamsProps) => {
     const { menteeId } = params
