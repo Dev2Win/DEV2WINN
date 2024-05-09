@@ -1,6 +1,6 @@
 'use client'
 
-import { FormValues } from '@/app/profile/page'
+import { FormValues } from '@/app/profile/mentor/page';
 import Stepper from './Stepper'
 
 
@@ -22,22 +22,7 @@ function StepTwoForm({onNext, onPrevious, formData, handleFormChange, steps, cur
       <div className='max-w-md'>
          <Stepper currentStep={currentStep} complete={complete} steps={steps}/>
        </div>
-      <h2 className='text-xl font-semibold my-6'>Tell us about yourself your career</h2>
-        <div className='w-[80%] my-1'>
-          <label htmlFor="industry" className="block text-sm text-gray-700 font-semibold">
-            Industry of interest
-          </label>
-          <input
-            type="text"
-            id="industry"
-            name="industry"
-            placeholder='Technology'
-            value={formData?.industry}
-            onChange={handleFormChange}
-            className="my-1 px-2 py-1 block w-full border border-gray-300 rounded-sm shadow-sm focus:outline-black/20"
-            required
-          />
-        </div>
+      <h2 className='text-xl font-semibold my-6'>Career and Education</h2>
         
          <div className='w-[80%] my-1'>
           <label htmlFor="experience" className='font-semibold text-gray-700 text-sm'>Level of experience</label>
@@ -46,7 +31,7 @@ function StepTwoForm({onNext, onPrevious, formData, handleFormChange, steps, cur
             name="experience"
             value={formData.experience}
             onChange={handleFormChange}
-            className='my-1 px-2 py-1 block w-full border border-gray-300 rounded-md shadow-sm focus:outline-black/20'
+            className='my-1 px-2 py-1 text-sm text-gray-700 block w-full border border-gray-300 rounded-md shadow-sm focus:outline-black/20'
             required
           >
             <option value="" className='text-gray-400'>Level of experience</option>
@@ -57,34 +42,34 @@ function StepTwoForm({onNext, onPrevious, formData, handleFormChange, steps, cur
          </div>
 
          <div className='w-[80%] my-1'>
-          <label htmlFor="achievement" className="block text-sm font-semibold text-gray-700">
-            Achievement
-          </label>
-          <input
-            type="text"
-            id="achievement"
-            name="achievement"
-            value={formData.achievement}
+          <label htmlFor="education" className='font-semibold text-gray-700 text-sm'>Level of Education</label>
+          <select
+            id="education"
+            name="education"
+            value={formData.education}
             onChange={handleFormChange}
-            className="my-1 px-2 py-1 block w-full border border-gray-300 rounded-md shadow-sm focus:outline-black/20"
+            className='my-1 px-2 py-1 text-sm text-gray-700 block w-full border border-gray-300 rounded-md shadow-sm focus:outline-black/20'
             required
-          />
+          >
+            <option value="" className='text-gray-400'>Level of Education</option>
+            <option value="diploma">Diploma</option>
+            <option value="degree">Degree</option>
+            <option value="masters">Master's level</option>
+          </select>
          </div>
 
          <div className='w-[80%] my-1'>
-          <label htmlFor="availability" className='font-semibold text-gray-700 text-sm'>Availability</label>
-          <select
-            id="availability"
-            name="availability"
-            value={formData.availability}
+          <label htmlFor="review" className='font-semibold text-gray-700 text-sm'>Reviews from Mentee</label>
+          <textarea
+            id="review"
+            name="review"
+            placeholder='Reviews from mentee'
+            value={formData.review}
             onChange={handleFormChange}
-            className='my-1 px-2 py-1 block w-full border border-gray-300 rounded-md shadow-sm focus:outline-black/20'
+            rows={3}
+            className="my-1 px-2 py-1 block w-full border border-gray-300 rounded-md shadow-sm focus:outline-black/20"
             required
-          >
-            <option value="">Select your availability time</option>
-            <option value="weekdays">Weekdays</option>
-            <option value="weekends">Weekends</option>
-          </select>
+          ></textarea>
          </div>
 
          <div className='flex justify-between items-center gap-8 w-[80%]'>

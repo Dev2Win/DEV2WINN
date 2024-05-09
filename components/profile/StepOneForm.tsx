@@ -1,7 +1,7 @@
 'use client'
 
 import React, {useState} from 'react'
-import { FormValues } from '@/app/profile/page';
+import { FormValues } from '@/app/profile/mentee/page';
 import Stepper from './Stepper';
 
 type FormOne = {
@@ -30,7 +30,6 @@ function StepOneForm({onNext, formData, handleFormChange, currentStep, complete,
             type="text"
             id="title"
             name="title"
-            placeholder='Full Stack Developer'
             value={formData.title}
             onChange={handleFormChange}
             className="my-1 px-2 py-1 block w-full border border-gray-300 rounded-sm shadow-sm focus:outline-black/20"
@@ -54,15 +53,15 @@ function StepOneForm({onNext, formData, handleFormChange, currentStep, complete,
         </div>
 
         <div className='w-[80%] my-1'>
-          <label htmlFor="educationLevel" className="block text-sm font-semibold text-gray-700">
-            Level of Education
+          <label htmlFor="industry" className="block text-sm font-semibold text-gray-700">
+           Industry of interest
           </label>
           <input
             type="text"
-            id="educationLevel"
-            name="educationLevel"
-            placeholder="Bachelor's Degree"
-            value={formData.educationLevel}
+            id="industry"
+            name="industry"
+            placeholder="IT"
+            value={formData.industry}
             onChange={handleFormChange}
             className="my-1 px-2 py-1 block w-full border border-gray-300 rounded-md shadow-sm focus:outline-black/20"
             required
@@ -70,14 +69,14 @@ function StepOneForm({onNext, formData, handleFormChange, currentStep, complete,
         </div>
 
         <div className='w-[80%] my-1'>
-          <label htmlFor="careerChoice" className="block text-sm font-semibold text-gray-700">
-            Career Choice
+          <label htmlFor="availability" className="block text-sm font-semibold text-gray-700">
+            Availability
           </label>
           <input
             type="text"
-            id="careerChoice"
-            name="careerChoice"
-            value={formData.careerChoice}
+            id="availability"
+            name="availability"
+            value={formData.availability}
             onChange={handleFormChange}
             className="my-1 px-2 py-1 block w-full border border-gray-300 rounded-md shadow-sm focus:outline-black/20"
             required

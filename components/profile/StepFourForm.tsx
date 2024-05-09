@@ -12,7 +12,7 @@ type FormTwo = {
 }
 
 
-function StepThreeForm({ onSubmit, onPrevious, currentStep, complete, steps} : FormTwo) {
+function StepFourForm({ onSubmit, onPrevious, currentStep, complete, steps} : FormTwo) {
   return (
     <div className='flex flex-col justify-center items-center h-screen max-w-md mx-auto '>
       <h1>User name</h1>
@@ -40,4 +40,4 @@ function StepThreeForm({ onSubmit, onPrevious, currentStep, complete, steps} : F
   )
 }
 
-export default StepThreeForm
+export default StepFourForm
