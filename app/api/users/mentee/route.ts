@@ -24,3 +24,9 @@ export const POST = async (request: Request)=>{
    const createdMenteeUser = await Mentee.create(menteeUser)
    return NextResponse.json({ message: "SUCCESS", user: createdMenteeUser })
 }
+
+export const GET = async () => {
+   await connectToDB()
+   const allMenteeUsers = await Mentee.find()
+   return NextResponse.json({ message: "SUCCESS", users: allMenteeUsers })
+}
