@@ -1,11 +1,11 @@
-import React from 'react'
+import ContentCard from '@/components/ContentCard'
 
 const page = () => {
   return (
     <div>
-      this is my profile
+      <ContentCard />
     </div>
-  )
-}
+  );
+};
 
-export default page
+export default page;
