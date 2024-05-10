@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { FormEvent, useState } from 'react';
 import StepOneMentor from '@/components/profile/StepOneMentor';
 import StepTwoMentor from '@/components/profile/StepTwoMentor';
 import StepFourForm from '@/components/profile/StepFourForm';
@@ -55,8 +55,8 @@ const MultiStepPage = () => {
   };
   
 
-  const handleMentorFormSubmit = async () => {
-    
+  const handleMentorFormSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
     try {
       const response = await fetch(mentorUrl, {
         method: 'POST',
