@@ -6,7 +6,8 @@ import { IoCheckmarkOutline } from "react-icons/io5";
 
 
 type FormTwo = {
-  onSubmit: () => void;
+  // this part should be changed later
+  onSubmit: any;
   onPrevious: () => void;
   currentStep: number;
   complete: boolean;
@@ -33,8 +34,7 @@ function StepFourForm({onSubmit, onPrevious, currentStep, complete, steps} : For
             previous
         </button>
         <button 
-        onClick={onSubmit}
-           
+           onClick={onSubmit}
            className='bg-purple-1 px-4 py-2 rounded  text-white mt-5 hover:bg-dark-4 transition-all w-[50%]'>
             finish
         </button>
