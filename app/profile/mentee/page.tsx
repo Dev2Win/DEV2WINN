@@ -18,8 +18,8 @@ export type FormValues = {
     desired_skills: string;
 };
 
-// const menteeUrl: string = process.env.MENTEE_PROFILE_ENDPOINT || ''
-const menteeUrl: string = 'http://localhost:3000/api/users/mentee'
+// const menteeUrl: string = process.env.BASE_URL || ''
+// const menteeUrl: string = 'http://localhost:3000/api/users/mentee'
 
 
 const MultiStepPage = () => {
@@ -60,7 +60,7 @@ const MultiStepPage = () => {
       // if (!userId) {
       //   return res.status(401).json({ error: "Not authenticated" });
       // }
-      const response = await fetch(menteeUrl, {
+      const response = await fetch('/api/users/mentor', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
