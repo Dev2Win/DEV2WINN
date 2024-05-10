@@ -1,11 +1,12 @@
 import React from 'react'
 import Stepper from './Stepper'
 import { IoCheckmarkOutline } from "react-icons/io5";
-import type { NextApiRequest, NextApiResponse } from "next";
+;
 
 
 
 type FormTwo = {
+  onSubmit: () => void;
   onPrevious: () => void;
   currentStep: number;
   complete: boolean;
@@ -13,7 +14,7 @@ type FormTwo = {
 }
 
 
-function StepFourForm({ onPrevious, currentStep, complete, steps} : FormTwo) {
+function StepFourForm({onSubmit, onPrevious, currentStep, complete, steps} : FormTwo) {
   return (
     <div className='flex flex-col justify-center items-center h-screen max-w-md sm:mx-auto '>
       <h1>User name</h1>
@@ -32,7 +33,8 @@ function StepFourForm({ onPrevious, currentStep, complete, steps} : FormTwo) {
             previous
         </button>
         <button 
-           type='submit'
+        onClick={onSubmit}
+           
            className='bg-purple-1 px-4 py-2 rounded  text-white mt-5 hover:bg-dark-4 transition-all w-[50%]'>
             finish
         </button>
