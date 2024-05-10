@@ -1,10 +1,11 @@
 'use client'
 
-import { useState } from 'react';
+import { FormEvent, useState } from 'react';
 import StepOneMentee from '@/components/profile/StepOneMentee';
 import StepTwoMentee from '@/components/profile/StepTwoMentee';
 import StepFourForm from '@/components/profile/StepFourForm';
 
+import { useRouter } from "next/navigation"
 
 export type FormValues = {
     bio: string;
@@ -16,13 +17,18 @@ export type FormValues = {
     desired_skills: string;
 };
 
-const menteeUrl: string = process.env.MENTEE_PROFILE_ENDPOINT || ''
+
+const menteeUrl: string = process.env.MENTEE_PROFILE_ENDPOINT  || "http://localhost:3000/api/users/mentee"
+
+
+
 
 const MultiStepPage = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [complete, setComplete] = useState(false);
   const steps: string[] = ['personal', 'career', 'finish'];
 
+  const router = useRouter()
 
   const [formData, setFormData] = useState<FormValues>({
     bio: '',
@@ -47,10 +53,18 @@ const MultiStepPage = () => {
     setCurrentStep((prevStep) => prevStep - 1);
   };
 
+  
 
-  const handleMenteeFormSubmit = async () => {
+
+  const handleMenteeFormSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    // const { userId } = await getAuth(req);
+    event.preventDefault()
     
     try {
+      // if (!userId) {
+      //   return res.status(401).json({ error: "Not authenticated" });
+      // }
+
       const response = await fetch(menteeUrl, {
         method: 'POST',
         headers: {
@@ -64,10 +78,12 @@ const MultiStepPage = () => {
       }
   
       const data = await response.json();
-      console.log('mentee', data);
       setComplete(true);
-  
-      return data;
+      if (data){
+        router.push(`/dashboard`)
+      }
+
+
     } catch (error) {
       console.error('Error submitting form:', error);
     }
@@ -77,7 +93,7 @@ const MultiStepPage = () => {
   
 
   return (
-    <form >
+    <form onSubmit={handleMenteeFormSubmit}>
        
       {currentStep === 1 && 
         <StepOneMentee 
