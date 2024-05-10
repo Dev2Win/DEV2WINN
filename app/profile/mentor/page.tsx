@@ -17,7 +17,7 @@ export type FormValues = {
   availability: string;
   expertise: string;
 };
-const mentorUrl: string = process.env.BASE_URL|| ''
+// const mentorUrl: string = process.env.BASE_URL|| ''
 // const mentorUrl: string = 'http://localhost:3000/api/users/mentor '
 
 
@@ -63,7 +63,7 @@ const MultiStepPage = () => {
       // if (!userId) {
       //   return res.status(401).json({ error: "Not authenticated" });
       // }
-      const response = await fetch(mentorUrl, {
+      const response = await fetch('/api/users/mentee', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -77,7 +77,7 @@ const MultiStepPage = () => {
   
       const data = await response.json();
       console.log('mentor', data);
-      setComplete(true);
+      // setComplete(true);
   
       return data;
     } catch (error) {
@@ -88,7 +88,7 @@ const MultiStepPage = () => {
   };
   
   return (
-    <form onSubmit={handleMentorFormSubmit}>
+    <form >
       {currentStep === 1 && (
         <StepOneMentor
           onNext={handleNext}
