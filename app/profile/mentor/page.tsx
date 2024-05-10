@@ -17,7 +17,8 @@ export type FormValues = {
   education: string;
 };
 
-const mentorUrl: string = process.env.MENTOR_PROFILE_ENDPOINT || ''
+const mentorUrl: string = 'http://localhost:3000/api/users/mentee'
+
 
 const MultiStepPage = () => {
   const [currentStep, setCurrentStep] = useState(1);

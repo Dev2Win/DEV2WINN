@@ -10,7 +10,7 @@ export const POST = async (request: Request)=>{
    const clerkUser = await currentUser()
 
    await connectToDB()
-   const loggedInUser = await User.findById({ clerkId : clerkUser?.id }) 
+   const loggedInUser = await User.findOne({ clerkId : clerkUser?.id }) 
 
    if (!loggedInUser) {
       return NextResponse.json({ message: "User not found" }, { status: 404 });

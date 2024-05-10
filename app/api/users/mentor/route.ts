@@ -12,7 +12,7 @@ export const POST =async(req:NextRequest)=>{
        const loggedInClerkUser = await currentUser()
 
        await connectToDB()
-       const user= await User.findById({clerkId:loggedInClerkUser?.id})   
+       const user= await User.findOne({clerkId:loggedInClerkUser?.id})   
    
     if(!user){
         return NextResponse.json({message:'user was not found'})
@@ -24,15 +24,11 @@ export const POST =async(req:NextRequest)=>{
     })
     await newMentor.save()
 
-    return NextResponse.json({message:'mentor created successfully',mentor:newMentor})
+    return NextResponse.json({message:'mentor created successfully',user:newMentor})
     
    } catch (error) {
     return NextResponse.json({ message: 'Failed to create mentor' });
    }
-
-    
-
-
    
 }
 

@@ -17,7 +17,7 @@ export type FormValues = {
   expertise: string; 
 };
 
-const menteeUrl: string = process.env.MENTEE_PROFILE_ENDPOINT || ''
+const menteeUrl: string = 'http://localhost:3000/api/users/mentee'
 
 
 const MultiStepPage = () => {
