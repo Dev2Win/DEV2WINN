@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { FormValues } from '@/app/profile/mentee/page';
+import { FormValues } from '@/app/profile/mentor/page';
 import Stepper from './Stepper';
 
 type FormOne = {
@@ -13,7 +13,7 @@ type FormOne = {
   steps: string[];
 };
 
-function StepOneForm({
+function StepOneMentor({
   onNext,
   formData,
   handleFormChange,
@@ -75,7 +75,7 @@ function StepOneForm({
         <select
           id="industry"
           name="industry"
-          value={formData.industry}
+          value={formData.industry_pref}
           onChange={handleFormChange}
           className="my-1 px-2 py-2 text-sm text-gray-700 block w-full border border-gray-300 rounded-md shadow-sm focus:outline-black/20"
           required
@@ -118,4 +118,4 @@ function StepOneForm({
   );
 }
 
-export default StepOneForm;
+export default StepOneMentor;
