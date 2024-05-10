@@ -1,6 +1,5 @@
  'use client'
 
-
 import { useState } from 'react';
 import StepOneForm from '@/components/profile/StepOneForm';
 import StepThreeForm from '@/components/profile/StepThreeForm';
@@ -14,11 +13,11 @@ export type FormValues = {
   education: string;
   industry: string;
   experience: string;
-  achievement: string;
   availability: string;
   expertise: string; 
-
 };
+
+const menteeUrl: string = process.env.MENTEE_PROFILE_ENDPOINT || ''
 
 
 const MultiStepPage = () => {
@@ -32,17 +31,15 @@ const MultiStepPage = () => {
     education: '',
     industry: '',
     experience: '',
-    achievement: '',
     availability: '',
     expertise: ''
 
   });
 
-
+  
   const handleFormChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
-    setFormData((prevData) => 
-      ({...prevData, [name]: value})
+    setFormData((prevData) => ({...prevData, [name]: value})
   )};
 
   const handleNext = () => {
@@ -53,11 +50,30 @@ const MultiStepPage = () => {
     setCurrentStep((prevStep) => prevStep - 1);
   };
 
-  const handleSubmit = () => {
-    console.log('mentee', formData);
-    setComplete(true);
 
+  const fetchMenteeData = async () => {
+    try {
+      const response = await fetch(menteeUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+       },
+       body: JSON.stringify(formData),
+    });
+      if (!response.ok) {
+        throw new Error('Failed to post form');
+      }
+      const data = await response.json();
+      console.log('mentee', data);
+      setComplete(true);
+
+       return data;
+
+    } catch (error) {
+      console.error('Error submitting form:', error);
+    }
   };
+  
 
   return (
     <div >
@@ -86,7 +102,7 @@ const MultiStepPage = () => {
      
       {currentStep === 3 && 
         <StepFourForm 
-        onSubmit={handleSubmit} 
+        onSubmit={fetchMenteeData} 
         onPrevious={handlePrevious} 
         complete={complete}
         currentStep={currentStep}
@@ -94,7 +110,7 @@ const MultiStepPage = () => {
       />}
     </div>
   );
-};
+}
 
 export default MultiStepPage;
 

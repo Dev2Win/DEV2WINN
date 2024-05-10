@@ -1,7 +1,6 @@
 'use client';
 import React, { useState } from 'react';
 import { FaUser } from 'react-icons/fa';
-import { redirect } from 'next/navigation'
 import Link from 'next/link';
 
 
@@ -17,15 +16,7 @@ function Page() {
     setSelectedCard(card);
   };
 
-  
-  const handleUserType = (event: React.MouseEvent<HTMLButtonElement>, card: CardType) => {
-      if(card === 'mentor'){
-        redirect('/profile/mentor')
-     } else if (card === 'mentee') 
-      {
-      redirect('/profile/mentee')
-     }
-  }
+ 
 
   const handleContinue = async () => {
     if (selectedCard) {
@@ -57,7 +48,7 @@ function Page() {
       <h1 className="font-bold text-3xl mb-4">Dev2Win</h1>
        <div className='max-w-md'>
        </div>
-      <h1 className="my-8 font-semibold text-xl">Which user type do you prefer ?</h1>
+      <h1 className="my-8 font-semibold sm:text-xl">Which user type do you prefer ?</h1>
       <div className="flex gap-4 my-3 w-[80%]">
         <div
           className={`flex flex-col border ${
@@ -83,6 +74,7 @@ function Page() {
       
       {selectedCard && (
          <Link href={`/profile/${selectedCard}`}
+             onClick={handleContinue}
              className='bg-purple-1 py-2 rounded text-center w-[80%] text-white mt-5 hover:bg-dark-4 transition-all'>
             Continue
         </Link>

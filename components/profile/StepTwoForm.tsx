@@ -23,7 +23,7 @@ function StepTwoForm({onNext, onPrevious, formData, handleFormChange, steps, cur
          <Stepper currentStep={currentStep} complete={complete} steps={steps}/>
        </div>
       <h2 className='text-xl font-semibold my-6'>Experience level</h2>
-
+      
       <div className='w-[80%] my-1'>
           <label htmlFor="expertise" className='font-semibold text-gray-700 text-sm'>Area of Expertise</label>
           <select
