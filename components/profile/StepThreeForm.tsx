@@ -42,19 +42,34 @@ function StepThreeForm({onNext, onPrevious, formData, handleFormChange, steps, c
          </div>
         
          <div className='w-[80%] my-1'>
-          <label htmlFor="careerChoice" className='font-semibold text-gray-700 text-sm'>Career Choice</label>
+          <label htmlFor="careerChoice" className='font-semibold text-gray-700 text-sm'>Career Path</label>
           <select
             id="careerChoice"
             name="careerChoice"
             value={formData.careerChoice}
             onChange={handleFormChange}
             className='my-1 px-2 py-1 text-sm text-gray-700 block w-full border border-gray-300 rounded-md shadow-sm focus:outline-black/20'
-            required
           >
-            <option value="" className='text-gray-400'>Career Choice</option>
+            <option value="" className='text-gray-400'>Career Path</option>
             <option value="business">Business</option>
             <option value="technology">Technology</option>
             <option value="entrepreneurship">Entrepreneurship</option>
+          </select>
+         </div>
+
+         <div className='w-[80%] my-1'>
+          <label htmlFor="experience" className='font-semibold text-gray-700 text-sm'>Level of Experience</label>
+          <select
+            id="experience"
+            name="experience"
+            value={formData.experience}
+            onChange={handleFormChange}
+            className='my-1 px-2 py-1 text-sm text-gray-700 block w-full border border-gray-300 rounded-md shadow-sm focus:outline-black/20'
+          >
+            <option value="" className='text-gray-400'>Level of experience</option>
+            <option value="novice">Novice</option>
+            <option value="experienced ">Experienced </option>
+            <option value="professional">Professional</option>
           </select>
          </div>
 
