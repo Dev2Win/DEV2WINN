@@ -1,11 +1,11 @@
- 'use client'
+'use client'
 
 import { useState } from 'react';
 import StepOneMentee from '@/components/profile/StepOneMentee';
 import StepTwoMentee from '@/components/profile/StepTwoMentee';
 import StepFourForm from '@/components/profile/StepFourForm';
-import { getAuth } from "@clerk/nextjs/server";
-import type { NextApiRequest, NextApiResponse } from "next";
+
+
 
 
 export type FormValues = {
@@ -18,7 +18,8 @@ export type FormValues = {
     desired_skills: string;
 };
 
-const menteeUrl: string = process.env.MENTEE_PROFILE_ENDPOINT || ''
+// const menteeUrl: string = process.env.MENTEE_PROFILE_ENDPOINT || ''
+const menteeUrl: string = 'http://localhost:3000/api/users/mentee'
 
 
 const MultiStepPage = () => {
@@ -38,7 +39,7 @@ const MultiStepPage = () => {
   });
 
   
-  const handleFormChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleFormChange = (e: any) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({...prevData, [name]: value})
   )};
@@ -52,13 +53,13 @@ const MultiStepPage = () => {
   };
 
 
-  const handleMenteeFormSubmit = async ( req: NextApiRequest, res: NextApiResponse) => {
-    const { userId } = getAuth(req);
+  const handleMenteeFormSubmit = async ( ) => {
+    // const { userId } = await getAuth(req);
     
     try {
-      if (!userId) {
-        return res.status(401).json({ error: "Not authenticated" });
-      }
+      // if (!userId) {
+      //   return res.status(401).json({ error: "Not authenticated" });
+      // }
       const response = await fetch(menteeUrl, {
         method: 'POST',
         headers: {
@@ -80,13 +81,12 @@ const MultiStepPage = () => {
       console.error('Error submitting form:', error);
     }
 
-    return res.status(200).json({ userId: userId });
   };
   
   
 
   return (
-    <form onSubmit={handleMenteeFormSubmit}>
+    <form >
        
       {currentStep === 1 && 
         <StepOneMentee 
@@ -99,7 +99,8 @@ const MultiStepPage = () => {
         />}
         
       {currentStep === 2 && 
-        <StepTwoMentee 
+        <StepTwoMentee
+         
           onNext={handleNext} 
           onPrevious={handlePrevious} 
           formData={formData} 
@@ -112,6 +113,7 @@ const MultiStepPage = () => {
      
       {currentStep === 3 && 
         <StepFourForm 
+        onSubmit={handleMenteeFormSubmit}
         onPrevious={handlePrevious} 
         complete={complete}
         currentStep={currentStep}
@@ -122,4 +124,3 @@ const MultiStepPage = () => {
 }
 
 export default MultiStepPage;
-

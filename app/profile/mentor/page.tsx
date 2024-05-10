@@ -4,8 +4,7 @@ import { useState } from 'react';
 import StepOneMentor from '@/components/profile/StepOneMentor';
 import StepTwoMentor from '@/components/profile/StepTwoMentor';
 import StepFourForm from '@/components/profile/StepFourForm';
-import { getAuth } from "@clerk/nextjs/server";
-import type { NextApiRequest, NextApiResponse } from "next";
+
 
 
 
@@ -19,7 +18,8 @@ export type FormValues = {
   expertise: string;
 };
 
-const mentorUrl: string = process.env.MENTOR_PROFILE_ENDPOINT || ''
+const mentorUrl: string = 'http://localhost:3000/api/users/mentee'
+
 
 const MultiStepPage = () => {
   const [currentStep, setCurrentStep] = useState(1);
@@ -56,13 +56,13 @@ const MultiStepPage = () => {
   };
   
 
-  const handleMentorFormSubmit = async ( req: NextApiRequest, res: NextApiResponse) => {
-    const { userId } = getAuth(req);
+  const handleMentorFormSubmit = async ( ) => {
+    // const { userId } = getAuth(req);
     
     try {
-      if (!userId) {
-        return res.status(401).json({ error: "Not authenticated" });
-      }
+      // if (!userId) {
+      //   return res.status(401).json({ error: "Not authenticated" });
+      // }
       const response = await fetch(mentorUrl, {
         method: 'POST',
         headers: {
@@ -84,7 +84,7 @@ const MultiStepPage = () => {
       console.error('Error submitting form:', error);
     }
 
-    return res.status(200).json({ userId: userId });
+    // return res.status(200).json({ userId: userId });
   };
   
   return (
@@ -114,6 +114,7 @@ const MultiStepPage = () => {
 
       {currentStep === 3 && (
         <StepFourForm
+        onSubmit={handleMentorFormSubmit}
           onPrevious={handlePrevious}
           complete={complete}
           currentStep={currentStep}
