@@ -1,4 +1,4 @@
- 'use client'
+'use client'
 
 import { useState } from 'react';
 import StepOneMentee from '@/components/profile/StepOneMentee';
@@ -77,7 +77,7 @@ const MultiStepPage = () => {
   
 
   return (
-    <form onSubmit={handleMenteeFormSubmit}>
+    <form >
        
       {currentStep === 1 && 
         <StepOneMentee 
@@ -90,7 +90,8 @@ const MultiStepPage = () => {
         />}
         
       {currentStep === 2 && 
-        <StepTwoMentee 
+        <StepTwoMentee
+         
           onNext={handleNext} 
           onPrevious={handlePrevious} 
           formData={formData} 
@@ -103,6 +104,7 @@ const MultiStepPage = () => {
      
       {currentStep === 3 && 
         <StepFourForm 
+        onSubmit={handleMenteeFormSubmit}
         onPrevious={handlePrevious} 
         complete={complete}
         currentStep={currentStep}
@@ -113,4 +115,3 @@ const MultiStepPage = () => {
 }
 
 export default MultiStepPage;
-

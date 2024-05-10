@@ -15,8 +15,9 @@ export type FormValues = {
   availability: string;
   expertise: string;
 };
+const mentorUrl: string = process.env.BASE_URL|| ''
+// const mentorUrl: string = 'http://localhost:3000/api/users/mentor '
 
-const mentorUrl: string = process.env.MENTOR_PROFILE_ENDPOINT || ''
 
 const MultiStepPage = () => {
   const [currentStep, setCurrentStep] = useState(1);
@@ -106,6 +107,7 @@ const MultiStepPage = () => {
 
       {currentStep === 3 && (
         <StepFourForm
+        onSubmit={handleMentorFormSubmit}
           onPrevious={handlePrevious}
           complete={complete}
           currentStep={currentStep}
