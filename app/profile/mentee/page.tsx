@@ -4,8 +4,6 @@ import { useState } from 'react';
 import StepOneMentee from '@/components/profile/StepOneMentee';
 import StepTwoMentee from '@/components/profile/StepTwoMentee';
 import StepFourForm from '@/components/profile/StepFourForm';
-import { getAuth } from "@clerk/nextjs/server";
-import type { NextApiRequest, NextApiResponse } from "next";
 
 
 export type FormValues = {
@@ -19,7 +17,6 @@ export type FormValues = {
 };
 
 const menteeUrl: string = process.env.MENTEE_PROFILE_ENDPOINT || ''
-
 
 const MultiStepPage = () => {
   const [currentStep, setCurrentStep] = useState(1);
@@ -36,7 +33,6 @@ const MultiStepPage = () => {
     availability: '',
     desired_skills: ''
   });
-
   
   const handleFormChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -52,13 +48,9 @@ const MultiStepPage = () => {
   };
 
 
-  const handleMenteeFormSubmit = async ( req: NextApiRequest, res: NextApiResponse) => {
-    const { userId } = getAuth(req);
+  const handleMenteeFormSubmit = async () => {
     
     try {
-      if (!userId) {
-        return res.status(401).json({ error: "Not authenticated" });
-      }
       const response = await fetch(menteeUrl, {
         method: 'POST',
         headers: {
@@ -80,7 +72,6 @@ const MultiStepPage = () => {
       console.error('Error submitting form:', error);
     }
 
-    return res.status(200).json({ userId: userId });
   };
   
   

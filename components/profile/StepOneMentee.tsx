@@ -51,14 +51,14 @@ function StepOneForm({
 
       <div className="w-[80%] my-1">
         <label
-          htmlFor="industry"
+          htmlFor="industry_pref"
           className="font-semibold text-gray-700 text-sm"
         >
           Industry of interest
         </label>
         <select
-          id="industry"
-          name="industry"
+          id="industry_pref"
+          name="industry_pref"
           value={formData.industry_pref}
           onChange={handleFormChange}
           className="my-1 px-2 py-2 text-sm text-gray-700 block w-full border border-gray-300 rounded-md shadow-sm focus:outline-black/20"

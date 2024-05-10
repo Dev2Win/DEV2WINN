@@ -4,9 +4,6 @@ import { useState } from 'react';
 import StepOneMentor from '@/components/profile/StepOneMentor';
 import StepTwoMentor from '@/components/profile/StepTwoMentor';
 import StepFourForm from '@/components/profile/StepFourForm';
-import { getAuth } from "@clerk/nextjs/server";
-import type { NextApiRequest, NextApiResponse } from "next";
-
 
 
 export type FormValues = {
@@ -56,13 +53,9 @@ const MultiStepPage = () => {
   };
   
 
-  const handleMentorFormSubmit = async ( req: NextApiRequest, res: NextApiResponse) => {
-    const { userId } = getAuth(req);
+  const handleMentorFormSubmit = async () => {
     
     try {
-      if (!userId) {
-        return res.status(401).json({ error: "Not authenticated" });
-      }
       const response = await fetch(mentorUrl, {
         method: 'POST',
         headers: {
@@ -84,7 +77,6 @@ const MultiStepPage = () => {
       console.error('Error submitting form:', error);
     }
 
-    return res.status(200).json({ userId: userId });
   };
   
   return (
