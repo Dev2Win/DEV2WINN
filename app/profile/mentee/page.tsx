@@ -94,7 +94,7 @@ const MultiStepPage = () => {
   
 
   return (
-    <form onSubmit={handleMenteeFormSubmit}>
+    <form >
        
       {currentStep === 1 && 
         <StepOneMentee 
