@@ -1,6 +1,6 @@
 'use client'
 
-import { FormValues } from '@/app/profile/mentor/page';
+import { FormValues } from '@/app/profile/mentee/page';
 import Stepper from './Stepper'
 
 
@@ -25,28 +25,30 @@ function StepThreeForm({onNext, onPrevious, formData, handleFormChange, steps, c
       <h2 className='text-xl font-semibold my-6'>Career and Education</h2>
 
         <div className='w-[80%] my-1'>
-          <label htmlFor="education" className='font-semibold text-gray-700 text-sm'>Level of Education</label>
+          <label htmlFor="education_status" className='font-semibold text-gray-700 text-sm'>Level of Education</label>
           <select
-            id="education"
-            name="education"
-            value={formData.education}
+            id="education_status"
+            name="education_status"
+            value={formData.education_status}
             onChange={handleFormChange}
             className='my-1 px-2 py-1 text-sm text-gray-700 block w-full border border-gray-300 rounded-md shadow-sm focus:outline-black/20'
             required
           >
             <option value="" className='text-gray-400'>Level of Education</option>
-            <option value="diploma">Diploma</option>
+            <option value="high school diploma">High school diploma</option>
             <option value="degree">Degree</option>
-            <option value="masters">Master's level</option>
+            <option value="masters">Master's</option>
+            <option value="masters">Phd</option>
+
           </select>
          </div>
         
          <div className='w-[80%] my-1'>
-          <label htmlFor="careerChoice" className='font-semibold text-gray-700 text-sm'>Career Path</label>
+          <label htmlFor="career_path" className='font-semibold text-gray-700 text-sm'>Career Path</label>
           <select
-            id="careerChoice"
-            name="careerChoice"
-            value={formData.careerChoice}
+            id="career_path"
+            name="career_path"
+            value={formData.career_path}
             onChange={handleFormChange}
             className='my-1 px-2 py-1 text-sm text-gray-700 block w-full border border-gray-300 rounded-md shadow-sm focus:outline-black/20'
           >
@@ -58,11 +60,11 @@ function StepThreeForm({onNext, onPrevious, formData, handleFormChange, steps, c
          </div>
 
          <div className='w-[80%] my-1'>
-          <label htmlFor="experience" className='font-semibold text-gray-700 text-sm'>Level of Experience</label>
+          <label htmlFor="experience_level" className='font-semibold text-gray-700 text-sm'>Level of Experience</label>
           <select
-            id="experience"
-            name="experience"
-            value={formData.experience}
+            id="experience_level"
+            name="experience_level"
+            value={formData.experience_level}
             onChange={handleFormChange}
             className='my-1 px-2 py-1 text-sm text-gray-700 block w-full border border-gray-300 rounded-md shadow-sm focus:outline-black/20'
           >

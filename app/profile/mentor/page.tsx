@@ -1,20 +1,22 @@
 'use client';
 
 import { useState } from 'react';
-import StepOneForm from '@/components/profile/StepOneForm';
-import StepTwoForm from '@/components/profile/StepTwoForm';
+import StepOneMentor from '@/components/profile/StepOneMentor';
+import StepTwoMentor from '@/components/profile/StepTwoMentor';
 import StepFourForm from '@/components/profile/StepFourForm';
+import { getAuth } from "@clerk/nextjs/server";
+import type { NextApiRequest, NextApiResponse } from "next";
+
 
 
 export type FormValues = {
   title: string;
   bio: string;
-  careerChoice: string;
-  industry: string;
-  experience: string;
+  career_path: string;
+  industry_pref: string;
+  experience_level: string;
   availability: string;
   expertise: string;
-  education: string;
 };
 
 const mentorUrl: string = 'http://localhost:3000/api/users/mentee'
@@ -28,13 +30,13 @@ const MultiStepPage = () => {
   const [formData, setFormData] = useState<FormValues>({
     title: '',
     bio: '',
-    careerChoice: '',
-    industry: '',
-    experience: '',
+    career_path: '',
+    industry_pref: '',
+    experience_level: '',
     availability: '',
     expertise: '',
-    education: '',
   });
+
 
 
   const handleFormChange = (
@@ -55,33 +57,41 @@ const MultiStepPage = () => {
   };
   
 
-  const fetchMentorData = async () => {
+  const handleMentorFormSubmit = async ( req: NextApiRequest, res: NextApiResponse) => {
+    const { userId } = getAuth(req);
+    
     try {
+      if (!userId) {
+        return res.status(401).json({ error: "Not authenticated" });
+      }
       const response = await fetch(mentorUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-       },
-       body: JSON.stringify(formData),
-    });
+        },
+        body: JSON.stringify(formData),
+      });
+  
       if (!response.ok) {
         throw new Error('Failed to post form');
       }
+  
       const data = await response.json();
       console.log('mentor', data);
       setComplete(true);
-
-       return data;
-
+  
+      return data;
     } catch (error) {
       console.error('Error submitting form:', error);
     }
-  };
 
+    return res.status(200).json({ userId: userId });
+  };
+  
   return (
-    <div>
+    <form onSubmit={handleMentorFormSubmit}>
       {currentStep === 1 && (
-        <StepOneForm
+        <StepOneMentor
           onNext={handleNext}
           formData={formData}
           handleFormChange={handleFormChange}
@@ -92,7 +102,7 @@ const MultiStepPage = () => {
       )}
 
       {currentStep === 2 && (
-        <StepTwoForm
+        <StepTwoMentor
           onNext={handleNext}
           onPrevious={handlePrevious}
           formData={formData}
@@ -105,14 +115,13 @@ const MultiStepPage = () => {
 
       {currentStep === 3 && (
         <StepFourForm
-          onSubmit={fetchMentorData}
           onPrevious={handlePrevious}
           complete={complete}
           currentStep={currentStep}
           steps={steps}
         />
       )}
-    </div>
+    </form>
   );
 };
 

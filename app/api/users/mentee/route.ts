@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server"
-import { auth, currentUser } from "@clerk/nextjs/server";
+import { auth } from "@clerk/nextjs/server";
 import User from "@/models/User";
 import Mentee from "@/models/Mentee";
 import { connectToDB } from "@/lib/db";
@@ -7,10 +7,12 @@ import { connectToDB } from "@/lib/db";
 
 export const POST = async (request: Request)=>{
    const user = await request.json()
-   const clerkUser = await currentUser()
+   const { sessionClaims } = auth()
+   const userId = sessionClaims?.userId as string
+
 
    await connectToDB()
-   const loggedInUser = await User.findOne({ clerkId : clerkUser?.id }) 
+   const loggedInUser = await User.findById(userId) 
 
    if (!loggedInUser) {
       return NextResponse.json({ message: "User not found" }, { status: 404 });

@@ -1,20 +1,21 @@
  'use client'
 
 import { useState } from 'react';
-import StepOneForm from '@/components/profile/StepOneForm';
-import StepThreeForm from '@/components/profile/StepThreeForm';
+import StepOneMentee from '@/components/profile/StepOneMentee';
+import StepTwoMentee from '@/components/profile/StepTwoMentee';
 import StepFourForm from '@/components/profile/StepFourForm';
+import { getAuth } from "@clerk/nextjs/server";
+import type { NextApiRequest, NextApiResponse } from "next";
 
 
 export type FormValues = {
-  title: string;
-  bio: string;
-  careerChoice: string;
-  education: string;
-  industry: string;
-  experience: string;
-  availability: string;
-  expertise: string; 
+    bio: string;
+    career_path: string;
+    education_status: string;
+    industry_pref: string;
+    experience_level: string;
+    availability: string;
+    desired_skills: string;
 };
 
 const menteeUrl: string = 'http://localhost:3000/api/users/mentee'
@@ -24,16 +25,16 @@ const MultiStepPage = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [complete, setComplete] = useState(false);
   const steps: string[] = ['personal', 'career', 'finish'];
-  const [formData, setFormData] = useState<FormValues>({
-    title: '',
-    bio: '',
-    careerChoice: '',
-    education: '',
-    industry: '',
-    experience: '',
-    availability: '',
-    expertise: ''
 
+
+  const [formData, setFormData] = useState<FormValues>({
+    bio: '',
+    career_path: '',
+    education_status: '',
+    industry_pref: '',
+    experience_level: '',
+    availability: '',
+    desired_skills: ''
   });
 
   
@@ -51,35 +52,44 @@ const MultiStepPage = () => {
   };
 
 
-  const fetchMenteeData = async () => {
+  const handleMenteeFormSubmit = async ( req: NextApiRequest, res: NextApiResponse) => {
+    const { userId } = getAuth(req);
+    
     try {
+      if (!userId) {
+        return res.status(401).json({ error: "Not authenticated" });
+      }
       const response = await fetch(menteeUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-       },
-       body: JSON.stringify(formData),
-    });
+        },
+        body: JSON.stringify(formData),
+      });
+  
       if (!response.ok) {
         throw new Error('Failed to post form');
       }
+  
       const data = await response.json();
       console.log('mentee', data);
       setComplete(true);
-
-       return data;
-
+  
+      return data;
     } catch (error) {
       console.error('Error submitting form:', error);
     }
+
+    return res.status(200).json({ userId: userId });
   };
+  
   
 
   return (
-    <div >
+    <form onSubmit={handleMenteeFormSubmit}>
        
       {currentStep === 1 && 
-        <StepOneForm 
+        <StepOneMentee 
           onNext={handleNext} 
           formData={formData} 
           handleFormChange={handleFormChange}
@@ -89,7 +99,7 @@ const MultiStepPage = () => {
         />}
         
       {currentStep === 2 && 
-        <StepThreeForm 
+        <StepTwoMentee 
           onNext={handleNext} 
           onPrevious={handlePrevious} 
           formData={formData} 
@@ -102,13 +112,12 @@ const MultiStepPage = () => {
      
       {currentStep === 3 && 
         <StepFourForm 
-        onSubmit={fetchMenteeData} 
         onPrevious={handlePrevious} 
         complete={complete}
         currentStep={currentStep}
         steps={steps}
       />}
-    </div>
+    </form>
   );
 }
 
