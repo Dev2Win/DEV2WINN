@@ -19,7 +19,7 @@ export type FormValues = {
     desired_skills: string;
 };
 
-const menteeUrl: string = process.env.MENTEE_PROFILE_ENDPOINT  || "http://localhost:3000/api/users/mentee"
+const menteeUrl: string = process.env.MENTEE_PROFILE_ENDPOINT  || ""
 
 
 
