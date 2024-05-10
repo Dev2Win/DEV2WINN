@@ -7,8 +7,6 @@ import StepFourForm from '@/components/profile/StepFourForm';
 
 import { useRouter } from "next/navigation"
 
-
-
 export type FormValues = {
     bio: string;
     career_path: string;
@@ -19,7 +17,9 @@ export type FormValues = {
     desired_skills: string;
 };
 
+
 const menteeUrl: string = process.env.MENTEE_PROFILE_ENDPOINT  || "http://localhost:3000/api/users/mentee"
+
 
 
 
@@ -39,9 +39,8 @@ const MultiStepPage = () => {
     availability: '',
     desired_skills: ''
   });
-
   
-  const handleFormChange = (e: any) => {
+  const handleFormChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({...prevData, [name]: value})
   )};
@@ -56,6 +55,7 @@ const MultiStepPage = () => {
 
   
 
+
   const handleMenteeFormSubmit = async (event: FormEvent<HTMLFormElement>) => {
     // const { userId } = await getAuth(req);
     event.preventDefault()
@@ -64,6 +64,7 @@ const MultiStepPage = () => {
       // if (!userId) {
       //   return res.status(401).json({ error: "Not authenticated" });
       // }
+
       const response = await fetch(menteeUrl, {
         method: 'POST',
         headers: {
