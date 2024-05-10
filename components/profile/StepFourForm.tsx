@@ -6,7 +6,8 @@ import { IoCheckmarkOutline } from "react-icons/io5";
 
 
 type FormTwo = {
-  onSubmit: () => void;
+  // this part should be changed later
+  onSubmit: any;
   onPrevious: () => void;
   currentStep: number;
   complete: boolean;
