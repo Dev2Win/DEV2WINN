@@ -7,8 +7,6 @@ import StepFourForm from '@/components/profile/StepFourForm';
 import { useRouter } from 'next/navigation';
 
 
-
-
 export type FormValues = {
   title: string;
   bio: string;
@@ -57,13 +55,9 @@ const MultiStepPage = () => {
   };
   
 
-  const handleMentorFormSubmit = async ( ) => {
-    // const { userId } = getAuth(req);
+  const handleMentorFormSubmit = async () => {
     
     try {
-      // if (!userId) {
-      //   return res.status(401).json({ error: "Not authenticated" });
-      // }
       const response = await fetch(mentorUrl, {
         method: 'POST',
         headers: {
@@ -88,7 +82,6 @@ const MultiStepPage = () => {
       console.error('Error submitting form:', error);
     }
 
-    // return res.status(200).json({ userId: userId });
   };
   
   return (
