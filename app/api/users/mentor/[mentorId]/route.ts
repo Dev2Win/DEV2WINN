@@ -3,13 +3,13 @@ import { connectToDB } from "@/lib/db";
 import Mentor from "@/models/Mentor";
 import { NextResponse } from "next/server";
 
-type ParamsProps = {
-    params: {
-        mentorId: string;
-    }
-}
+// type ParamsProps = {
+//     params: {
+//         mentorId: string;
+//     }
+// }
 
-export const GET = async({params}:ParamsProps)=>{
+export const GET = async({params}:any)=>{
  try {
     const {mentorId} = params
 
