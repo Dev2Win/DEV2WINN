@@ -18,7 +18,7 @@ export type FormValues = {
   availability: string;
   expertise: string;
 };
-const mentorUrl: string = process.env.MENTOR_PROFILE_ENDPOINT
+const mentorUrl: string = process.env.MENTOR_PROFILE_ENDPOINT || ""
 // const mentorUrl: string = 'http://localhost:3001/api/users/mentor '
 
 
