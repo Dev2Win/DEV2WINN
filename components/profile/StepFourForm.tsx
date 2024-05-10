@@ -1,4 +1,4 @@
-import React, { FormEvent } from 'react'
+import React from 'react'
 import Stepper from './Stepper'
 import { IoCheckmarkOutline } from "react-icons/io5";
 ;
@@ -34,8 +34,7 @@ function StepFourForm({onSubmit, onPrevious, currentStep, complete, steps} : For
             previous
         </button>
         <button 
-        onClick={onSubmit}
-           
+           onClick={onSubmit}
            className='bg-purple-1 px-4 py-2 rounded  text-white mt-5 hover:bg-dark-4 transition-all w-[50%]'>
             finish
         </button>

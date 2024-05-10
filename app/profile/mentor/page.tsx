@@ -4,6 +4,7 @@ import { useState } from 'react';
 import StepOneMentor from '@/components/profile/StepOneMentor';
 import StepTwoMentor from '@/components/profile/StepTwoMentor';
 import StepFourForm from '@/components/profile/StepFourForm';
+import { useRouter } from 'next/navigation';
 
 
 
@@ -17,15 +18,15 @@ export type FormValues = {
   availability: string;
   expertise: string;
 };
-// const mentorUrl: string = process.env.BASE_URL|| ''
-const mentorUrl: string = 'http://localhost:3001/api/users/mentor '
+const mentorUrl: string = process.env.MENTOR_PROFILE_ENDPOINT|| 'http://localhost:3000/api/users/mentor'
+// const mentorUrl: string = 'http://localhost:3001/api/users/mentor '
 
 
 const MultiStepPage = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [complete, setComplete] = useState(false);
   const steps: string[] = ['personal', 'career', 'finish'];
-
+  const router = useRouter()
   const [formData, setFormData] = useState<FormValues>({
     title: '',
     bio: '',
@@ -78,6 +79,9 @@ const MultiStepPage = () => {
       const data = await response.json();
       console.log('mentor', data);
       setComplete(true);
+      if (data){
+        router.push(`/dashboard`)
+      }
   
       return data;
     } catch (error) {
@@ -88,7 +92,7 @@ const MultiStepPage = () => {
   };
   
   return (
-    <form onSubmit={handleMentorFormSubmit}>
+    <form >
       {currentStep === 1 && (
         <StepOneMentor
           onNext={handleNext}
