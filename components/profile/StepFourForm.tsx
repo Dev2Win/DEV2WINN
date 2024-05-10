@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { FormEvent } from 'react'
 import Stepper from './Stepper'
 import { IoCheckmarkOutline } from "react-icons/io5";
 ;
@@ -6,7 +6,8 @@ import { IoCheckmarkOutline } from "react-icons/io5";
 
 
 type FormTwo = {
-  onSubmit: () => void;
+  // this part should be changed later
+  onSubmit: any;
   onPrevious: () => void;
   currentStep: number;
   complete: boolean;
