@@ -17,13 +17,18 @@ export type FormValues = {
   expertise: string; 
 };
 
-const menteeUrl: string = process.env.MENTEE_PROFILE_ENDPOINT || ''
+// const menteeUrl: string = process.env.MENTEE_PROFILE_ENDPOINT || ''
+// you can remove this, was testing
+const menteeUrl = "http://localhost:3000/api/users/mentee"
 
 
 const MultiStepPage = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [complete, setComplete] = useState(false);
   const steps: string[] = ['personal', 'career', 'finish'];
+
+  // title is not needed for now
+  // expertise is for mentor not mentee
   const [formData, setFormData] = useState<FormValues>({
     title: '',
     bio: '',
@@ -33,8 +38,19 @@ const MultiStepPage = () => {
     experience: '',
     availability: '',
     expertise: ''
-
   });
+
+  /*
+  Esther, kindly construct the mentee object this way
+    {
+      career_path: "",
+      desired_skills: "",
+      experience_level: "",
+      industry_pref: "",
+      availability:"",
+      education_status:"",
+    }
+  */
 
   
   const handleFormChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
