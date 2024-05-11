@@ -5,36 +5,37 @@ import StepOneMentor from '@/components/profile/StepOneMentor';
 import StepTwoMentor from '@/components/profile/StepTwoMentor';
 import StepFourForm from '@/components/profile/StepFourForm';
 import { useRouter } from 'next/navigation';
+import { options, Option, expertiseOptions } from '../data';
+
 
 
 export type FormValues = {
   title: string;
   bio: string;
   career_path: string;
-  industry_pref: string;
+  industry_pref: Option[] | null;
   experience_level: string;
   availability: string;
-  expertise: string;
+  expertise: Option[] | null;
 };
 const mentorUrl: string = process.env.MENTOR_PROFILE_ENDPOINT|| 'http://localhost:3000/api/users/mentor'
-// const mentorUrl: string = 'http://localhost:3001/api/users/mentor '
 
 
 const MultiStepPage = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [complete, setComplete] = useState(false);
+  const [selectedOptions, setSelectedOptions] = useState([]);
   const steps: string[] = ['personal', 'career', 'finish'];
   const router = useRouter()
   const [formData, setFormData] = useState<FormValues>({
     title: '',
     bio: '',
     career_path: '',
-    industry_pref: '',
+    industry_pref: null,
     experience_level: '',
     availability: '',
-    expertise: '',
+    expertise: null,
   });
-
 
 
   const handleFormChange = (
@@ -56,14 +57,17 @@ const MultiStepPage = () => {
   
 
   const handleMentorFormSubmit = async () => {
-    
     try {
+
+      const formData = new FormData();
+      formData.append('industry_pref', JSON.stringify(selectedOptions.map((option: Option) => option.value)));
+
       const response = await fetch(mentorUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
+        body: formData,
       });
   
       if (!response.ok) {
@@ -71,8 +75,8 @@ const MultiStepPage = () => {
       }
   
       const data = await response.json();
-      console.log('mentor', data);
       setComplete(true);
+
       if (data){
         router.push(`/dashboard`)
       }
@@ -92,8 +96,11 @@ const MultiStepPage = () => {
           formData={formData}
           handleFormChange={handleFormChange}
           complete={complete}
+          options={options}
           currentStep={currentStep}
           steps={steps}
+          selectedOptions={selectedOptions}
+          setSelectedOptions={setSelectedOptions}
         />
       )}
 
@@ -106,12 +113,15 @@ const MultiStepPage = () => {
           complete={complete}
           currentStep={currentStep}
           steps={steps}
+          expertiseOptions={expertiseOptions}
+          selectedOptions={selectedOptions}
+          setSelectedOptions={setSelectedOptions}
         />
       )}
 
       {currentStep === 3 && (
         <StepFourForm
-        onSubmit={handleMentorFormSubmit}
+          onSubmit={handleMentorFormSubmit}
           onPrevious={handlePrevious}
           complete={complete}
           currentStep={currentStep}
