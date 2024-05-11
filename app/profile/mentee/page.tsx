@@ -1,48 +1,50 @@
- 'use client'
+'use client'
 
-
-import { useState } from 'react';
-import StepOneForm from '@/components/profile/StepOneForm';
-import StepThreeForm from '@/components/profile/StepThreeForm';
+import { FormEvent, useState } from 'react';
+import StepOneMentee from '@/components/profile/StepOneMentee';
+import StepTwoMentee from '@/components/profile/StepTwoMentee';
 import StepFourForm from '@/components/profile/StepFourForm';
 
+import { useRouter } from "next/navigation"
 
 export type FormValues = {
-  title: string;
-  bio: string;
-  careerChoice: string;
-  education: string;
-  industry: string;
-  experience: string;
-  achievement: string;
-  availability: string;
-  expertise: string; 
-
+    bio: string;
+    career_path: string;
+    education_status: string;
+    industry_pref: string;
+    experience_level: string;
+    availability: string;
+    desired_skills: string;
 };
+
+
+// const menteeUrl: string = process.env.MENTEE_PROFILE_ENDPOINT  || ""
+// console.log(menteeUrl,"ia ammma");
+
+
+
 
 
 const MultiStepPage = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [complete, setComplete] = useState(false);
   const steps: string[] = ['personal', 'career', 'finish'];
+
+  const router = useRouter()
+
   const [formData, setFormData] = useState<FormValues>({
-    title: '',
     bio: '',
-    careerChoice: '',
-    education: '',
-    industry: '',
-    experience: '',
-    achievement: '',
+    career_path: '',
+    education_status: '',
+    industry_pref: '',
+    experience_level: '',
     availability: '',
-    expertise: ''
-
+    desired_skills: ''
   });
-
-
+  
   const handleFormChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
-    setFormData((prevData) => 
-      ({...prevData, [name]: value})
+    setFormData((prevData) => ({...prevData, [name]: value})
   )};
 
   const handleNext = () => {
@@ -53,17 +55,50 @@ const MultiStepPage = () => {
     setCurrentStep((prevStep) => prevStep - 1);
   };
 
-  const handleSubmit = () => {
-    console.log('mentee', formData);
-    setComplete(true);
+  
+
+
+  const handleMenteeFormSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    // const { userId } = await getAuth(req);
+    event.preventDefault()
+    
+    try {
+      // if (!userId) {
+      //   return res.status(401).json({ error: "Not authenticated" });
+      // }
+
+      const response = await fetch('https://dev-2-winn.vercel.app/api/users/mentee', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+  
+      if (!response.ok) {
+        throw new Error('Failed to post form');
+      }
+  
+      const data = await response.json();
+      setComplete(true);
+      if (data){
+        router.push(`/dashboard`)
+      }
+
+
+    } catch (error) {
+      console.error('Error submitting form:', error);
+    }
 
   };
+  
+  
 
   return (
-    <div >
+    <form >
        
       {currentStep === 1 && 
-        <StepOneForm 
+        <StepOneMentee 
           onNext={handleNext} 
           formData={formData} 
           handleFormChange={handleFormChange}
@@ -73,7 +108,8 @@ const MultiStepPage = () => {
         />}
         
       {currentStep === 2 && 
-        <StepThreeForm 
+        <StepTwoMentee
+         
           onNext={handleNext} 
           onPrevious={handlePrevious} 
           formData={formData} 
@@ -86,15 +122,14 @@ const MultiStepPage = () => {
      
       {currentStep === 3 && 
         <StepFourForm 
-        onSubmit={handleSubmit} 
+        onSubmit={handleMenteeFormSubmit}
         onPrevious={handlePrevious} 
         complete={complete}
         currentStep={currentStep}
         steps={steps}
       />}
-    </div>
+    </form>
   );
-};
+}
 
 export default MultiStepPage;
-
