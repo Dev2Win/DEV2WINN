@@ -18,7 +18,8 @@ export type FormValues = {
 };
 
 
-const menteeUrl: string = process.env.MENTEE_PROFILE_ENDPOINT  || ""
+// const menteeUrl: string = process.env.MENTEE_PROFILE_ENDPOINT  || ""
+// console.log(menteeUrl,"ia ammma");
 
 
 
@@ -66,7 +67,7 @@ const MultiStepPage = () => {
       //   return res.status(401).json({ error: "Not authenticated" });
       // }
 
-      const response = await fetch(menteeUrl, {
+      const response = await fetch('https://dev-2-winn.vercel.app/api/users/mentee', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
