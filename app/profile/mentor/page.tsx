@@ -16,7 +16,7 @@ export type FormValues = {
   availability: string;
   expertise: string;
 };
-const mentorUrl: string = process.env.MENTOR_PROFILE_ENDPOINT || ""
+// const mentorUrl: string = process.env.MENTOR_PROFILE_ENDPOINT || ""
 // const mentorUrl: string = 'http://localhost:3001/api/users/mentor '
 
 
@@ -58,7 +58,7 @@ const MultiStepPage = () => {
   const handleMentorFormSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     try {
-      const response = await fetch(mentorUrl, {
+      const response = await fetch('https://dev-2-winn.vercel.app/users/mentee', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
