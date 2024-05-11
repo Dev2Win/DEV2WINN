@@ -26,33 +26,28 @@ const Background: React.FC<BackgroundProps> = ({
     setPopdown(!popdownState);
   };
 
-    const renderItems = (
-        items: string[],
-        setPopdown: React.Dispatch<React.SetStateAction<boolean>>,
-        popdownState: boolean,
-        section: string,
-    ) => {
-        const maxItemsToShow = 2;
-        const visibleItems = items.slice(0, maxItemsToShow);
-        const remainingItems = items.slice(maxItemsToShow);
+  const renderItems = (
+    items: string[],
+    setPopdown: React.Dispatch<React.SetStateAction<boolean>>,
+    popdownState: boolean,
+    section: string,
+  ) => {
+    const maxItemsToShow = 2;
+    const visibleItems = items.slice(0, maxItemsToShow);
+    const remainingItems = items.slice(maxItemsToShow);
 
-        // Define different CSS classes based on the section
-        const mainButtonClass = 
-            section === 'Expertise' ? 'bg-purple-1 text-white' : '';
-        const largeButtonClass = 
-            section === 'Expertise' ? 'bg-red-300 text-white' : '';
-        const secondButtonClass = 
-            section === 'Disciplines' ? 'border' : '';
-        
-        const thirdButtonClass = 
-            section === 'Industries' ? 'border ' : '';
-        
-        const fourthButtonClass = 
-            section === 'Fluentin' ? 'border' : '';
-        
+    // Define different CSS classes based on the section
+    const mainButtonClass =
+      section === 'Expertise' ? 'bg-purple-1 text-white' : '';
+    const largeButtonClass =
+      section === 'Expertise' ? 'bg-red-300 text-white' : '';
+    const secondButtonClass = section === 'Disciplines' ? 'border py-0 ' : '';
 
-    const popdownButtonClass =
-      section === 'Industries' ? 'bg-green-200' : 'bg-gray-200';
+    const thirdButtonClass = section === 'Industries' ? 'border ' : '';
+
+    const fourthButtonClass = section === 'Fluentin' ? 'border' : '';
+
+    const popdownButtonClass = 'border ';
 
     return (
       <div className="flex flex-wrap items-center relative">
@@ -64,7 +59,7 @@ const Background: React.FC<BackgroundProps> = ({
           </button>
           {remainingItems.length > 0 && (
             <button
-              className={`rounded-full px-2 py-1 mr-2 mb-2 cursor-pointer ${popdownButtonClass}`}
+              className={`rounded-md px-3 py-1 mr-2  cursor-pointer ${popdownButtonClass}`}
               onClick={() => showPopdown(setPopdown, popdownState)}
             >
               +{remainingItems.length}
@@ -73,20 +68,20 @@ const Background: React.FC<BackgroundProps> = ({
         </div>
         <div className="hidden sm:flex">
           <button
-            className={` w-24 py-2 text-sm font-bold rounded-md text-black ${mainButtonClass} ${secondButtonClass} ${thirdButtonClass} ${fourthButtonClass} `}
+            className={` w-24 py-2 text-sm mr-2 font-bold rounded-md text-black ${mainButtonClass} ${secondButtonClass} ${thirdButtonClass} ${fourthButtonClass} `}
           >
             {visibleItems[0]}
           </button>
           {visibleItems.length > 1 && (
             <button
-              className={` w-24 py-2 text-sm font-bold rounded-md text-black ${largeButtonClass} ${secondButtonClass} ${thirdButtonClass} ${fourthButtonClass} `}
+              className={` w-24 mr-2 py-2 text-sm font-bold rounded-md text-black ${largeButtonClass} ${secondButtonClass} ${thirdButtonClass} ${fourthButtonClass} `}
             >
               {visibleItems[1]}
             </button>
           )}
           {remainingItems.length > 0 && (
             <button
-              className={`rounded-full px-2 py-1 mr-2 mb-2 cursor-pointer ${popdownButtonClass}`}
+              className={`rounded-md px-3  mr-2  cursor-pointer ${popdownButtonClass}`}
               onClick={() => showPopdown(setPopdown, popdownState)}
             >
               +{remainingItems.length}
@@ -107,7 +102,7 @@ const Background: React.FC<BackgroundProps> = ({
   };
 
   return (
-    <div className="p-4 mt-8 border flex  flex-col rounded-lg gap-y-6 px-4 py-8">
+    <div className="p-4 mt-8 border flex  w-full lg:w-8/12  flex-col rounded-lg gap-y-6 px-4 py-8">
       <div className="flex justify-between">
         <h3 className="text-lg font-semibold mb-2">Expertise</h3>
         {renderItems(
