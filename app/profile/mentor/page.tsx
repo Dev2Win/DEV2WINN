@@ -25,6 +25,7 @@ const MultiStepPage = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [complete, setComplete] = useState(false);
   const [selectedOptions, setSelectedOptions] = useState([]);
+  const [selectedExpertise, setSelectedExpertise] = useState([]);
   const steps: string[] = ['personal', 'career', 'finish'];
   const router = useRouter()
   const [formData, setFormData] = useState<FormValues>({
@@ -114,8 +115,8 @@ const MultiStepPage = () => {
           currentStep={currentStep}
           steps={steps}
           expertiseOptions={expertiseOptions}
-          selectedOptions={selectedOptions}
-          setSelectedOptions={setSelectedOptions}
+          selectedExpertise={selectedExpertise}
+          setSelectedExpertise={setSelectedExpertise}
         />
       )}
 

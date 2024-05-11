@@ -3,6 +3,7 @@
 import { FormValues } from '@/app/profile/mentor/page';
 import Stepper from './Stepper';
 import Select from 'react-select';
+import { Option } from '@/app/profile/data';
 
 type FormTwo = {
   onNext: () => void;
@@ -16,8 +17,8 @@ type FormTwo = {
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
     >,
   ) => void;
-  selectedOptions: any;
-  setSelectedOptions : any;
+  selectedExpertise: any;
+  setSelectedExpertise : any;
   expertiseOptions : any[]
 };
 
@@ -29,14 +30,14 @@ function StepTwoForm({
   steps,
   currentStep,
   complete,
-  selectedOptions,
-  setSelectedOptions,
+  selectedExpertise,
+  setSelectedExpertise,
   expertiseOptions
 }: FormTwo) {
 
   const handleExpertiseSelect = (selected: any) => {
-    setSelectedOptions(selected);
-    console.log(selectedOptions.map((option: any) => option.value));
+    setSelectedExpertise(selected);
+    console.log(selectedExpertise);
   };
   
   return (
@@ -57,7 +58,7 @@ function StepTwoForm({
         <Select
           isMulti
           options={expertiseOptions}
-          value={selectedOptions}
+          value={selectedExpertise}
           onChange={handleExpertiseSelect}
           placeholder="Select options..."
         />
