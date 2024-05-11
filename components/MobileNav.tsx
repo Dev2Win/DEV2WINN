@@ -4,7 +4,12 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-import { Sheet, SheetClose, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetTrigger,
+} from '@/components/ui/sheet';
 import { sidebarLinks } from '@/constants';
 import { cn } from '@/lib/utils';
 
@@ -48,7 +53,7 @@ const MobileNav = () => {
                           'flex gap-4 items-center p-4 rounded-lg w-full max-w-60',
                           {
                             'bg-blue-1': isActive,
-                          }
+                          },
                         )}
                       >
                         <Image
