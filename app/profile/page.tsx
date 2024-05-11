@@ -18,30 +18,7 @@ function Page() {
 
  
 
-  const handleContinue = async () => {
-    if (selectedCard) {
-      try {
-        // Send API request with the selected card value
-        const response = await fetch('api/users', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ userType: selectedCard }),
-        });
-
-        if (response.ok) {
-         
-          console.log('Card selected successfully:');
-        } else {
-        
-          console.error('Error selecting card:');
-        }
-      } catch (error) {
-        console.error('Error:', error);
-      }
-    }
-  };
+ 
 
   return (
     <section className="flex flex-col justify-center items-center h-screen max-w-md mx-auto">
@@ -74,7 +51,7 @@ function Page() {
       
       {selectedCard && (
          <Link href={`/profile/${selectedCard}`}
-             onClick={handleContinue}
+         
              className='bg-purple-1 py-2 rounded text-center w-[80%] text-white mt-5 hover:bg-dark-4 transition-all'>
             Continue
         </Link>

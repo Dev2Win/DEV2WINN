@@ -59,13 +59,11 @@ const MultiStepPage = () => {
 
 
   const handleMenteeFormSubmit = async (event: FormEvent<HTMLFormElement>) => {
-    // const { userId } = await getAuth(req);
+   
     event.preventDefault()
     
     try {
-      // if (!userId) {
-      //   return res.status(401).json({ error: "Not authenticated" });
-      // }
+     
 
       const response = await fetch('https://dev-2-winn.vercel.app/api/users/mentee', {
         method: 'POST',

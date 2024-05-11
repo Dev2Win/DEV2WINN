@@ -58,7 +58,7 @@ const MultiStepPage = () => {
   const handleMentorFormSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     try {
-      const response = await fetch('https://dev-2-winn.vercel.app/api/users/mentor', {
+      const response = await fetch('http://localhost:3000/api/users/mentor', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

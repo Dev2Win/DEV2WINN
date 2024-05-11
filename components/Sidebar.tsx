@@ -2,12 +2,19 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-
+import useStore from '@/lib/store';
 import { sidebarLinks } from '@/constants';
 import { cn } from '@/lib/utils';
 
+
 const Sidebar = () => {
   const pathname = usePathname();
+
+  const {name,setName}= useStore()
+
+
+  console.log(name);
+  
 
   return (
     <section className="sticky left-0 top-0 flex h-screen w-fit flex-col  justify-between  bg-white shadow-xl  p-6 pt-28 text-[#19154E]  max-sm:hidden lg:w-[264px]">

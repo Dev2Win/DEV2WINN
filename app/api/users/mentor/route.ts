@@ -9,16 +9,18 @@ import { NextRequest, NextResponse } from "next/server"
 export const POST =async(req:NextRequest)=>{
    try {
        const requestData = await req.json()
-       const { sessionClaims } = auth()
+       const { sessionClaims } =   auth()
    const sessionId = sessionClaims?.userId as string
 
 
        await connectToDB()
        const user= await User.findById(sessionId)   
+       console.log(user);
+       
    
-    if(!user){
-        return NextResponse.json({message:'user was not found'})
-    }
+    // if(!user){
+    //     return NextResponse.json({message:'user was not found'})
+    // }
     
     const newMentor = {
         userId:user._id ,
