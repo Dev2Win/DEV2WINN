@@ -3,7 +3,7 @@ import mongoose, { Schema } from "mongoose";
 
 const MentorSchema = new mongoose.Schema({
   userId: { type: Schema.Types.ObjectId, ref: "User" },
-    career_preferences: [{type: String , required : true}],
+    career_preferences: [{type: String , required : false}],
      industry_pref: [{type:String, required: false }],
      expertise: [{ type :String, required: false }], 
      education: [{ type :String, required: false }],
