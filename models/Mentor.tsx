@@ -1,7 +1,7 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose, { Schema, model, models } from "mongoose";
 
 
-const MentorSchema = new mongoose.Schema({
+const MentorSchema = new Schema({
   userId: { type: Schema.Types.ObjectId, ref: "User" },
     career_preferences: [{type: String , required : false}],
      industry_pref: [{type:String, required: false }],
@@ -17,6 +17,6 @@ const MentorSchema = new mongoose.Schema({
       }
 });
 
-const Mentor = mongoose.model("Mentor", MentorSchema);
+const Mentor = models.Mentor || model("Mentor", MentorSchema)
 
 export default Mentor
