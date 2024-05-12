@@ -5,25 +5,31 @@ import StepOneMentor from '@/components/profile/StepOneMentor';
 import StepTwoMentor from '@/components/profile/StepTwoMentor';
 import StepFourForm from '@/components/profile/StepFourForm';
 import { useRouter } from 'next/navigation';
+<<<<<<< HEAD
 import useStore from '@/lib/store';
+=======
+import { options, Option, expertiseOptions } from '../data';
+
+>>>>>>> 5011332283fb9ddff4e8283b707df8afca9dfddc
 
 
 export type FormValues = {
   title: string;
   bio: string;
   career_path: string;
-  industry_pref: string;
+  industry_pref: Option[] | null;
   experience_level: string;
   availability: string;
-  expertise: string;
+  expertise: Option[] | null;
 };
-// const mentorUrl: string = process.env.MENTOR_PROFILE_ENDPOINT || ""
-// const mentorUrl: string = 'http://localhost:3001/api/users/mentor '
+const mentorUrl: string = process.env.MENTOR_PROFILE_ENDPOINT|| 'http://localhost:3000/api/users/mentor'
 
 
 const MultiStepPage = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [complete, setComplete] = useState(false);
+  const [selectedOptions, setSelectedOptions] = useState([]);
+  const [selectedExpertise, setSelectedExpertise] = useState([]);
   const steps: string[] = ['personal', 'career', 'finish'];
   const {setName} = useStore()
   const router = useRouter()
@@ -31,12 +37,11 @@ const MultiStepPage = () => {
     title: '',
     bio: '',
     career_path: '',
-    industry_pref: '',
+    industry_pref: null,
     experience_level: '',
     availability: '',
-    expertise: '',
+    expertise: null,
   });
-
 
 
   const handleFormChange = (
@@ -57,15 +62,22 @@ const MultiStepPage = () => {
   };
   
 
-  const handleMentorFormSubmit = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
+  const handleMentorFormSubmit = async () => {
     try {
+<<<<<<< HEAD
       const response = await fetch('http://localhost:3000/api/users/mentor', {
+=======
+
+      const formData = new FormData();
+      formData.append('industry_pref', JSON.stringify(selectedOptions.map((option: Option) => option.value)));
+
+      const response = await fetch(mentorUrl, {
+>>>>>>> 5011332283fb9ddff4e8283b707df8afca9dfddc
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
+        body: formData,
       });
   
       if (!response.ok) {
@@ -73,8 +85,8 @@ const MultiStepPage = () => {
       }
   
       const data = await response.json();
-      console.log('mentor', data);
       setComplete(true);
+
       if (data){
         setName('mentor')
         router.push(`/dashboard`)
@@ -95,8 +107,11 @@ const MultiStepPage = () => {
           formData={formData}
           handleFormChange={handleFormChange}
           complete={complete}
+          options={options}
           currentStep={currentStep}
           steps={steps}
+          selectedOptions={selectedOptions}
+          setSelectedOptions={setSelectedOptions}
         />
       )}
 
@@ -109,12 +124,15 @@ const MultiStepPage = () => {
           complete={complete}
           currentStep={currentStep}
           steps={steps}
+          expertiseOptions={expertiseOptions}
+          selectedExpertise={selectedExpertise}
+          setSelectedExpertise={setSelectedExpertise}
         />
       )}
 
       {currentStep === 3 && (
         <StepFourForm
-        onSubmit={handleMentorFormSubmit}
+          onSubmit={handleMentorFormSubmit}
           onPrevious={handlePrevious}
           complete={complete}
           currentStep={currentStep}

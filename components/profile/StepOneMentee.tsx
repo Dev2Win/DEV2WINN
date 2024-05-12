@@ -3,6 +3,8 @@
 import React from 'react';
 import { FormValues } from '@/app/profile/mentee/page';
 import Stepper from './Stepper';
+import Select from 'react-select';
+
 
 type FormOne = {
   onNext: () => void;
@@ -11,6 +13,9 @@ type FormOne = {
   currentStep: number;
   complete: boolean;
   steps: string[];
+  options: any[];
+  selectedOptions: any;
+  setSelectedOptions: any;
 };
 
 function StepOneForm({
@@ -20,7 +25,15 @@ function StepOneForm({
   currentStep,
   complete,
   steps,
+  selectedOptions,
+  setSelectedOptions,
+  options
 }: FormOne) {
+
+  const handleSelect = (selected: any) => {
+    setSelectedOptions(selected);
+    console.log(selectedOptions.map((option: any) => option.value));
+  };
 
   return (
     <section className="flex flex-col justify-center items-center h-screen max-w-lg mx-auto">
@@ -56,24 +69,13 @@ function StepOneForm({
         >
           Industry of interest
         </label>
-        <select
-          id="industry_pref"
-          name="industry_pref"
-          value={formData.industry_pref}
-          onChange={handleFormChange}
-          className="my-1 px-2 py-2 text-sm text-gray-700 block w-full border border-gray-300 rounded-md shadow-sm focus:outline-black/20"
-          required
-        >
-          <option value="" className="text-gray-400">
-            Choose prefered interest
-          </option>
-          <option value="health">Health</option> health , agriculture , mines ,
-          law , based on career choice
-          <option value="agriculture">Agriculture</option>
-          <option value="mines">Mines</option>
-          <option value="law">law</option>
-          <option value="choice">Based on career choice</option>
-        </select>
+        <Select
+          isMulti
+          options={options}
+          value={selectedOptions}
+          onChange={handleSelect}
+          placeholder="Select options..."
+        />
       </div>
 
       <div className='w-[80%] my-1'>
