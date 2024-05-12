@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import useStore from '@/lib/store';
-import { sidebarLinks } from '@/constants';
+import { menteeSidebar,mentorSidebar } from '@/constants';
 import { cn } from '@/lib/utils';
 
 
@@ -12,6 +12,8 @@ const Sidebar = () => {
 
   const {name,setName}= useStore()
 
+  const sidebarLinks = name === "mentee" ? menteeSidebar : mentorSidebar
+
 
   console.log(name);
   
@@ -19,6 +21,7 @@ const Sidebar = () => {
   return (
     <section className="sticky left-0 top-0 flex h-screen w-fit flex-col  justify-between  bg-white shadow-xl  p-6 pt-28 text-[#19154E]  max-sm:hidden lg:w-[264px]">
       <div className="flex flex-1 flex-col gap-6">
+      
         {sidebarLinks.map((item) => {
           const isActive = pathname === item.route;
 

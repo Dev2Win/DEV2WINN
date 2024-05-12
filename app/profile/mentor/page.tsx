@@ -5,6 +5,7 @@ import StepOneMentor from '@/components/profile/StepOneMentor';
 import StepTwoMentor from '@/components/profile/StepTwoMentor';
 import StepFourForm from '@/components/profile/StepFourForm';
 import { useRouter } from 'next/navigation';
+import useStore from '@/lib/store';
 
 
 export type FormValues = {
@@ -24,6 +25,7 @@ const MultiStepPage = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [complete, setComplete] = useState(false);
   const steps: string[] = ['personal', 'career', 'finish'];
+  const {setName} = useStore()
   const router = useRouter()
   const [formData, setFormData] = useState<FormValues>({
     title: '',
@@ -74,6 +76,7 @@ const MultiStepPage = () => {
       console.log('mentor', data);
       setComplete(true);
       if (data){
+        setName('mentor')
         router.push(`/dashboard`)
       }
   
