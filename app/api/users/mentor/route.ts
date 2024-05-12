@@ -20,13 +20,13 @@ export const POST =async(req:NextRequest)=>{
         return NextResponse.json({message:'user was not found'})
     }
     
-    const newMentor = new Mentor({
+    const newMentor = {
         userId:user._id ,
         ...requestData
-    })
-    await newMentor.save()
+    }
+    const createdMentorUser = await Mentor.create(newMentor)
 
-    return NextResponse.json({message:'mentor created successfully',user:newMentor})
+    return NextResponse.json({message:'mentor created successfully',user:createdMentorUser})
     
    } catch (error) {
     return NextResponse.json({ message: 'Failed to create mentor' });
