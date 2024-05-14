@@ -3,6 +3,7 @@
 import React from 'react';
 import { FormValues } from '@/app/profile/mentor/page';
 import Stepper from './Stepper';
+import Select from 'react-select';
 
 type FormOne = {
   onNext: () => void;
@@ -11,6 +12,9 @@ type FormOne = {
   currentStep: number;
   complete: boolean;
   steps: string[];
+  options: any[];
+  selectedOptions: any;
+  handleSelect: any;
 };
 
 function StepOneMentor({
@@ -20,8 +24,12 @@ function StepOneMentor({
   currentStep,
   complete,
   steps,
+  selectedOptions,
+  handleSelect,
+  options
 }: FormOne) {
 
+ 
   return (
     <section className="flex flex-col justify-center items-center h-screen max-w-lg mx-auto">
       <h1 className="font-bold text-3xl mb-4">Dev2Win</h1>
@@ -67,29 +75,19 @@ function StepOneMentor({
 
       <div className="w-[80%] my-1">
         <label
-          htmlFor="industry"
+          htmlFor="industry_pref"
           className="font-semibold text-gray-700 text-sm"
         >
-          Industry of interest
+          Career Preference
         </label>
-        <select
-          id="industry"
-          name="industry"
-          value={formData.industry_pref}
-          onChange={handleFormChange}
-          className="my-1 px-2 py-2 text-sm text-gray-700 block w-full border border-gray-300 rounded-md shadow-sm focus:outline-black/20"
-          required
-        >
-          <option value="" className="text-gray-400">
-            Choose prefered interest
-          </option>
-          <option value="health">Health</option> health , agriculture , mines ,
-          law , based on career choice
-          <option value="agriculture">Agriculture</option>
-          <option value="mines">Mines</option>
-          <option value="law">law</option>
-          <option value="choice">Based on career choice</option>
-        </select>
+       
+        <Select
+          isMulti
+          options={options}
+          value={selectedOptions}
+          onChange={handleSelect}
+          placeholder="Select options..."
+        />
       </div>
 
       <div className='w-[80%] my-1'>
