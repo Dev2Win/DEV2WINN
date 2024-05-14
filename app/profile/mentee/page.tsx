@@ -85,7 +85,7 @@ const MultiStepPage = () => {
         ...formData,
         industry_pref: selectedOptions.map((option: Option) => option.value),
       };
-      const response = await fetch(menteeUrl, {
+      const response = await fetch("https://dev-2-winn.vercel.app/api/users/mentee", {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
