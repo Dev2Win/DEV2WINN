@@ -3,7 +3,7 @@
 import { FormValues } from '@/app/profile/mentor/page';
 import Stepper from './Stepper';
 import Select from 'react-select';
-import { Option } from '@/app/profile/data';
+
 
 type FormTwo = {
   onNext: () => void;
@@ -18,8 +18,11 @@ type FormTwo = {
     >,
   ) => void;
   selectedExpertise: any;
-  setSelectedExpertise : any;
+  handleIndustry:any;
+  selectedIndustry:any;
+  handleExpertise: any;
   expertiseOptions : any[]
+  IndustryOptions: any[]
 };
 
 function StepTwoForm({
@@ -31,15 +34,14 @@ function StepTwoForm({
   currentStep,
   complete,
   selectedExpertise,
-  setSelectedExpertise,
-  expertiseOptions
+  handleExpertise,
+  handleIndustry,selectedIndustry,
+  expertiseOptions,
+  IndustryOptions
+
 }: FormTwo) {
 
-  const handleExpertiseSelect = (selected: any) => {
-    setSelectedExpertise(selected);
-    console.log(selectedExpertise);
-  };
-  
+ 
   return (
     <section className="flex flex-col justify-center items-center h-screen max-w-lg mx-auto">
       <h1 className="font-bold text-3xl mb-4">Dev2Win</h1>
@@ -48,7 +50,7 @@ function StepTwoForm({
       </div>
       <h2 className="text-xl font-semibold my-6">Experience level</h2>
 
-      <div className="w-[80%] my-1">
+      {/* <div className="w-[80%] my-1">
         <label
           htmlFor="expertise"
           className="font-semibold text-gray-700 text-sm"
@@ -59,7 +61,22 @@ function StepTwoForm({
           isMulti
           options={expertiseOptions}
           value={selectedExpertise}
-          onChange={handleExpertiseSelect}
+          onChange={handleExpertise}
+          placeholder="Select options..."
+        />
+      </div> */}
+      <div className="w-[80%] my-1">
+        <label
+          htmlFor="expertise"
+          className="font-semibold text-gray-700 text-sm"
+        >
+          Industries of interest
+        </label>
+        <Select
+          isMulti
+          options={IndustryOptions}
+          value={selectedIndustry}
+          onChange={handleIndustry}
           placeholder="Select options..."
         />
       </div>

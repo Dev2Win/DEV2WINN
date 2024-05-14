@@ -54,7 +54,7 @@ export const mentorSidebar = [
   {
     imgURL: '/icons/upcoming.svg',
     route: '/dashboard/mentors',
-    label: 'Mentors&Peers',
+    label: 'Mentees',
   },
   {
     imgURL: '/icons/add-personal.svg',
