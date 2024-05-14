@@ -1,7 +1,7 @@
 import {create} from 'zustand'
 
-const useStore = create((set) => ({
-  name: 'hsads', 
+const useStore = create((set:any) => ({
+  name: '', 
   setName: (newName:any) => set({ name: newName }), 
 }));
 

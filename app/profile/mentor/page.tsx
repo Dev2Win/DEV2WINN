@@ -155,7 +155,6 @@ const MultiStepPage = () => {
           selectedExpertise={selectedExpertise}
           selectedIndustry={selectedIndustry}
           handleExpertise={handleExpertise}
-
         />
       )}
 
