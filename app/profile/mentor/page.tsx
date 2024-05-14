@@ -1,11 +1,12 @@
 'use client';
 
-import { FormEvent, useState } from 'react';
+import {  useMemo, useState } from 'react';
 import StepOneMentor from '@/components/profile/StepOneMentor';
 import StepTwoMentor from '@/components/profile/StepTwoMentor';
 import StepFourForm from '@/components/profile/StepFourForm';
 import { useRouter } from 'next/navigation';
-import { options, Option, expertiseOptions } from '../data';
+import useStore from '@/lib/store';
+import { options, Option, expertiseOptions ,careerPrefOptions} from '../data';
 
 
 
@@ -24,10 +25,14 @@ const mentorUrl: string = process.env.MENTOR_PROFILE_ENDPOINT|| 'http://localhos
 const MultiStepPage = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [complete, setComplete] = useState(false);
-  const [selectedOptions, setSelectedOptions] = useState([]);
-  const [selectedExpertise, setSelectedExpertise] = useState([]);
+  const [selectedOptionsRaw, setSelectedOptionsRaw] = useState([]);
+  const [selectedExpertiseRaw, setSelectedExpertiseRaw] = useState([]);
+  const [selectedIndustryRaw, setSelectedIndustryRaw] = useState([]);
+ 
   const steps: string[] = ['personal', 'career', 'finish'];
+  const {setName} = useStore()
   const router = useRouter()
+
   const [formData, setFormData] = useState<FormValues>({
     title: '',
     bio: '',
@@ -37,7 +42,10 @@ const MultiStepPage = () => {
     availability: '',
     expertise: null,
   });
-
+  
+  const selectedOptions = useMemo(() => selectedOptionsRaw, [selectedOptionsRaw]);
+  const selectedExpertise = useMemo(() => selectedExpertiseRaw, [selectedExpertiseRaw]);
+  const selectedIndustry= useMemo(() => selectedIndustryRaw, [selectedIndustryRaw]);
 
   const handleFormChange = (
     e: React.ChangeEvent<
@@ -57,18 +65,44 @@ const MultiStepPage = () => {
   };
   
 
-  const handleMentorFormSubmit = async () => {
+  const handleSelect = (selected: any) => {
+    setSelectedOptionsRaw(selected);
+    console.log(selected);
+  };
+
+  const handleExpertise = (selected: any) => {
+    setSelectedExpertiseRaw(selected);
+    console.log(selected);
+  };
+
+  const handleIndustry = (selected: any) => {
+    setSelectedIndustryRaw(selected);
+    console.log(selected);
+  };
+
+  
+
+  const handleMentorFormSubmit = async (e:any) => {
+    e.preventDefault() 
     try {
 
-      const formData = new FormData();
-      formData.append('industry_pref', JSON.stringify(selectedOptions.map((option: Option) => option.value)));
+      // const formData = new FormData();
+      // formData.append('industry_pref', JSON.stringify(selectedOptions.map((option: Option) => option.value)));
+ // const formData = new FormData();
+      // formData.append('industry_pref', JSON.stringify(  selectedOptions.map((option: Option) => option.value)));
+      // console.log(formData)
 
+      const updatedFormData = {
+        ...formData,
+        industry_pref: selectedOptions.map((option: Option) => option.value),
+        expertise: selectedExpertise.map((option: Option) => option.value),
+      };
       const response = await fetch(mentorUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: formData,
+        body: JSON.stringify(updatedFormData),
       });
   
       if (!response.ok) {
@@ -79,6 +113,7 @@ const MultiStepPage = () => {
       setComplete(true);
 
       if (data){
+        setName('mentor')
         router.push(`/dashboard`)
       }
   
@@ -97,11 +132,11 @@ const MultiStepPage = () => {
           formData={formData}
           handleFormChange={handleFormChange}
           complete={complete}
-          options={options}
+          options={careerPrefOptions}
           currentStep={currentStep}
           steps={steps}
           selectedOptions={selectedOptions}
-          setSelectedOptions={setSelectedOptions}
+          handleSelect={handleSelect}
         />
       )}
 
@@ -114,9 +149,12 @@ const MultiStepPage = () => {
           complete={complete}
           currentStep={currentStep}
           steps={steps}
+          handleIndustry={handleIndustry}
           expertiseOptions={expertiseOptions}
+          IndustryOptions={options}
           selectedExpertise={selectedExpertise}
-          setSelectedExpertise={setSelectedExpertise}
+          selectedIndustry={selectedIndustry}
+          handleExpertise={handleExpertise}
         />
       )}
 

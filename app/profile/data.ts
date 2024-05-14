@@ -12,6 +12,12 @@ export  const options = [
   }
 
   export  const expertiseOptions = [
+    { label: 'Python', value: 'python' },
+    { label: 'javascript', value: 'javascript' },
+    { label: 'Mern', value: 'Mern' },
+  ];
+
+  export  const careerPrefOptions = [
     { label: 'frontend', value: 'frontend' },
     { label: 'backend', value: 'backend' },
     { label: 'fullstack', value: 'fullstack' },

@@ -14,7 +14,7 @@ type FormOne = {
   steps: string[];
   options: any[];
   selectedOptions: any;
-  setSelectedOptions: any;
+  handleSelect: any;
 };
 
 function StepOneMentor({
@@ -25,15 +25,11 @@ function StepOneMentor({
   complete,
   steps,
   selectedOptions,
-  setSelectedOptions,
+  handleSelect,
   options
 }: FormOne) {
 
-  const handleSelectChange = (selected: any) => {
-    setSelectedOptions(selected);
-    console.log(selectedOptions.map((option: any) => option.value));
-  };
-
+ 
   return (
     <section className="flex flex-col justify-center items-center h-screen max-w-lg mx-auto">
       <h1 className="font-bold text-3xl mb-4">Dev2Win</h1>
@@ -82,14 +78,14 @@ function StepOneMentor({
           htmlFor="industry_pref"
           className="font-semibold text-gray-700 text-sm"
         >
-          Industry of interest
+          Career Preference
         </label>
        
         <Select
           isMulti
           options={options}
           value={selectedOptions}
-          onChange={handleSelectChange}
+          onChange={handleSelect}
           placeholder="Select options..."
         />
       </div>

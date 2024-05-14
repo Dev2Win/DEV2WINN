@@ -1,10 +1,11 @@
 'use client'
 
-import { FormEvent, useState } from 'react';
+import { FormEvent, useMemo, useState } from 'react';
 import StepOneMentee from '@/components/profile/StepOneMentee';
 import StepTwoMentee from '@/components/profile/StepTwoMentee';
 import StepFourForm from '@/components/profile/StepFourForm';
 import { options, Option } from '../data';
+import useStore from '@/lib/store';
 
 
 import { useRouter } from "next/navigation"
@@ -27,10 +28,12 @@ const menteeUrl: string = process.env.MENTEE_PROFILE_ENDPOINT  || "http://localh
 const MultiStepPage = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [complete, setComplete] = useState(false);
-  const [selectedOptions, setSelectedOptions] = useState([]);
+  // const [selectedOptions, setSelectedOptions] = useState([]);
+  const [selectedOptionsRaw, setSelectedOptionsRaw] = useState([]);
   const steps: string[] = ['personal', 'career', 'finish'];
 
   const router = useRouter()
+  const {setName} = useStore()
 
   const [formData, setFormData] = useState<FormValues>({
     bio: '',
@@ -41,6 +44,8 @@ const MultiStepPage = () => {
     availability: '',
     desired_skills: ''
   });
+
+  const selectedOptions = useMemo(() => selectedOptionsRaw, [selectedOptionsRaw]);
   
   const handleFormChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -55,6 +60,13 @@ const MultiStepPage = () => {
     setCurrentStep((prevStep) => prevStep - 1);
   };
 
+  const handleSelect = (selected: any) => {
+    setSelectedOptionsRaw(selected);
+    console.log(selected);
+  };
+
+
+
   
 
 
@@ -65,14 +77,20 @@ const MultiStepPage = () => {
       // if (!userId) {
       //   return res.status(401).json({ error: "Not authenticated" });
       // }
-      const formData = new FormData();
-      formData.append('industry_pref', JSON.stringify(selectedOptions.map((option: Option) => option.value)));
+      // const formData = new FormData();
+      // formData.append('industry_pref', JSON.stringify(  selectedOptions.map((option: Option) => option.value)));
+      // console.log(formData)
+
+      const updatedFormData = {
+        ...formData,
+        industry_pref: selectedOptions.map((option: Option) => option.value),
+      };
       const response = await fetch(menteeUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(updatedFormData),
       });
   
       if (!response.ok) {
@@ -82,6 +100,7 @@ const MultiStepPage = () => {
       const data = await response.json();
       setComplete(true);
       if (data){
+        setName("mentee")
         router.push(`/dashboard`)
       }
 
@@ -106,7 +125,7 @@ const MultiStepPage = () => {
           currentStep={currentStep}
           steps={steps}
           selectedOptions={selectedOptions}
-          setSelectedOptions={setSelectedOptions}
+          handleSelect={handleSelect}
           options={options}
         />}
         
