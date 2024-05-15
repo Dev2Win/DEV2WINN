@@ -2,12 +2,18 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-
-import { sidebarLinks } from '@/constants';
+import useStore from '@/lib/store';
+import { menteeSidebar, mentorSidebar } from '@/constants';
 import { cn } from '@/lib/utils';
 
 const Sidebar = () => {
   const pathname = usePathname();
+
+  const { name, setName } = useStore();
+
+  const sidebarLinks = name === 'mentee' ? menteeSidebar : mentorSidebar;
+
+  console.log(name);
 
   return (
     <section className="sticky left-0 h-[45rem] top-0 flex flex-col  justify-between  bg-white shadow-xl  p-6 pt-28 text-[#19154E]  max-sm:hidden lg:w-[8rem]">
