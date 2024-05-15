@@ -11,7 +11,13 @@ export type UsersProps = {
   time: string;
   status: boolean;
 };
-const ChatMenu = () => {
+
+interface ChatMenuProps {
+  onSelectUser: (user: UsersProps) => void;
+  showChatbox: boolean;
+}
+
+const ChatMenu: React.FC<ChatMenuProps> = ({ onSelectUser, showChatbox }) => {
   return (
     <div>
       <input
@@ -21,7 +27,7 @@ const ChatMenu = () => {
       />
       <section className="border border-gray-200">
         {users.map((user: UsersProps) => (
-          <ChatMenuCard user={user} />
+          <ChatMenuCard key={user.id} user={user} onSelectUser={onSelectUser} />
         ))}
       </section>
     </div>

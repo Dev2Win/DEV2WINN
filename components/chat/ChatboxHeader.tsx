@@ -3,11 +3,19 @@ import avater from '../../public/images/avatar-3.png';
 import Image from 'next/image';
 import { IoCallOutline, IoVideocamOutline } from 'react-icons/io5';
 import { BsThreeDotsVertical } from 'react-icons/bs';
+import { BsArrowLeft } from "react-icons/bs";
+
 
 const ChatboxHeader = () => {
+
   return (
     <section className="flex justify-between items-center text-black border-b border-gray-200 px-4 py-1 rounded-md">
       <div className="flex gap-1 items-start">
+        <div>
+          <BsArrowLeft
+            className="bg-purple-1/5 p-2 text-4xl rounded-full cursor-pointer lg:hidden"
+          />
+        </div>
         <Image
           src={avater}
           width={50}
