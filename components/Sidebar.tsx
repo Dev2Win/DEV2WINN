@@ -8,26 +8,24 @@ import { cn } from '@/lib/utils';
 
 const Sidebar = () => {
   const pathname = usePathname();
-
   const { name, setName } = useStore();
-
   const sidebarLinks = name === 'mentee' ? menteeSidebar : mentorSidebar;
 
-  console.log(name);
-
   return (
-    <section className="sticky left-0 h-[45rem] top-0 flex flex-col  justify-between  bg-white shadow-xl  p-6 pt-28 text-[#19154E]  max-sm:hidden lg:w-[8rem]">
-      <div className="flex flex-col gap-6">
+    <section className="sticky left-0 h-screen top-0 flex flex-col justify-between bg-white shadow-xl p-6 pt-28 text-[#17171d] max-sm:hidden lg:w-[8rem]">
+      <div className="flex flex-col ">
         {sidebarLinks.map((item) => {
           const isActive = pathname === item.route;
           return (
             <div
               key={item.label}
-              className="flex flex-col gap-2 items-center p-4 rounded-lg justify-start"
+              className="flex flex-col gap-2 items-center  p-4 rounded-lg justify-start"
             >
               <Link
                 href={item.route}
-                className={cn({ 'bg-purple-1/40 p-2 text-white': isActive })}
+                className={cn({
+                  'bg-purple-1/40 rounded-md  p-2 text-white': isActive,
+                })}
               >
                 <Image
                   src={item.imgURL}
