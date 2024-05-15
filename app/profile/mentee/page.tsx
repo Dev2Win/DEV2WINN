@@ -65,14 +65,18 @@ const MultiStepPage = () => {
       // if (!userId) {
       //   return res.status(401).json({ error: "Not authenticated" });
       // }
-      const formData = new FormData();
-      formData.append('industry_pref', JSON.stringify(selectedOptions.map((option: Option) => option.value)));
+      //const formData = new FormData();
+     // formData.append('industry_pref', JSON.stringify(selectedOptions.map((option: Option) => option.value)));
+      const updatedFormData = {
+        ...formData,
+        industry_pref: selectedOptions.map((option: Option) => option.value),
+      };
       const response = await fetch(menteeUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(updatedFormData),
       });
   
       if (!response.ok) {

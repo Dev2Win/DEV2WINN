@@ -60,15 +60,19 @@ const MultiStepPage = () => {
   const handleMentorFormSubmit = async () => {
     try {
 
-      const formData = new FormData();
-      formData.append('industry_pref', JSON.stringify(selectedOptions.map((option: Option) => option.value)));
-
+     // const formData = new FormData();
+     // formData.append('industry_pref', JSON.stringify(selectedOptions.map((option: Option) => option.value)));
+     const updatedFormData = {
+      ...formData,
+      industry_pref: selectedOptions.map((option: Option) => option.value),
+      expertise: selectedExpertise.map((option: Option) => option.value),
+    };      
       const response = await fetch(mentorUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: formData,
+        body: JSON.stringify(updatedFormData),
       });
   
       if (!response.ok) {
