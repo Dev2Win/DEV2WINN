@@ -18,7 +18,7 @@ export const sidebarLinks = [
   {
     imgURL: '/icons/upcoming.svg',
     route: '/dashboard/mentors',
-    label: 'Mentors&Peers',
+    label: 'M & P',
   },
   {
     imgURL: '/icons/add-personal.svg',
