@@ -15,7 +15,8 @@ type FormOne = {
   steps: string[];
   options: any[];
   selectedOptions: any;
-  setSelectedOptions: any;
+  handleSelect: any;
+  
 };
 
 function StepOneForm({
@@ -26,14 +27,10 @@ function StepOneForm({
   complete,
   steps,
   selectedOptions,
-  setSelectedOptions,
+  handleSelect,
   options
 }: FormOne) {
 
-  const handleSelect = (selected: any) => {
-    setSelectedOptions(selected);
-    console.log(selectedOptions.map((option: any) => option.value));
-  };
 
   return (
     <section className="flex flex-col justify-center items-center h-screen max-w-lg mx-auto">
