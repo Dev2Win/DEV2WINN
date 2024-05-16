@@ -86,18 +86,14 @@ const MultiStepPage = () => {
     e.preventDefault() 
     try {
 
-      // const formData = new FormData();
-      // formData.append('industry_pref', JSON.stringify(selectedOptions.map((option: Option) => option.value)));
- // const formData = new FormData();
-      // formData.append('industry_pref', JSON.stringify(  selectedOptions.map((option: Option) => option.value)));
-      // console.log(formData)
-
-      const updatedFormData = {
-        ...formData,
-        industry_pref: selectedOptions.map((option: Option) => option.value),
-        expertise: selectedExpertise.map((option: Option) => option.value),
-      };
-      const response = await fetch("https://dev-2-winn.vercel.app/api/users/mentor", {
+     // const formData = new FormData();
+     // formData.append('industry_pref', JSON.stringify(selectedOptions.map((option: Option) => option.value)));
+     const updatedFormData = {
+      ...formData,
+      industry_pref: selectedOptions.map((option: Option) => option.value),
+      expertise: selectedExpertise.map((option: Option) => option.value),
+    };      
+      const response = await fetch(mentorUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
