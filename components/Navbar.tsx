@@ -1,6 +1,5 @@
-
 import Link from 'next/link';
-import logo from "@/public/images/logo.jpg"
+import logo from '@/public/images/logo.jpg';
 import { SignedIn, UserButton } from '@clerk/nextjs';
 
 import MobileNav from './MobileNav';
@@ -17,7 +16,7 @@ const Navbar = () => {
           alt="yoom logo"
           className="max-sm:size-10"
         />
-      <p className="text-[26px] font-extrabold text-black">DEV2WIN</p>
+        <p className="text-[26px] font-extrabold text-black">DEV2WIN</p>
       </Link>
       <div className="flex-between gap-5">
         <SignedIn>
