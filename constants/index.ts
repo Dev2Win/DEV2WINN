@@ -5,7 +5,6 @@ export const menteeSidebar = [
     label: 'Home',
   },
 
- 
   {
     imgURL: '/icons/previous.svg',
     route: '/dashboard/chat',
@@ -19,7 +18,7 @@ export const menteeSidebar = [
   {
     imgURL: '/icons/upcoming.svg',
     route: '/dashboard/mentors',
-    label: 'Mentors&Peers',
+    label: 'M & P',
   },
   {
     imgURL: '/icons/add-personal.svg',
