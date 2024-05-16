@@ -55,11 +55,7 @@ export const mentorSidebar = [
     route: '/dashboard/mentors',
     label: 'Mentees',
   },
-  {
-    imgURL: '/icons/add-personal.svg',
-    route: '/dashboard/resources',
-    label: 'Resources',
-  },
+ 
   {
     imgURL: '/icons/upcoming.svg',
     route: '/dashboard/profile',

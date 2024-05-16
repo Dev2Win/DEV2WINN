@@ -1,5 +1,6 @@
 'use client';
 import logo from "../public/images/logo.jpg"
+import menu from "../public/icons/hamburger.svg"
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -21,7 +22,7 @@ const MobileNav = () => {
       <Sheet>
         <SheetTrigger asChild>
           <Image
-            src={logo}
+            src={menu}
             width={36}
             height={36}
             alt="hamburger icon"
@@ -30,12 +31,12 @@ const MobileNav = () => {
           
         </SheetTrigger>
         <SheetContent side="left" className="border-none bg-white">
-          <Link href="/" className="flex items-center gap-1">
+          <Link href="/dashboard" className="flex items-center gap-1">
             <Image
-              src="/icons/logo.svg"
+              src={logo}
               width={32}
               height={32}
-              alt="yoom logo"
+              alt="dev2win logo"
             />
             
           </Link>
