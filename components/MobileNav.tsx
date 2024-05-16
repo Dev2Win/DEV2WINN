@@ -11,12 +11,14 @@ import {
   SheetContent,
   SheetTrigger,
 } from '@/components/ui/sheet';
-import { menteeSidebar } from '@/constants';
+import { menteeSidebar,mentorSidebar } from '@/constants';
 import { cn } from '@/lib/utils';
+import useStore from "@/lib/store";
 
 const MobileNav = () => {
   const pathname = usePathname();
-
+  const { name} = useStore();
+  const sidebarLinks = name === 'mentee' ? menteeSidebar : mentorSidebar;
   return (
     <section className="w-full max-w-[264px]">
       <Sheet>
@@ -43,7 +45,7 @@ const MobileNav = () => {
           <div className="flex h-[calc(100vh-72px)] flex-col justify-between overflow-y-auto">
             <SheetClose asChild>
               <section className=" flex h-full flex-col gap-6 pt-16 text-black">
-                {menteeSidebar.map((item) => {
+                {sidebarLinks.map((item) => {
                   const isActive = pathname === item.route;
 
                   return (
