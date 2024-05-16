@@ -91,7 +91,7 @@ const MultiStepPage = () => {
         industry_pref: selectedOptions.map((option: Option) => option.value),
         expertise: selectedExpertise.map((option: Option) => option.value),
       };
-      const response = await fetch("https://005e-197-251-205-121.ngrok-free.app/api/users/mentor", {
+      const response = await fetch("https://dev-2-winn.vercel.app/api/users/mentor", {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
