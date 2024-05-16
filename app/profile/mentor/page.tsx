@@ -13,7 +13,7 @@ import { options, Option, expertiseOptions ,careerPrefOptions} from '../data';
 export type FormValues = {
   title: string;
   bio: string;
-  career_path: string;
+  career_preferences: any;
   industry_pref: Option[] | null;
   experience_level: string;
   availability: string;
@@ -36,7 +36,7 @@ const MultiStepPage = () => {
   const [formData, setFormData] = useState<FormValues>({
     title: '',
     bio: '',
-    career_path: '',
+    career_preferences: '',
     industry_pref: null,
     experience_level: '',
     availability: '',
@@ -86,18 +86,12 @@ const MultiStepPage = () => {
     e.preventDefault() 
     try {
 
-      // const formData = new FormData();
-      // formData.append('industry_pref', JSON.stringify(selectedOptions.map((option: Option) => option.value)));
- // const formData = new FormData();
-      // formData.append('industry_pref', JSON.stringify(  selectedOptions.map((option: Option) => option.value)));
-      // console.log(formData)
-
       const updatedFormData = {
         ...formData,
         industry_pref: selectedOptions.map((option: Option) => option.value),
         expertise: selectedExpertise.map((option: Option) => option.value),
       };
-      const response = await fetch("https://dev-2-winn.vercel.app/api/users/mentor", {
+      const response = await fetch("https://005e-197-251-205-121.ngrok-free.app/api/users/mentor", {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
