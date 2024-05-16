@@ -1,4 +1,4 @@
-
+'use client'
 
 import ContentCard from '@/components/ContentCard'
 
