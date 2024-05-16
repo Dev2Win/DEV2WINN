@@ -8,7 +8,7 @@ import Image from 'next/image';
 const Navbar = () => {
   return (
     <nav className="flex-between fixed z-50 w-full bg-white    px-6 py-4 lg:px-10  shadow-sm">
-      <Link href="/dashboard" className="flex items-center gap-1">
+      <Link href="/" className="flex items-center gap-1">
         <Image
           src={logo}
           width={32}

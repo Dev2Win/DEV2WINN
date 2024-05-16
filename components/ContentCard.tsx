@@ -3,33 +3,8 @@ import ProfileCard from './ProfileCard';
 import image from '@/public/images/Simon.webp';
 import Image from 'next/image';
 import Overview from './Overview';
-import { useEffect, useState } from 'react';
 
 const ContentCard = () => {
-
-  const [profileData,setProfileData]= useState<any>([])
-
-useEffect(() => {
-  (async()=>{
-    try {
-     const res = await fetch("https://005e-197-251-205-121.ngrok-free.app/api/users/",{
-      method:"GET",
-      headers: {
-        'Content-Type': 'application/json',
-      },
-     })
-     const profileInfo:any = await res.json()
-     setProfileData(profileInfo?.user)
-     console.log(profileInfo);
-     
-     
-    } catch (error) {
-      
-    }
-  })()
-
-  
-}, [])
   return (
     <div>
       <div className=" bg-primary w-full  h-[140px]"></div>
@@ -44,7 +19,7 @@ useEffect(() => {
               />
             </div>
             <div className=" space-y-1">
-              <h1 className=" text-xl font-bold">{profileData?.firstName} {profileData?.lastName}</h1>
+              <h1 className=" text-xl font-bold">Simon Adjei Tawiah</h1>
               <p className=" text-sm ">Software Engineer @ Dev2Win</p>
               <p className=" text-sm">Career : Computer Engineering </p>
             </div>
