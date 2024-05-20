@@ -23,9 +23,9 @@ const ChatMenu = ({ onSelectUser,users, showChatbox }:any) => {
       <input
         type="text"
         placeholder="search here"
-        className="border-b border-gray-300 outline-none px-4"
+        className="border-b border-gray-300 outline-none px-4 w-full"
       />
-      <section className="border border-gray-200">
+      <section className="border-b border-gray-200">
         {users?.map((user: UsersProps) => (
           <ChatMenuCard key={user.id} user={user} onSelectUser={onSelectUser} />
         ))}
