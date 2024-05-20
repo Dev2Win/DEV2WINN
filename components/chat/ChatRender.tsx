@@ -110,11 +110,13 @@ const ChatRender = () => {
     if (socket && selectedUser) {
       const messageData = {
         senderId: user?.publicMetadata?.userId,
-        receiverId: selectedUser?._id,
+        receiverId: selectedUser?._id || selectedUser?.userDetails?._id,
         text: text,
       };
+
       socket.emit('sendMessage', messageData);
-      console.log('user', user?.publicMetadata?.userid); // check for sender
+
+      
     }
   };
 
@@ -126,13 +128,13 @@ const ChatRender = () => {
     }
   };
 
-  const filteredMessages = messages.filter(
-    (msg: any) =>
-      (msg.msgByUserId === user?.publicMetadata?.userId &&
-        msg.msgByUserId === selectedUser?._id) ||
-      (msg.msgByUserId === selectedUser?._id &&
-        msg.msgByUserId === user?.publicMetadata?.userId),
-  );
+  // const filteredMessages = messages.filter(
+  //   (msg: any) =>
+  //     (msg.msgByUserId === user?.publicMetadata?.userId &&
+  //       msg.msgByUserId === selectedUser?._id) ||
+  //     (msg.msgByUserId === selectedUser?._id &&
+  //       msg.msgByUserId === user?.publicMetadata?.userId),
+  // );
 
   return (
     <div className="2xl:mx-auto 2xl:max-w-[1400px] ">
@@ -161,7 +163,7 @@ const ChatRender = () => {
               <>
                 <ChatboxHeader user={selectedUser} />
                 <div className=" h-[290px] p-2 overflow-x-hidden bg-gray-50 overflow-y-scroll scrollbar space-y-3  ">
-                  {filteredMessages?.map((msg: any, index: any) => (
+                  {messages?.map((msg: any, index: any) => (
                     <div
                       className={` max-w-[200px] p-2 text-gray-600 text-[10px] rounded-lg flex items-baseline justify-between  ${user?.publicMetadata?.userId === msg?.msgByUserId ? 'ml-auto bg-purple-50' : 'bg-white'}`}
                       key={index}

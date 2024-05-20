@@ -19,14 +19,18 @@ const Input = ({ handleSendMessage }:any) => {
         <input 
           type="text" 
           placeholder="message" 
-          className='outline-none border-0 bg-transparent'
+          className='outline-none border-0 bg-red-600 px-2 py-1 w-full'
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           // onKeyPress={(e) => e.key === 'Enter' && onSendMessage()}
         />
         <div className='flex gap-4 text-gray-500'>
           <BsEmojiLaughing className='cursor-pointer'/>
-          <ImAttachment className='cursor-pointer' />
+          <div>
+           <ImAttachment className='cursor-pointer' />
+           {/* <input type="file" placeholder="emoji" /> */}
+
+          </div>
         </div>
       </div>
       

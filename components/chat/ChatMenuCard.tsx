@@ -44,7 +44,7 @@ const ChatMenuCard = ({ user, onSelectUser, setClose }: any) => {
           </p>
           
           {Boolean(user?.unseenMsg) && (
-            <p className="text-xs w-6 h-6 flex justify-center items-center ml-auto p-1  bg-purple-300 text-white font-semibold rounded-full">
+            <p className="text-[10px] w-6 h-6 flex justify-center items-center ml-auto p-[3px]  bg-purple-300 text-white font-semibold rounded-full">
               {user?.unseenMsg}
             </p>
           )}
