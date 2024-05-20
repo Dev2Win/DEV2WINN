@@ -12,7 +12,7 @@ const Sidebar = () => {
   const sidebarLinks = name === 'mentee' ? menteeSidebar : mentorSidebar;
 
   return (
-    <section className="sticky left-0 h-screen top-0 flex flex-col justify-between bg-white shadow-xl p-6 pt-28 text-[#17171d] max-sm:hidden lg:w-[8rem]">
+    <section className="sticky left-0 h-[40rem] max-md:h-[28rem] top-0 flex flex-col justify-between bg-white shadow-xl p-6 pt-28 text-[#17171d] max-sm:hidden lg:w-[8rem]">
       <div className="flex flex-col ">
         {sidebarLinks.map((item) => {
           const isActive = pathname === item.route;
