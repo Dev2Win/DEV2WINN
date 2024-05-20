@@ -36,7 +36,7 @@ const MultiStepPage = () => {
   const [formData, setFormData] = useState<FormValues>({
     title: '',
     bio: '',
-    career_preferences: '',
+    career_preferences: null,
     industry_pref: null,
     experience_level: '',
     availability: '',

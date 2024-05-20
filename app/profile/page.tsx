@@ -18,8 +18,6 @@ function Page() {
 
  
 
- 
-
   return (
     <section className="flex flex-col justify-center items-center h-screen max-w-md mx-auto">
       <h1 className="font-bold text-3xl mb-4">Dev2Win</h1>

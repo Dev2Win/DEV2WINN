@@ -2,11 +2,13 @@ import React from 'react';
 import avater from '../../public/images/avatar-3.png';
 import Image from 'next/image';
 import { IoCallOutline, IoVideocamOutline } from 'react-icons/io5';
-import { BsThreeDotsVertical } from 'react-icons/bs';
-import { BsArrowLeft } from "react-icons/bs";
+import { BsThreeDotsVertical ,BsArrowLeft} from 'react-icons/bs';
 
 
-const ChatboxHeader = () => {
+
+const ChatboxHeader = (
+  {user}:any
+) => {
 
   return (
     <section className="flex justify-between items-center text-black border-b border-gray-200 px-4 py-1 rounded-md">
@@ -25,8 +27,8 @@ const ChatboxHeader = () => {
         />
 
         <div className="flex flex-col justify-between items-center gap-1">
-          <h3 className="font-bold">John Doe</h3>
-          <p className="text-sm">12:00pm</p>
+          <h3 className="font-bold">{user?.name}</h3>
+          <p className="text-sm">{user?.online ? <p className=' text-purple-300'>online</p> : 'offline'}</p>
         </div>
       </div>
       
