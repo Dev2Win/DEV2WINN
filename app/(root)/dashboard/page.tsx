@@ -1,4 +1,6 @@
-
+// dashboard must be two , one for mentors and one for mentee
+//  when a user signs in it should know the usertype and navigate to its respective dashboard
+// ensure authorization to requests
 
 const Home = () => {
   const now = new Date();

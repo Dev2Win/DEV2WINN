@@ -13,34 +13,20 @@ export const GET = async () => {
     const { sessionClaims } = auth();
     const userId = sessionClaims?.userId as string;
 
-    const user = await User.findById(userId);
-    console.log(user);
+    const users = await User.find();
+    console.log(users);
     
-    if (!user) {
+    if (!users || users.length === 0) {
       return NextResponse.json({ message: "User not found" });
     }
 
-    let userInfo;
-
-    const menteeInfo = await Mentee.findOne({userId:user._id});
-    // eslint-disable-next-line camelcase
-    
+     
   // eslint-disable-next-line camelcase
 
 
-    if (menteeInfo) {
+  
 
-      userInfo = { message: "MENTEE fetched", user:  { ...user.toObject(), menteeInfo } };
-    } else {
-      const mentorInfo = await Mentor.findOne({userId:user._id});
-      if (mentorInfo) {
-        userInfo = { message: "MENTOR fetched", user:  { ...user.toObject(), mentorInfo } };
-      } else {
-        userInfo = { message: "Neither MENTOR nor MENTEE found" };
-      }
-    }
-
-    return NextResponse.json(userInfo);
+    return NextResponse.json(users);
   } catch (error) {
     console.error("Error:", error);
     return NextResponse.json({ message: "Internal server error" });
