@@ -1,6 +1,6 @@
 import { ConversationModel } from "../../../models/conversationModel"
 
-export const getConversation = async(currentUserId)=>{
+export const getConversation = async(currentUserId : any)=>{
     if(currentUserId){
         const currentUserConversation = await ConversationModel.find({
             "$or" : [
@@ -10,7 +10,7 @@ export const getConversation = async(currentUserId)=>{
         }).sort({  updatedAt : -1 }).populate('messages').populate('sender').populate('receiver')
 
         const conversation = currentUserConversation.map((conv)=>{
-            const countUnseenMsg = conv?.messages?.reduce((preve,curr) => {
+            const countUnseenMsg = conv?.messages?.reduce((preve:any,curr:any) => {
                 const msgByUserId = curr?.msgByUserId?.toString()
 
                 if(msgByUserId !== currentUserId){
