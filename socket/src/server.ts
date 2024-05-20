@@ -87,7 +87,7 @@ io.on('connection', async (socket) => {
         .populate('messages')
         .sort({ updatedAt: -1 });
 
-    //   console.log(getConversationMessage);
+      //   console.log(getConversationMessage);
 
       io.to(senderId).emit('message', getConversationMessage?.messages || []);
       io.to(receiverId).emit('message', getConversationMessage?.messages || []);
@@ -104,11 +104,7 @@ io.on('connection', async (socket) => {
         text,
         timestamp: new Date(),
       });
-      io.to(senderId).emit('receiveMessage', {
-        senderId,
-        text,
-        timestamp: new Date(),
-      });
+
       // console.log(res);
     }
   });
