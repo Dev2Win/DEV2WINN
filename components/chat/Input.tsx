@@ -3,7 +3,7 @@ import { FiSend } from 'react-icons/fi';
 import { BsEmojiLaughing } from 'react-icons/bs';
 import { ImAttachment } from 'react-icons/im';
 
-const Input = ({ handleSendMessage }) => {
+const Input = ({ handleSendMessage }:any) => {
   const [message, setMessage] = useState('');
 
   const onSendMessage = () => {
