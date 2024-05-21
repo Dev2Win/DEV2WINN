@@ -11,10 +11,7 @@ const MentorSchema = new Schema({
      work_experience: [{ type :String, required: false }], 
      availability: [{ type :String, required: false }],
     date: { type: Date, default: Date.now },
-    chats: {
-        type: [{ type: mongoose.Schema.Types.ObjectId, ref: "Chat" }],
-        default: [],
-      }
+   
 });
 
 const Mentor = models.Mentor || model("Mentor", MentorSchema)
