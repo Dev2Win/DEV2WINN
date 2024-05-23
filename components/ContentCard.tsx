@@ -12,7 +12,7 @@ const ContentCard = () => {
 useEffect(() => {
   (async()=>{
     try {
-     const res = await fetch("https://dev-2-winn.vercel.app/api/users/",{
+     const res = await fetch("http://localhost:3000/api/users/",{
       method:"GET",
       headers: {
         'Content-Type': 'application/json',
