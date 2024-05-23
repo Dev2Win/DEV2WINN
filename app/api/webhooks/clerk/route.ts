@@ -1,6 +1,7 @@
 
 
 import { createUser } from "@/lib/connect";
+
 import { WebhookEvent,clerkClient } from "@clerk/nextjs/server";
 import { headers } from "next/headers";
 import { NextResponse } from "next/server";
@@ -58,23 +59,31 @@ export async function POST(req: Request) {
   const { id } = evt.data;
   const eventType = evt.type;
 
+  // if (eventType === "user.deleted"){
+    // const {id} = evt.data
+    // delete user but first have to get the userId and then check if its a mentor or mentee and then delete as well
+    // search for the kind of user based on userid and delete 
+    // delete the user
+  // }
+
   // CREATE User in mongodb
 
   if (eventType === "user.created") {
     
-    const { id, email_addresses, first_name, last_name, username } = evt.data;
+    const { id, email_addresses, first_name, last_name } =
+      evt.data;
 
-    // had to change this to mentee type for testing
-    const generalUser = {
+    const user:any = {
       clerkId: id,
-      firstName: first_name!,
-      lastName: last_name!,
-      userName: username!,
       email: email_addresses[0].email_address,
+      firstName: first_name,
+      lastName: last_name,
+     
     };
 
-    const newUser = await createUser(generalUser)
 
+  const newUser = await createUser(user)
+ 
     if (newUser) {
       await clerkClient.users.updateUserMetadata(id, {
         publicMetadata: {
@@ -86,6 +95,8 @@ export async function POST(req: Request) {
     return NextResponse.json({ message: "New user created", user: newUser });
   }
 
+  console.log(`Webhook with and ID of ${id} and type of ${eventType}`);
+  console.log("Webhook body:", body);
 
   return new Response("", { status: 200 });
 }

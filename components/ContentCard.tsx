@@ -8,6 +8,8 @@ import MeetingModal from './MeetingModal';
 import BasicInfo from './BasicInfo';
 import ModalExperience from './ModalExperience';
 
+const get_all_users =
+  process.env.GET_ALL_USERS || 'https://dev-2-winn.vercel.app/api/users';
 
 const ContentCard = () => {
   const [profileData, setProfileData] = useState<any>([]);
@@ -79,11 +81,13 @@ const ContentCard = () => {
     setFormData({ ...formData, seniority });
   };
 
-  const handleWorkExperienceChange = (workExperience: {
-    company: string;
-    role: string;
-    current: boolean;
-  }[]) => {
+  const handleWorkExperienceChange = (
+    workExperience: {
+      company: string;
+      role: string;
+      current: boolean;
+    }[],
+  ) => {
     setFormData({ ...formData, workExperience });
   };
 
@@ -201,15 +205,15 @@ const ContentCard = () => {
                 title: 'Experience',
                 content: (
                   <ModalExperience
-                  expertise={expertise}
-                  seniority={seniority}
-                  workExperience={workExperience}
-                  education={education}
-                  onExpertiseChange={setExpertise}
-                  onSeniorityChange={setSeniority}
-                  onWorkExperienceChange={setWorkExperience}
-                  onEducationChange={setEducation}
-                />
+                    expertise={expertise}
+                    seniority={seniority}
+                    workExperience={workExperience}
+                    education={education}
+                    onExpertiseChange={setExpertise}
+                    onSeniorityChange={setSeniority}
+                    onWorkExperienceChange={setWorkExperience}
+                    onEducationChange={setEducation}
+                  />
                 ),
                 value: 5,
               },

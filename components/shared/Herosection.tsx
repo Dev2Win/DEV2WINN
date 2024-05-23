@@ -16,6 +16,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form"
+import Link from "next/link";
  
 const joinWaitListFormSchema = z.object({
   email: z.string().email().min(2).max(50)
@@ -31,7 +32,8 @@ export default function Herosection() {
   })
 
   function onSubmit(values: z.infer<typeof joinWaitListFormSchema>) {
-    console.log(values)
+    // this should add a users email to the db
+    // console.log(values)
   }
 
   return (
@@ -71,7 +73,9 @@ export default function Herosection() {
            leading-[22.4px] focus:bg-[#7421FC]"
            type="submit"
           >
-           Join Waitlist
+            <Link href="/sign-in">
+             Get Started
+            </Link>
           </Button>
           </form>
          </Form> 
