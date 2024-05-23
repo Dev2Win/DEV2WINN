@@ -10,9 +10,12 @@ import { useUser } from '@clerk/clerk-react';
 import MeetingModal from '../MeetingModal';
 import ChatMenuCard from './ChatMenuCard';
 
-const SOCKET_SERVER_URL = process.env.SOCKET_SERVER_URL || "https://chat-jftzv415v-bismarkb609gmailcoms-projects.vercel.app"
-const ALL_USERS = process.env.ALL_USERS || 'http://localhost:3000/api/users/all'
-s
+const SOCKET_SERVER_URL =
+  'http://localhost:3001/' ||
+  process.env.SOCKET_SERVER_URL ||
+  'https://chat-jftzv415v-bismarkb609gmailcoms-projects.vercel.app';
+const ALL_USERS =
+  process.env.ALL_USERS || 'http://localhost:3000/api/users/all';
 
 const ChatRender = () => {
   const [selectedUser, setSelectedUser] = useState<any>(null);
@@ -24,9 +27,7 @@ const ChatRender = () => {
   const [open, setOpen] = useState(false);
   const { user } = useUser();
 
-
   useEffect(() => {
-
     const socketInstance = io(SOCKET_SERVER_URL, {
       auth: { token: user?.publicMetadata?.userId },
     });
@@ -119,8 +120,6 @@ const ChatRender = () => {
       };
 
       socket.emit('sendMessage', messageData);
-
-      
     }
   };
 
