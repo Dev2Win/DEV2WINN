@@ -12,14 +12,16 @@ export type UsersProps = {
   status: boolean;
 };
 
-// interface ChatMenuProps {
-//   onSelectUser: (user: UsersProps) => void;
-//   showChatbox: boolean;
-// }
+interface ChatMenuProps {
+  onSelectUser: (user: UsersProps) => void;
+  showChatbox: boolean;
+  users:any;
+  setShowChatbox: React.Dispatch<React.SetStateAction<boolean>>;
+}
 
-const ChatMenu = ({ onSelectUser,users, showChatbox }:any) => {
+const ChatMenu = ({ onSelectUser, users, setShowChatbox, showChatbox }: ChatMenuProps) => {
   return (
-    <div>
+    <div className="mt-8">
       <input
         type="text"
         placeholder="search here"
@@ -27,7 +29,13 @@ const ChatMenu = ({ onSelectUser,users, showChatbox }:any) => {
       />
       <section className="border-b border-gray-200">
         {users?.map((user: UsersProps) => (
-          <ChatMenuCard key={user.id} user={user} onSelectUser={onSelectUser} />
+          <ChatMenuCard
+            key={user.id}
+            user={user}
+            onSelectUser={onSelectUser}
+            setShowChatbox={setShowChatbox}
+            showChatbox={showChatbox}
+          />
         ))}
       </section>
     </div>
