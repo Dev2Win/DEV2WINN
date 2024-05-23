@@ -10,7 +10,7 @@ import { useUser } from '@clerk/clerk-react';
 import MeetingModal from '../MeetingModal';
 import ChatMenuCard from './ChatMenuCard';
 
-const SOCKET_SERVER_URL = 'http://localhost:3001/';
+const SOCKET_SERVER_URL = 'https://chat-jftzv415v-bismarkb609gmailcoms-projects.vercel.app/';
 
 const ChatRender = () => {
   const [selectedUser, setSelectedUser] = useState<any>(null);
