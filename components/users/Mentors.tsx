@@ -1,23 +1,20 @@
 import React, { useEffect } from 'react'
 
+const RECOMMENDATIONS = process.env.RECOMMENDATIONS || "https://dev-2-winn.vercel.app/api/users/recommendations/"
 const Mentors = () => {
     
-useEffect(() => {
+  useEffect(() => {
     (async()=>{
       try {
-       const res = await fetch("http://localhost:3000/api/users/recommendations/",{
+       const res = await fetch(RECOMMENDATIONS,{
         method:"GET",
         headers: {
           'Content-Type': 'application/json',
         },
        })
-       const profileInfo:any = await res.json()
-    //    setProfileData(profileInfo?.user)
-       console.log(profileInfo);
-       
-       
+       const profileInfo:any = await res.json()       
       } catch (error) {
-        
+        console.log(error)
       }
     })()
   
