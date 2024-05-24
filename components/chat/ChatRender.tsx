@@ -12,12 +12,8 @@ import ChatMenuCard from './ChatMenuCard';
 import { BiCheckDouble } from 'react-icons/bi';
 import { LuCheck, LuPlus } from 'react-icons/lu';
 
-const SOCKET_SERVER_URL =
-  'http://localhost:3001/' ||
-  process.env.SOCKET_SERVER_URL ||
-  'https://chat-jftzv415v-bismarkb609gmailcoms-projects.vercel.app';
-const ALL_USERS =
-  process.env.ALL_USERS || 'http://localhost:3000/api/users/all';
+const SOCKET_SERVER_URL = process.env.SOCKET_SERVER_URL!
+const ALL_USERS = process.env.ALL_USERS
 
 const ChatRender = () => {
   const [selectedUser, setSelectedUser] = useState<any>(null);
@@ -102,7 +98,7 @@ const ChatRender = () => {
   useEffect(() => {
     (async () => {
       try {
-        const res = await fetch(ALL_USERS, {
+        const res = await fetch(ALL_USERS!, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
