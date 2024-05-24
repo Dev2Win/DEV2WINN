@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Message from '@/components/chat/Message';
 import ChatboxHeader from '@/components/chat/ChatboxHeader';
 import Input from '@/components/chat/Input';
@@ -9,6 +9,8 @@ import moment from 'moment';
 import { useUser } from '@clerk/clerk-react';
 import MeetingModal from '../MeetingModal';
 import ChatMenuCard from './ChatMenuCard';
+import { BiCheckDouble } from 'react-icons/bi';
+import { LuCheck, LuPlus } from 'react-icons/lu';
 
 const SOCKET_SERVER_URL =
   'http://localhost:3001/' ||
@@ -19,13 +21,17 @@ const ALL_USERS =
 
 const ChatRender = () => {
   const [selectedUser, setSelectedUser] = useState<any>(null);
-  const [showChatbox, setShowChatbox] = useState(false);
+  const [showChatbox, setShowChatbox] = useState(true);
   const [allUsers, setAllUsers] = useState<any>([]);
   const [messages, setMessages] = useState<any>([]);
   const [connections, setConnections] = useState<any>([]);
   const [socket, setSocket] = useState<any>(null);
   const [open, setOpen] = useState(false);
   const { user } = useUser();
+  const currentMessage = useRef(null);
+  const toggleShowWindow = () => {
+    setShowChatbox(!showChatbox);
+  };
 
   useEffect(() => {
     const socketInstance = io(SOCKET_SERVER_URL, {
@@ -111,12 +117,24 @@ const ChatRender = () => {
     })();
   }, []);
 
-  const sendMessage = (text: any) => {
+  useEffect(() => {
+    if (currentMessage.current) {
+      currentMessage.current.scrollIntoView({
+        behavior: 'smooth',
+        block: 'end',
+      });
+    }
+  }, [messages]);
+
+  const sendMessage = (message: any) => {
+    const { text, imageUrl, videoUrl } = message;
     if (socket && selectedUser) {
       const messageData = {
         senderId: user?.publicMetadata?.userId,
         receiverId: selectedUser?._id || selectedUser?.userDetails?._id,
         text: text,
+        imageUrl: imageUrl,
+        videoUrl: videoUrl,
       };
 
       socket.emit('sendMessage', messageData);
@@ -140,41 +158,71 @@ const ChatRender = () => {
   // );
 
   return (
-    <div className="2xl:mx-auto 2xl:max-w-[1400px] rounded-md">
-      <div className="relative h-[78vh] bg-white shadow-md overflow-hidden">
-        <div className="flex gap-[11rem] items-center">
-          <h1 className="font-bold text-xl text-purple-1 px-4 py-2">
-            Messages
-          </h1>
+    <div className="2xl:mx-auto 2xl:max-w-[1400px] ">
+      <div className="relative h-[80vh] bg-white shadow-md overflow-hidden rounded-xl">
+        <div className="flex justify-between lg:justify-start mx-3 gap-[12rem] items-center">
+          <h1 className="font-bold text-xl text-purple-1  py-2">Messages</h1>
           <div
             onClick={() => setOpen(!open)}
-            className="font-bold text-xl text-purple-1 w-[40px] h-[40px] mt-2 cursor-pointer flex items-center justify-center  rounded-full bg-purple-200"
+            className="font-bold text-xl text-purple-1 w-[30px] h-[30px] mt-2 cursor-pointer flex items-center justify-center text-center rounded-full bg-purple-200"
           >
-            +
+            <LuPlus />
           </div>
         </div>
-        <div className="grid lg:grid-cols-12 gap-4 h-[90%] absolute left-0 right-0 ">
-          <section className="overflow-y-scroll mb-4 scrollbar-hidden lg:col-span-5 xl:col-span-4">
+        <div className="lg:grid lg:grid-cols-12 h-[90%] absolute left-0 right-0 ">
+          <section
+            className={`${showChatbox ? 'block' : 'hidden'} lg:block overflow-y-scroll mb-4 scrollbar-hidden lg:col-span-5 xl:col-span-4`}
+          >
             <ChatMenu
               onSelectUser={handleSelectUser}
               users={allUsers}
               showChatbox={showChatbox}
+              setClose={() => setOpen(false)}
+              setShowChatbox={setShowChatbox}
             />
           </section>
-          <section className="hidden  lg:block lg:col-span-7 border border-gray-200 rounded-md mb-4 relative xl:col-span-8">
+          <section
+            className={`${showChatbox ? 'hidden' : 'block'} lg:block lg:col-span-7 border border-gray-300 rounded-md mb-4 relative xl:col-span-8`}
+          >
             {selectedUser ? (
-              <>
-                <ChatboxHeader user={selectedUser} />
-                <div className=" h-[290px] p-2 overflow-x-hidden bg-gray-50 overflow-y-scroll scrollbar space-y-3  ">
+              <div className="flex flex-col">
+                <div className="h-fit">
+                  <ChatboxHeader
+                    user={selectedUser}
+                    toggleShowWindow={toggleShowWindow}
+                  />
+                </div>
+                <div className="h-[50vh] lg:h-[300px] p-2 overflow-x-hidden bg-black/10 overflow-y-scroll scrollbar-hidden scrollbar space-y-3">
                   {messages?.map((msg: any, index: any) => (
                     <div
-                      className={` max-w-[200px] p-2 text-gray-600 text-[10px] rounded-lg flex items-baseline justify-between  ${user?.publicMetadata?.userId === msg?.msgByUserId ? 'ml-auto bg-purple-50' : 'bg-white'}`}
+                      ref={currentMessage}
+                      className={`max-w-[200px] p-2 text-gray-600 text-[10px] ${user?.publicMetadata?.userId === msg?.msgByUserId ? ' rounded-l-2xl rounded-br-2xl' : ' rounded-r-2xl rounded-bl-2xl'} flex items-baseline justify-between  ${user?.publicMetadata?.userId === msg?.msgByUserId ? 'ml-auto bg-purple-700/10' : 'bg-white'}`}
                       key={index}
                     >
                       <p>{msg.text}</p>
+                      {msg?.imageUrl && (
+                        <img
+                          src={msg?.imageUrl}
+                          className="w-full h-full object-scale-down"
+                        />
+                      )}
+                      {msg?.videoUrl && (
+                        <video
+                          src={msg.videoUrl}
+                          className="w-full h-full object-scale-down"
+                          controls
+                        />
+                      )}
                       <div className="">
-                        <p className=" text-purple-400 text-[8px] mt-2">
-                          {msg?.seen ? 'seen' : 'unseen'}
+                        <p className="  text-[8px] mt-2">
+                          {msg?.seen ? (
+                            <BiCheckDouble
+                              size={22}
+                              className="text-purple-700"
+                            />
+                          ) : (
+                            <LuCheck size={20} className="text-gray-400" />
+                          )}
                         </p>
                         <p className="text-[8px] ml-auto w-fit">
                           {moment(msg?.createdAt)?.format('hh:mm')}
@@ -183,8 +231,10 @@ const ChatRender = () => {
                     </div>
                   ))}
                 </div>
-                <Input handleSendMessage={sendMessage} />
-              </>
+                <div className="h-fit ">
+                  <Input handleSendMessage={sendMessage} />
+                </div>
+              </div>
             ) : (
               <Message />
             )}
@@ -203,6 +253,7 @@ const ChatRender = () => {
               user={con}
               setClose={() => setOpen(!open)}
               onSelectUser={handleSelectUser}
+              setShowChatbox={setShowChatbox}
             />
           ))}
         </div>
