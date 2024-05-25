@@ -25,10 +25,9 @@ const ChatboxHeader = (
           alt="user"
           className="rounded-full "
         />
-
         <div className="flex flex-col justify-between items-center gap-1">
           <h3 className="font-bold">{user?.name}</h3>
-          <p className="text-sm">{user?.online ? <p className=' text-purple-300'>online</p> : 'offline'}</p>
+          <p className="text-sm">{user?.online ? <p className='text-purple-300'>online</p> : 'offline'} </p>
         </div>
       </div>
       

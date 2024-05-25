@@ -40,7 +40,7 @@ const ChatRender = () => {
     socketInstance.emit('seen', selectedUser?._id );
     // fetches data for a particular conversation
     socketInstance.on('message',(data)=>{
-      console.log(data);
+      console.log('my message',data);
       setMessages(data)
       
     })
@@ -75,13 +75,13 @@ const ChatRender = () => {
       setAllUsers(conversationUserData)
   })
           
-  socketInstance.on('receiveMessage', (message) => {
-      console.log('receive msg', message)
-      setMessages((prevMessages:any) => 
-       [...prevMessages,
-         message]
-      );
-    });
+  // socketInstance.on('receiveMessage', (message) => {
+  //     console.log('receive msg', message)
+  //     setMessages((prevMessages:any) => 
+  //      [...prevMessages,
+  //        message]
+  //     );
+  //   });
 
     return () => {
       socketInstance.disconnect();
@@ -110,9 +110,11 @@ const ChatRender = () => {
     if (socket && selectedUser) {
       const messageData = {
         senderId: user?.publicMetadata?.userId,
-        receiverId: selectedUser?._id,
+        receiverId: selectedUser?._id ,
         text: text
       };
+ 
+      console.log(messageData)
      socket.emit('sendMessage', messageData); 
     }
   };

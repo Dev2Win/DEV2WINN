@@ -10,7 +10,7 @@ import moment from "moment"
 const ChatMenuCard = ({ user, onSelectUser,setClose }: any) => {
   const handleUserClick = () => {
     onSelectUser(user); 
-    setClose()
+    // setClose()
   };
 
   return (
