@@ -23,7 +23,7 @@ export default function Navigation({ setHandleMenuClick, pathname, menuClick}: N
         About
       </Link>
       <Link href="/sign-in" onClick={() => setHandleMenuClick(!menuClick)}>
-        <Button className="bg-[#7421FC] text-white">Signin</Button>
+        <Button className="bg-[#7421FC] text-white">Sign in</Button>
       </Link>
     </>
   )

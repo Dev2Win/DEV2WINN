@@ -14,7 +14,6 @@ export const GET = async () => {
     const userId = sessionClaims?.userId as string;
 
     const users = await User.find();
-    console.log(users);
     
     if (!users || users.length === 0) {
       return NextResponse.json({ message: "User not found" });
