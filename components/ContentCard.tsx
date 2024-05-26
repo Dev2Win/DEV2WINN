@@ -5,7 +5,8 @@ import Image from 'next/image';
 import Overview from './Overview';
 import { useEffect, useState } from 'react';
 
-const get_all_users = process.env.GET_ALL_USERS || "https://dev-2-winn.vercel.app/api/users"
+// eslint-disable-next-line camelcase
+const get_all_users = process.env.GET_ALL_USERS || "http://localhost:3000/api/users"
 
 const ContentCard = () => {
 

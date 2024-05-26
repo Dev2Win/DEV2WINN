@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { BsEmojiLaughing } from 'react-icons/bs';
 import { FaImage, FaVideo } from 'react-icons/fa';
 import { ImAttachment } from 'react-icons/im';
-import { IoMdSend, IoMdClose } from 'react-icons/io';
+import { IoMdSend} from 'react-icons/io';
 import { IoClose } from 'react-icons/io5';
 
 const Input = ({ handleSendMessage }: any) => {
@@ -25,7 +25,7 @@ const Input = ({ handleSendMessage }: any) => {
   // };
 
   const onSendMessage = async () => {
-    const { text, imageUrl, videoUrl } = message;
+    const { text } = message;
     if (!text ) {
       console.log('Message is empty. Nothing to send.');
     } 

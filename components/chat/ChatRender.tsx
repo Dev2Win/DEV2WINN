@@ -12,15 +12,15 @@ import ChatMenuCard from './ChatMenuCard';
 import { BiCheckDouble } from 'react-icons/bi';
 import { LuCheck, LuPlus } from 'react-icons/lu';
 
-const SOCKET_SERVER_URL = process.env.SOCKET_SERVER_URL!
-const ALL_USERS = process.env.ALL_USERS
+const SOCKET_SERVER_URL = process.env.SOCKET_SERVER_URL! || "http://localhost:3001"
+const ALL_USERS = process.env.ALL_USERS || "http://localhost:3001/api/users"
 
 const ChatRender = () => {
   const [selectedUser, setSelectedUser] = useState<any>(null);
   const [showChatbox, setShowChatbox] = useState(true);
   const [allUsers, setAllUsers] = useState<any>([]);
   const [messages, setMessages] = useState<any>([]);
-  const [connections, setConnections] = useState<any>([]);
+  const [users , setUsers] = useState<any>(null);
   const [socket, setSocket] = useState<any>(null);
   const [open, setOpen] = useState(false);
   const { user } = useUser();
@@ -98,14 +98,14 @@ const ChatRender = () => {
   useEffect(() => {
     (async () => {
       try {
-        const res = await fetch(ALL_USERS!, {
+        const res = await fetch("http://localhost:3000/api/users/all", {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
           },
         });
         const users = await res.json();
-        setConnections(users);
+        setUsers(users);
         console.log(users);
       } catch (error) {
         console.error(error);
@@ -132,6 +132,9 @@ const ChatRender = () => {
         imageUrl: imageUrl,
         videoUrl: videoUrl,
       };
+
+      console.log(messageData);
+      
 
       socket.emit('sendMessage', messageData);
     }
@@ -243,7 +246,7 @@ const ChatRender = () => {
         title="Connections"
       >
         <div className="">
-          {connections?.map((con: any) => (
+          { users?.map((con: any) => 
             <ChatMenuCard
               key={con?._id}
               user={con}
@@ -251,7 +254,7 @@ const ChatRender = () => {
               onSelectUser={handleSelectUser}
               setShowChatbox={setShowChatbox}
             />
-          ))}
+          )}
         </div>
       </MeetingModal>
     </div>
