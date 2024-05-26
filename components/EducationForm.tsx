@@ -1,6 +1,5 @@
 'use client';
-// components/EducationForm.tsx
-import { useState, ChangeEvent, FormEvent } from 'react';
+import React, { useState } from 'react';
 
 interface Education {
   university: string;
@@ -10,104 +9,64 @@ interface Education {
 }
 
 interface EducationFormProps {
-  onAddEducation: (education: Education) => void;
+  onAddEducation: (newEducation: Education) => void;
 }
 
 const EducationForm: React.FC<EducationFormProps> = ({ onAddEducation }) => {
-  const [education, setEducation] = useState<Education>({
-    university: '',
-    degree: '',
-    startYear: '',
-    endYear: '',
-  });
+  const [university, setUniversity] = useState('');
+  const [degree, setDegree] = useState('');
+  const [startYear, setStartYear] = useState('');
+  const [endYear, setEndYear] = useState('');
 
-  const handleChange = (
-    e: ChangeEvent<HTMLInputElement | HTMLSelectElement>,
-  ) => {
-    const { name, value } = e.target;
-    setEducation((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
-
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onAddEducation(education);
-    setEducation({ university: '', degree: '', startYear: '', endYear: '' });
+    onAddEducation({ university, degree, startYear, endYear });
+    setUniversity('');
+    setDegree('');
+    setStartYear('');
+    setEndYear('');
   };
 
   return (
-    <form onSubmit={handleSubmit} className="bg-white p-4 rounded-md shadow-md">
+    <form
+      onSubmit={handleSubmit}
+      className="bg-white p-4 rounded-md shadow-md mb-4"
+    >
       <div className="mb-4">
-        <label
-          htmlFor="university"
-          className="block text-gray-700 font-bold mb-2"
-        >
-          University, college, school *
-        </label>
+        <label className="block text-gray-700 font-bold mb-2">University</label>
         <input
           type="text"
-          id="university"
-          name="university"
-          value={education.university}
-          onChange={handleChange}
-          placeholder="Eg: University of Texas"
-          required
-          className="w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+          value={university}
+          onChange={(e) => setUniversity(e.target.value)}
+          className="w-full px-3 py-2 bg-gray-100 border border-gray-300 rounded-md"
         />
       </div>
       <div className="mb-4">
-        <label htmlFor="degree" className="block text-gray-700 font-bold mb-2">
-          Degree / Field of study *
-        </label>
+        <label className="block text-gray-700 font-bold mb-2">Degree</label>
         <input
           type="text"
-          id="degree"
-          name="degree"
-          value={education.degree}
-          onChange={handleChange}
-          placeholder="Eg: Bachelors in BA"
-          required
-          className="w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+          value={degree}
+          onChange={(e) => setDegree(e.target.value)}
+          className="w-full px-3 py-2 bg-gray-100 border border-gray-300 rounded-md"
         />
       </div>
       <div className="mb-4">
-        <label className="block text-gray-700 font-bold mb-2">Timeline *</label>
-        <div className="flex space-x-2">
-          <select
-            name="startYear"
-            value={education.startYear}
-            onChange={handleChange}
-            required
-            className="w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-          >
-            <option value="" disabled>
-              Start Year
-            </option>
-            {[...Array(50)].map((_, i) => (
-              <option key={i} value={2024 - i}>
-                {2024 - i}
-              </option>
-            ))}
-          </select>
-          <select
-            name="endYear"
-            value={education.endYear}
-            onChange={handleChange}
-            required
-            className="w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-          >
-            <option value="" disabled>
-              End Year
-            </option>
-            {[...Array(50)].map((_, i) => (
-              <option key={i} value={2024 - i}>
-                {2024 - i}
-              </option>
-            ))}
-          </select>
-        </div>
+        <label className="block text-gray-700 font-bold mb-2">Start Year</label>
+        <input
+          type="text"
+          value={startYear}
+          onChange={(e) => setStartYear(e.target.value)}
+          className="w-full px-3 py-2 bg-gray-100 border border-gray-300 rounded-md"
+        />
+      </div>
+      <div className="mb-4">
+        <label className="block text-gray-700 font-bold mb-2">End Year</label>
+        <input
+          type="text"
+          value={endYear}
+          onChange={(e) => setEndYear(e.target.value)}
+          className="w-full px-3 py-2 bg-gray-100 border border-gray-300 rounded-md"
+        />
       </div>
       <button
         type="submit"

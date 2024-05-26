@@ -7,7 +7,7 @@ const MentorSchema = new Schema({
      industry_pref: [{type:String, required: false }],
      expertise: [{ type :String, required: false }], 
      education: [{ type :String, required: false }],
-     experience_level:{type:String, required: false }, 
+     experience_level:{ type:String, required : false }, 
      work_experience: [{ type :String, required: false }], 
      availability: [{ type :String, required: false }],
     date: { type: Date, default: Date.now },

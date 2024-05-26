@@ -1,3 +1,4 @@
+'use client';
 import Tabs from './Tabs';
 import ProfileCard from './ProfileCard';
 import image from '@/public/images/Simon.webp';
@@ -7,6 +8,7 @@ import { useEffect, useState } from 'react';
 import MeetingModal from './MeetingModal';
 import BasicInfo from './BasicInfo';
 import ModalExperience from './ModalExperience';
+import SocialLinks from './SocialLinks';
 
 // eslint-disable-next-line camelcase
 const get_all_users = process.env.GET_ALL_USERS || "http://localhost:3000/api/users"
@@ -14,12 +16,14 @@ const get_all_users = process.env.GET_ALL_USERS || "http://localhost:3000/api/us
 const ContentCard = () => {
   const [profileData, setProfileData] = useState<any>([]);
   const [showModal, setShowModal] = useState(false);
-  const [expertise, setExpertise] = useState('');
-  const [seniority, setSeniority] = useState('');
   const [workExperience, setWorkExperience] = useState<
     {
-      company: string;
+      industry: string;
       role: string;
+      company: string;
+      location: string;
+      startDate: string;
+      endDate: string;
       current: boolean;
     }[]
   >([]);
@@ -31,71 +35,53 @@ const ContentCard = () => {
       endYear: string;
     }[]
   >([]);
-  const [formData, setFormData] = useState({
-    name: '',
-    gender: '',
-    country: '',
-    language: '',
-    bio: '',
-    profileImage: '', // Add profileImage to the state
-    linkedInUrl: '',
-    twitterUrl: '',
-    websiteUrl: '',
-    expertise: '',
-    seniority: '',
-    workExperience: [],
-  });
+  // const [formData, setFormData] = useState({
+  //   name: '',
+  //   gender: '',
+  //   country: '',
+  //   language: '',
+  //   bio: '',
+  //   profileImage: '', // Add profileImage to the state
+  //   linkedInUrl: '',
+  //   twitterUrl: '',
+  //   websiteUrl: '',
+  //   expertise: '',
+  //   seniority: '',
+  //   workExperience: [],
+  // });
 
-  const handleNameChange = (name: string) => {
-    setFormData({ ...formData, name });
-  };
-  const handleCountryChange = (country: string) => {
-    setFormData({ ...formData, country });
-  };
-  const handleLanguageChange = (language: string) => {
-    setFormData({ ...formData, language });
-  };
-  const handleBioChange = (bio: string) => {
-    setFormData({ ...formData, bio });
-  };
+  // const handleNameChange = (name: string) => {
+  //   setFormData({ ...formData, name });
+  // };
+  // const handleCountryChange = (country: string) => {
+  //   setFormData({ ...formData, country });
+  // };
+  // const handleLanguageChange = (language: string) => {
+  //   setFormData({ ...formData, language });
+  // };
+  // const handleBioChange = (bio: string) => {
+  //   setFormData({ ...formData, bio });
+  // };
 
-  const handleGenderChange = (gender: string) => {
-    setFormData({ ...formData, gender });
-  };
+  // const handleGenderChange = (gender: string) => {
+  //   setFormData({ ...formData, gender });
+  // };
 
-  // Add other handlers for form field changes
+  // // Add other handlers for form field changes
 
-  const handleProfileImageChange = (file: File) => {
-    const reader = new FileReader();
-    reader.onload = () => {
-      setFormData({ ...formData, profileImage: reader.result as string });
-    };
-    reader.readAsDataURL(file);
-  };
+  // const handleProfileImageChange = (file: File) => {
+  //   const reader = new FileReader();
+  //   reader.onload = () => {
+  //     setFormData({ ...formData, profileImage: reader.result as string });
+  //   };
+  //   reader.readAsDataURL(file);
+  // };
 
-  const handleExpertiseChange = (expertise: string) => {
-    setFormData({ ...formData, expertise });
-  };
-
-  const handleSeniorityChange = (seniority: string) => {
-    setFormData({ ...formData, seniority });
-  };
-
-  const handleWorkExperienceChange = (
-    workExperience: {
-      company: string;
-      role: string;
-      current: boolean;
-    }[],
-  ) => {
-    setFormData({ ...formData, workExperience });
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Handle form submission
-    console.log(formData);
-  };
+  // const handleSubmit = (e: React.FormEvent) => {
+  //   e.preventDefault();
+  //   // Handle form submission
+  //   console.log(formData);
+  // };
 
   const handleClick = () => {};
 
@@ -184,19 +170,19 @@ const ContentCard = () => {
                 title: 'Info',
                 content: (
                   <BasicInfo
-                    name={formData.name}
-                    gender={formData.gender}
-                    country={formData.country}
-                    language={formData.language}
-                    bio={formData.bio}
-                    profileImage={formData.profileImage}
-                    onNameChange={handleNameChange}
-                    onGenderChange={handleGenderChange}
-                    onCountryChange={handleCountryChange}
-                    onLanguageChange={handleLanguageChange}
-                    onBioChange={handleBioChange}
-                    // Add other handlers for form field changes
-                    onProfileImageChange={handleProfileImageChange}
+                  // name={formData.name}
+                  // gender={formData.gender}
+                  // country={formData.country}
+                  // language={formData.language}
+                  // bio={formData.bio}
+                  // profileImage={formData.profileImage}
+                  // onNameChange={handleNameChange}
+                  // onGenderChange={handleGenderChange}
+                  // onCountryChange={handleCountryChange}
+                  // onLanguageChange={handleLanguageChange}
+                  // onBioChange={handleBioChange}
+                  // // Add other handlers for form field changes
+                  // onProfileImageChange={handleProfileImageChange}
                   />
                 ),
                 value: '',
@@ -205,21 +191,17 @@ const ContentCard = () => {
                 title: 'Experience',
                 content: (
                   <ModalExperience
-                    expertise={expertise}
-                    seniority={seniority}
                     workExperience={workExperience}
                     education={education}
-                    onExpertiseChange={setExpertise}
-                    onSeniorityChange={setSeniority}
                     onWorkExperienceChange={setWorkExperience}
                     onEducationChange={setEducation}
                   />
                 ),
-                value: 5,
+                value: '',
               },
               {
-                title: 'Socials',
-                content: <ProfileCard />,
+                title: 'Social Links',
+                content: <SocialLinks />,
                 value: '',
               },
             ]}
