@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import useStore from '@/lib/store';
-import { menteeSidebar, mentorSidebar } from '@/constants';
+import { menteeSidebar, mentorSidebar, lmsSidebar } from '@/constants';
 import { cn } from '@/lib/utils';
 
 const Sidebar = () => {

@@ -2,27 +2,73 @@
 //  when a user signs in it should know the usertype and navigate to its respective dashboard
 // ensure authorization to requests
 
-const Home = () => {
-  const now = new Date();
+'use client'
+import Header from '@/components/lms/Header';
+import React, { useState } from 'react';
+import Card from '@/components/lms/Card';
+import { cardData, todoListData } from '@/lib/utils';
+import Barchart from '@/components/lms/BarChart';
+import Profile from '@/components/lms/Profile';
+import Todo from '@/components/lms/Todo';
+import Speedometer from '@/components/lms/Speedometer';
+import { TodosProps } from '@/components/lms/Todo';
 
-  const time = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
-  const date = (new Intl.DateTimeFormat('en-US', { dateStyle: 'full' })).format(now);
+type CardProps = {
+  icon: any;
+  title: string;
+  booksCount: number;
+  studentsCount: number;
+  assignmentCounts: number;
+};
+
+
+
+
+const Home = () => {
+  const [value, setValue] = useState<number>(8.966);
 
   return (
-    <section className="flex size-full flex-col gap-5 text-white">
-      <div className="h-[303px] w-full rounded-[20px] bg-hero bg-cover">
-        <div className="flex h-full flex-col justify-between max-md:px-5 max-md:py-8 lg:p-11">
-          <h2 className="glassmorphism max-w-[273px] rounded py-2 text-center text-base font-normal">
-             Dream it | Work it out | Impact lives
-          </h2>
-          <div className="flex flex-col gap-2">
-            <h1 className="text-4xl font-extrabold lg:text-7xl">{time}</h1>
-            <p className="text-lg font-medium text-sky-1 lg:text-2xl">{date}</p>
-          </div>
-        </div>
-      </div>
+    <section className="flex size-full flex-col gap-5">
+      <Header />
+      <div className="text-black grid grid-cols-4 gap-12">
 
-      {/* <MeetingTypeList /> */}
+        <section className="col-span-4 lg:col-span-3 flex flex-col gap-8">
+          <div className="flex gap-4 overflow-x-scroll scrollbar-hidden">
+            {cardData.map((card: CardProps) => (
+              <Card key={card.title} card={card} />
+            ))}
+          </div>
+
+          <div className="col-span-2 grid grid-cols-5 gap-6">
+
+            <div className="col-span-5 lg:col-span-3 text-gray-800">
+              <h1 className="font-bold text-xl mb-4">Hours spent</h1>
+              <div className="border border-gray-300 rounded-lg text-black p-4">
+                <Barchart />
+              </div>
+            </div>
+
+            <div className="col-span-5 lg:col-span-2 ">
+              <h1 className='font-bold text-xl mb-4'>Performance</h1>
+                <Speedometer value={value}/>
+            </div>
+          </div>
+        </section>
+
+        <section className="col-span-4 lg:col-span-1 flex flex-col sm:flex-row lg:flex-col gap-6">
+          <div >
+            <Profile/>
+          </div>
+          <div className='w-full h-[2px] hidden lg:block bg-gray-300 my-4'></div>
+
+          <div>
+            <h1 className='font-bold text-xl mb-4 mt-6'>To-do List</h1>
+            {todoListData.map((todos) => (
+              <Todo key={todos.title} todos={todos}/>
+            ))}
+          </div>
+        </section>
+      </div>
     </section>
   );
 };
