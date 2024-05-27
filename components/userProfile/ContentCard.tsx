@@ -1,17 +1,17 @@
 'use client';
-import Tabs from './Tabs';
+import Tabs from '../reusables/Tabs';
 import ProfileCard from './ProfileCard';
 import image from '@/public/images/Simon.webp';
 import Image from 'next/image';
 import Overview from './Overview';
 import { useEffect, useState } from 'react';
-import MeetingModal from './MeetingModal';
+import MeetingModal from '../meeting/MeetingModal';
 import BasicInfo from './BasicInfo';
 import ModalExperience from './ModalExperience';
 import SocialLinks from './SocialLinks';
 
 // eslint-disable-next-line camelcase
-const get_all_users = process.env.GET_ALL_USERS || "http://localhost:3000/api/users"
+const get_all_users = process.env.GET_ALL_USERS || "https://dev-2-winn.vercel.app/api/users"
 
 const ContentCard = () => {
   const [profileData, setProfileData] = useState<any>([]);
@@ -88,7 +88,7 @@ const ContentCard = () => {
   useEffect(() => {
     (async () => {
       try {
-        const res = await fetch('https://dev-2-winn.vercel.app/api/users/', {
+        const res = await fetch(get_all_users, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',

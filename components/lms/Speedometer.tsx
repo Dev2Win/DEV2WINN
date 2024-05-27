@@ -1,7 +1,8 @@
+
 import React, { useState } from 'react';
 
-const Speedometer = ({ value }: number) => {
-  const needleRotation = (value / 10) * 180;
+const Speedometer = ({ value }: any) => {
+  // const needleRotation = (value / 10) * 180;
   const [selectedOption, setSelectedOption] = useState('daily');
 
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -9,10 +10,10 @@ const Speedometer = ({ value }: number) => {
   };
 
   return (
-    <section className="flex flex-col border border-gray-300 rounded-xl p-4">
+    <section className="flex flex-col rounded-xl border border-gray-300 p-4">
       <div className="flex justify-between gap-4">
         <article className="flex items-center gap-2">
-          <div className="bg-gray-500 w-4 h-4 rounded-[4px]"></div>
+          <div className="size-4 rounded-[4px] bg-gray-500"></div>
           <small className='font-semibold'>Point progress</small>
         </article>
 
@@ -20,7 +21,7 @@ const Speedometer = ({ value }: number) => {
           id="frequency"
           value={selectedOption}
           onChange={handleChange}
-          className="px-2 py-1 border bg-black/15 rounded-sm focus:outline-none font-semibold"
+          className="rounded-sm border bg-black/15 px-2 py-1 font-semibold focus:outline-none"
         >
           <option value="daily">Daily</option>
           <option value="weekly">Weekly</option>

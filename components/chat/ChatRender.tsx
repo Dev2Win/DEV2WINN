@@ -1,3 +1,5 @@
+/* eslint-disable tailwindcss/no-custom-classname */
+/* eslint-disable object-shorthand */
 'use client';
 import React, { useEffect, useRef, useState } from 'react';
 import Message from '@/components/chat/Message';
@@ -7,13 +9,14 @@ import ChatMenu from '@/components/chat/ChatMenu';
 import io from 'socket.io-client';
 import moment from 'moment';
 import { useUser } from '@clerk/clerk-react';
-import MeetingModal from '../MeetingModal';
+import MeetingModal from '../meeting/MeetingModal';
 import ChatMenuCard from './ChatMenuCard';
 import { BiCheckDouble } from 'react-icons/bi';
 import { LuCheck, LuPlus } from 'react-icons/lu';
+import Image from 'next/image';
 
 const SOCKET_SERVER_URL = process.env.SOCKET_SERVER_URL! || "http://localhost:3001"
-const ALL_USERS = process.env.ALL_USERS || "http://localhost:3001/api/users"
+// const ALL_USERS = process.env.ALL_USERS || "http://localhost:3001/api/users"
 
 const ChatRender = () => {
   const [selectedUser, setSelectedUser] = useState<any>(null);
@@ -24,7 +27,7 @@ const ChatRender = () => {
   const [socket, setSocket] = useState<any>(null);
   const [open, setOpen] = useState(false);
   const { user } = useUser();
-  const currentMessage = useRef(null);
+  const currentMessage = useRef<any>(null);
   const toggleShowWindow = () => {
     setShowChatbox(!showChatbox);
   };
@@ -93,7 +96,7 @@ const ChatRender = () => {
     return () => {
       socketInstance.disconnect();
     };
-  }, [user?.publicMetadata?.userId]);
+  }, [user?.publicMetadata?.userId,selectedUser?._id]);
 
   useEffect(() => {
     (async () => {
@@ -158,19 +161,19 @@ const ChatRender = () => {
 
   return (
     <div className="2xl:mx-auto 2xl:max-w-[1400px] ">
-      <div className="relative h-[80vh] bg-white shadow-md overflow-hidden rounded-xl">
-        <div className="flex justify-between lg:justify-start mx-3 gap-[12rem] items-center">
-          <h1 className="font-bold text-xl text-purple-1  py-2">Messages</h1>
+      <div className="relative h-[80vh] overflow-hidden rounded-xl bg-white shadow-md">
+        <div className="mx-3 flex items-center justify-between gap-[12rem] lg:justify-start">
+          <h1 className="py-2 text-xl font-bold  text-purple-1">Messages</h1>
           <div
             onClick={() => setOpen(!open)}
-            className="font-bold text-xl text-purple-1 w-[30px] h-[30px] mt-2 cursor-pointer flex items-center justify-center text-center rounded-full bg-purple-200"
+            className="mt-2 flex size-[30px] cursor-pointer items-center justify-center rounded-full bg-purple-200 text-center text-xl font-bold text-purple-1"
           >
             <LuPlus />
           </div>
         </div>
-        <div className="lg:grid lg:grid-cols-12 h-[90%] absolute left-0 right-0 ">
+        <div className="absolute inset-x-0 h-[90%] lg:grid lg:grid-cols-12 ">
           <section
-            className={`${showChatbox ? 'block' : 'hidden'} lg:block overflow-y-scroll mb-4 scrollbar-hidden lg:col-span-5 xl:col-span-4`}
+            className={`${showChatbox ? 'block' : 'hidden'} scrollbar-hidden mb-4 overflow-y-scroll lg:col-span-5 lg:block xl:col-span-4`}
           >
             <ChatMenu
               onSelectUser={handleSelectUser}
@@ -181,7 +184,7 @@ const ChatRender = () => {
             />
           </section>
           <section
-            className={`${showChatbox ? 'hidden' : 'block'} lg:block lg:col-span-7 border border-gray-300 rounded-md mb-4 relative xl:col-span-8`}
+            className={`${showChatbox ? 'hidden' : 'block'} relative mb-4 rounded-md border border-gray-300 lg:col-span-7 lg:block xl:col-span-8`}
           >
             {selectedUser ? (
               <div className="flex flex-col">
@@ -191,29 +194,30 @@ const ChatRender = () => {
                     toggleShowWindow={toggleShowWindow}
                   />
                 </div>
-                <div className="h-[50vh] lg:h-[300px] p-2 overflow-x-hidden bg-black/10 overflow-y-scroll scrollbar-hidden scrollbar space-y-3">
+                <div className="scrollbar-hidden scrollbar h-[50vh] space-y-3 overflow-x-hidden overflow-y-scroll bg-black/10 p-2 lg:h-[300px]">
                   {messages?.map((msg: any, index: any) => (
                     <div
                       ref={currentMessage}
-                      className={`max-w-[200px] p-2 text-gray-600 text-[10px] ${user?.publicMetadata?.userId === msg?.msgByUserId ? ' rounded-l-2xl rounded-br-2xl' : ' rounded-r-2xl rounded-bl-2xl'} flex items-baseline justify-between  ${user?.publicMetadata?.userId === msg?.msgByUserId ? 'ml-auto bg-purple-700/10' : 'bg-white'}`}
+                      className={`max-w-[200px] p-2 text-[10px] text-gray-600 ${user?.publicMetadata?.userId === msg?.msgByUserId ? ' rounded-l-2xl rounded-br-2xl' : ' rounded-r-2xl rounded-bl-2xl'} flex items-baseline justify-between  ${user?.publicMetadata?.userId === msg?.msgByUserId ? 'ml-auto bg-purple-700/10' : 'bg-white'}`}
                       key={index}
                     >
                       <p>{msg.text}</p>
                       {msg?.imageUrl && (
-                        <img
+                        <Image
                           src={msg?.imageUrl}
-                          className="w-full h-full object-scale-down"
+                          className="size-full object-scale-down"
+                          alt='message image'
                         />
                       )}
                       {msg?.videoUrl && (
                         <video
                           src={msg.videoUrl}
-                          className="w-full h-full object-scale-down"
+                          className="size-full object-scale-down"
                           controls
                         />
                       )}
                       <div className="">
-                        <p className="  text-[8px] mt-2">
+                        <p className="  mt-2 text-[8px]">
                           {msg?.seen ? (
                             <BiCheckDouble
                               size={22}
@@ -223,7 +227,7 @@ const ChatRender = () => {
                             <LuCheck size={20} className="text-gray-400" />
                           )}
                         </p>
-                        <p className="text-[8px] ml-auto w-fit">
+                        <p className="ml-auto w-fit text-[8px]">
                           {moment(msg?.createdAt)?.format('hh:mm')}
                         </p>
                       </div>

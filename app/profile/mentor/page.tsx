@@ -19,7 +19,7 @@ export type FormValues = {
   availability: string;
   expertise: Option[] | null;
 };
-const mentorUrl: string = process.env.MENTOR_URL || 'http://localhost:3000/api/users/mentor'
+const mentorUrl: string = process.env.MENTOR_URL || 'https://dev-2-winn.vercel.app/api/users/mentor'
 
 
 const MultiStepPage = () => {

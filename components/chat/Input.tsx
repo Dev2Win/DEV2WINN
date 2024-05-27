@@ -1,6 +1,6 @@
 import uploadFile from '@/lib/uploadFile';
+import Image from 'next/image';
 import React, { useState } from 'react';
-import { BsEmojiLaughing } from 'react-icons/bs';
 import { FaImage, FaVideo } from 'react-icons/fa';
 import { ImAttachment } from 'react-icons/im';
 import { IoMdSend} from 'react-icons/io';
@@ -13,16 +13,6 @@ const Input = ({ handleSendMessage }: any) => {
     videoUrl: '',
   });
   const [openImageVideoUpload, setOpenImageVideoUpload] = useState(false);
-  // const [file, setFile] = useState<File | null>(null);
-
-  // const convertFile = (file: File): Promise<string> => {
-  //   return new Promise((resolve, reject) => {
-  //     const reader = new FileReader();
-  //     reader.readAsDataURL(file);
-  //     reader.onload = () => resolve(reader.result as string);
-  //     reader.onerror = (error) => reject(error);
-  //   });
-  // };
 
   const onSendMessage = async () => {
     const { text } = message;
@@ -38,7 +28,7 @@ const Input = ({ handleSendMessage }: any) => {
     });
   };
 
-  const handleUploadImage = async (e) => {
+  const handleUploadImage = async (e:any) => {
     const file = e.target.files[0];
 
     const uploadPhoto = await uploadFile(file);
@@ -64,8 +54,8 @@ const Input = ({ handleSendMessage }: any) => {
     });
   };
 
-  const handleUploadVideo = async (e) => {
-    const file = e.target.files[0];
+  const handleUploadVideo = async (e:any) => {
+    const file = e.target.files[0]  
 
     const uploadPhoto = await uploadFile(file);
 
@@ -91,8 +81,8 @@ const Input = ({ handleSendMessage }: any) => {
     setOpenImageVideoUpload((preve) => !preve);
   };
 
-  const handleOnChange = (e) => {
-    const { name, value } = e.target;
+  const handleOnChange = (e:React.ChangeEvent<HTMLInputElement>) => {
+    const {  value } = e.target;
 
     setMessage((preve) => {
       return {
@@ -104,50 +94,45 @@ const Input = ({ handleSendMessage }: any) => {
 
   return (
     <div className="">
-      <div className="flex items-center gap-4 absolute bottom-0 left-0 right-0 w-full bg-white">
-        <div className="flex items-center justify-between bg-purple-1/5 border border-gray-300 py-1 px-3 rounded-md w-[80%]">
+      <div className="absolute inset-x-0 bottom-0 flex w-full items-center gap-4 bg-white">
+        <div className="flex w-[80%] items-center justify-between rounded-md border border-gray-300 bg-purple-1/5 px-3 py-1">
           <input
             type="text"
             placeholder="message"
-            className="outline-none border-0 bg-transparent px-2 py-1 w-[94%] sm:w-[85%]"
+            className="w-[94%] border-0 bg-transparent px-2 py-1 outline-none sm:w-[85%]"
             value={message.text}
             onChange={handleOnChange}
           />
-          <div className="flex gap-4 text-gray-500 items-center justify-center">
+          <div className="flex items-center justify-center gap-4 text-gray-500">
             {/* <BsEmojiLaughing className="" /> */}
             <div className="relative cursor-pointer">
-              {/* <input
-            type="file"
-            id="fileInput"
-            onChange={(e) => setFile(e.target.files?.[0] ?? null)}
-            className="absolute inset-0 w-full h-full opacity-0"
-          /> */}
+            
               <ImAttachment
                 onClick={handleUploadImageVideoOpen}
                 className="cursor-pointer"
               />
               {message.imageUrl && (
-                <div className="w-[300px] h-[220px] absolute  bottom-[4rem] right-5  rounded overflow-hidden">
+                <div className="absolute bottom-[4rem] right-5  h-[220px] w-[300px]  overflow-hidden rounded">
                   <div
-                    className="w-fit p-2 absolute top-0 right-0 cursor-pointer hover:text-red-600"
+                    className="absolute right-0 top-0 w-fit cursor-pointer p-2 hover:text-red-600"
                     onClick={handleClearUploadImage}
                   >
                     <IoClose size={30} />
                   </div>
                   <div className="bg-white p-3">
-                    <img
+                    <Image
                       src={message.imageUrl}
                       alt="uploadImage"
-                      className="aspect-square w-full h-full  m-2  object-contain "
+                      className="m-2 aspect-square size-full  object-contain "
                     />
                   </div>
                 </div>
               )}
 
               {message.videoUrl && (
-                <div className="w-[300px] h-[220px] absolute  bottom-[4rem] right-5  rounded overflow-hidden">
+                <div className="absolute bottom-[4rem] right-5  h-[220px] w-[300px]  overflow-hidden rounded">
                   <div
-                    className="w-fit p-2 absolute top-0 right-0 cursor-pointer hover:text-red-600"
+                    className="absolute right-0 top-0 w-fit cursor-pointer p-2 hover:text-red-600"
                     onClick={handleClearUploadVideo}
                   >
                     <IoClose size={30} />
@@ -155,7 +140,7 @@ const Input = ({ handleSendMessage }: any) => {
                   <div className="bg-white p-3">
                     <video
                       src={message.videoUrl}
-                      className="aspect-square w-full h-full max-w-sm m-2 object-scale-down"
+                      className="m-2 aspect-square size-full max-w-sm object-scale-down"
                       controls
                       muted
                       autoPlay
@@ -164,11 +149,11 @@ const Input = ({ handleSendMessage }: any) => {
                 </div>
               )}
               {openImageVideoUpload && (
-                <div className="bg-white shadow rounded absolute bottom-14 w-36 p-2">
+                <div className="absolute bottom-14 w-36 rounded bg-white p-2 shadow">
                   <form>
                     <label
                       htmlFor="uploadImage"
-                      className="flex items-center p-2 px-3 gap-3 hover:bg-slate-200 cursor-pointer"
+                      className="flex cursor-pointer items-center gap-3 p-2 px-3 hover:bg-slate-200"
                     >
                       <div className="text-primary">
                         <FaImage size={18} />
@@ -177,7 +162,7 @@ const Input = ({ handleSendMessage }: any) => {
                     </label>
                     <label
                       htmlFor="uploadVideo"
-                      className="flex items-center p-2 px-3 gap-3 hover:bg-slate-200 cursor-pointer"
+                      className="flex cursor-pointer items-center gap-3 p-2 px-3 hover:bg-slate-200"
                     >
                       <div className="text-purple-500">
                         <FaVideo size={18} />
@@ -205,33 +190,15 @@ const Input = ({ handleSendMessage }: any) => {
           </div>
         </div>
 
-        <div className="flex items-center justify-center gap-4 bg-purple-1 text-white sm:px-3 py-2 rounded w-[14%]">
+        <div className="flex w-[14%] items-center justify-center gap-4 rounded bg-purple-1 py-2 text-white sm:px-3">
           <button
             onClick={onSendMessage}
-            className="font-semibold hidden sm:block "
+            className="hidden font-semibold sm:block "
           >
             send
           </button>
           <IoMdSend className="" />
         </div>
-
-        {/* {file && (
-      <div className="z-20 flex flex-col  bg-white/90 px-2 py-1 h-[30vh] sm:h-[40vh] gap-8 absolute bottom-0 left-[2%] right-[2%] sm:right-[38%] w-[96%] sm:w-[60%] rounded-md">
-        <IoMdClose
-          size={24}
-          onClick={() => setFile(null)}
-          className="text-black rounded-full cursor-pointer flex-end"
-        />
-        <div className="flex gap-8 justify-center items-center text-gray-600 font-semibold">
-          <p>{file?.name}</p>
-          <IoMdSend
-            size={30}
-            onClick={onSendMessage}
-            className="bg-purple-1 text-white p-2 rounded-full cursor-pointer"
-          />
-        </div>
-      </div>
-    )} */}
       </div>
     </div>
   );

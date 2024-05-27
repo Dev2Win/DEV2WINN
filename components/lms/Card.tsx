@@ -3,22 +3,24 @@ import { GoBook } from 'react-icons/go';
 import { LuUsers2 } from "react-icons/lu";
 import { BiNotepad } from "react-icons/bi";
 
-type CardProps = {
-  icon: any;
-  title: string;
-  booksCount: number;
-  studentsCount: number;
-  assignmentCounts: number;
-};
+// kindly resolve typescript properly  
 
-const Card = ({ card }: CardProps) => {
+// type CardProps = {
+//   icon: any;
+//   title: string;
+//   booksCount: number;
+//   studentsCount: number;
+//   assignmentCounts: number;
+// };
+
+const Card = ({ card }:any) => {
   return (
-    <div className="text-gray-700 p-6 rounded-xl min-w-fit" style={{ backgroundColor: card.bgColor }}>
-      <div className="bg-white p-2 rounded-full w-fit">
+    <div className="min-w-fit rounded-xl p-6 text-gray-700" style={{ backgroundColor: card.bgColor }}>
+      <div className="w-fit rounded-full bg-white p-2">
         <card.icon size={30} style={{ color: card.bgColor }}/>
       </div>
-      <h1 className="font-bold text-xl my-4">{card.title}</h1>
-      <div className="bg-white px-6 py-3 rounded-lg items-center flex w-fit gap-4 text-gray-700 font-semibold">
+      <h1 className="my-4 text-xl font-bold">{card.title}</h1>
+      <div className="flex w-fit items-center gap-4 rounded-lg bg-white px-6 py-3 font-semibold text-gray-700">
         <article className="flex items-center gap-2">
           <GoBook size={20}/>
           <small>{card.booksCount}</small>

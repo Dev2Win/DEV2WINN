@@ -60,7 +60,7 @@ export const featureData = [
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" focusable="false" color="var(--token-2e606580-c5cb-45c2-a66e-07cb8dbe5a38, rgb(136, 0, 255))" style="user-select: none; width: 100%; height: 100%; display: inline-block; fill: var(--token-2e606580-c5cb-45c2-a66e-07cb8dbe5a38, rgb(136, 0, 255)); flex-shrink: 0;"><g color="var(--token-2e606580-c5cb-45c2-a66e-07cb8dbe5a38, rgb(136, 0, 255))" weight="fill"><path d="M176,116a60,60,0,1,1-60-60A60,60,0,0,1,176,116Zm53.6,113.7A8,8,0,0,1,224,232a8.3,8.3,0,0,1-5.7-2.3l-43.2-43.3a92.2,92.2,0,1,1,11.3-11.3l43.2,43.2A8,8,0,0,1,229.6,229.7ZM116,192a76,76,0,1,0-76-76A76.1,76.1,0,0,0,116,192Z"></path></g></svg>
                 `}} />
             </div>
-        ),
+        ) ,
         name: "Industry Insights",
         desc: "Gain valuable insights into current trends and opportunities.",
         key: "industry-insights"
@@ -145,18 +145,3 @@ export const ImagesData = [
     { image: Img09, id: "9" },
     { image: Img10, id: "10" },
 ]
-
- export const barchartData = [
-    { month: 'January', Study: 70, Exam: 40 },
-    { month: 'February', Study: 90, Exam: 12},
-    { month: 'March', Study: 40, Exam: 10 },
-    { month: 'April', Study: 80, Exam: 20},
-    { month: 'May', Study: 80, Exam: 14},
-    { month: 'June', Study: 75, Exam: 20},
-    { month: 'July', Study: 80, Exam: 30 },
-    { month: 'August', Study: 60, Exam: 42},
-    { month: 'September', Study: 50, Exam: 30 },
-    { month: 'October', Study: 80, Exam: 20},
-    { month: 'November', Study: 85, Exam: 24},
-    { month: 'December', Study: 75, Exam: 26},
-  ];
