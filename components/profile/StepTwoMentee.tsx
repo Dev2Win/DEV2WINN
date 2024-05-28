@@ -1,5 +1,6 @@
 'use client'
 
+import React from 'react';
 import { FormValues } from '@/app/profile/mentee/page';
 import Stepper from './Stepper'
 
@@ -37,7 +38,7 @@ function StepThreeForm({onNext, onPrevious, formData, handleFormChange, steps, c
             <option value="" className='text-gray-400'>Level of Education</option>
             <option value="high school diploma">High school diploma</option>
             <option value="degree">Degree</option>
-            <option value="masters">Master's</option>
+            <option value="masters"> Masters</option>
             <option value="masters">Phd</option>
 
           </select>

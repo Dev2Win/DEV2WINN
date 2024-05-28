@@ -1,3 +1,4 @@
+import { IoMdAnalytics } from "react-icons/io";
 import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
@@ -5,8 +6,7 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-import { IoMdAnalytics } from "react-icons/io";
-import { StepperCompleted } from '@mantine/core';
+
 
 export const footerLinks = {
   Overview: [

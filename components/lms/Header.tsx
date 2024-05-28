@@ -1,9 +1,8 @@
 'use client';
 
 import { Input, Paper } from '@mantine/core';
-import { FiSearch } from 'react-icons/fi';
 import { IoNotificationsOutline } from 'react-icons/io5';
-import { FiEdit } from 'react-icons/fi';
+import { FiEdit,FiSearch } from 'react-icons/fi';
 
 export default function Header() {
 
@@ -12,7 +11,7 @@ export default function Header() {
       <div className="flex flex-col">
         <h1 className="font-bold text-xl">Hello Dev 👋</h1>
         <p className="text-[14px] text-gray-600">
-          Let's learn something new today!
+          Lets learn something new today!
         </p>
       </div>
       <div className="flex items-center gap-2">

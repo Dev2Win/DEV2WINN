@@ -6,13 +6,13 @@ const Mentors = () => {
   useEffect(() => {
     (async()=>{
       try {
-       const res = await fetch(RECOMMENDATIONS,{
+        await fetch(RECOMMENDATIONS,{
         method:"GET",
         headers: {
           'Content-Type': 'application/json',
         },
        })
-       const profileInfo:any = await res.json()       
+      //  const profileInfo:any = await res.json()       
       } catch (error) {
         console.log(error)
       }
