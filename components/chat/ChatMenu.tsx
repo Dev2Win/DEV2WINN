@@ -2,6 +2,10 @@ import React, { useState } from 'react';
 import ChatMenuCard from './ChatMenuCard';
 import { StaticImageData } from 'next/image';
 
+type userDetailsProps = {
+  firstName: string
+}
+
 export type UsersProps = {
   id: number;
   name: string;
@@ -9,6 +13,7 @@ export type UsersProps = {
   message: string;
   time: string;
   status: boolean;
+  userDetails: userDetailsProps
 };
 
 interface ChatMenuProps {
@@ -47,7 +52,7 @@ const ChatMenu = ({
         placeholder="search here"
         value={searchQuery}
         onChange={handleSearchChange}
-        className="border-b border-gray-300 outline-none px-4 w-full"
+        className="w-full border-b border-gray-300 px-4 outline-none"
       />
       <section className="border-b border-gray-200">
         {filteredUsers.map((user: UsersProps) => (
