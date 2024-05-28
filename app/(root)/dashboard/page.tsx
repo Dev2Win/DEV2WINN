@@ -63,7 +63,7 @@ const Home = () => {
 
           <div>
             <h1 className='mb-4 mt-6 text-xl font-bold'>To-do List</h1>
-            {todoListData.map((todos) => (
+            {todoListData.map((todos:any) => (
               <Todo key={todos.title} todos={todos}/>
             ))}
           </div>
