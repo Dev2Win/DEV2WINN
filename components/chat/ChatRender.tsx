@@ -1,5 +1,7 @@
+/* eslint-disable tailwindcss/no-custom-classname */
+/* eslint-disable object-shorthand */
 'use client';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Message from '@/components/chat/Message';
 import ChatboxHeader from '@/components/chat/ChatboxHeader';
 import Input from '@/components/chat/Input';
@@ -7,26 +9,30 @@ import ChatMenu from '@/components/chat/ChatMenu';
 import io from 'socket.io-client';
 import moment from 'moment';
 import { useUser } from '@clerk/clerk-react';
-import MeetingModal from '../MeetingModal';
+import MeetingModal from '../meeting/MeetingModal';
 import ChatMenuCard from './ChatMenuCard';
+import { BiCheckDouble } from 'react-icons/bi';
+import { LuCheck, LuPlus } from 'react-icons/lu';
+import Image from 'next/image';
 
-const SOCKET_SERVER_URL = process.env.SOCKET_SERVER_URL || "https://chat-jftzv415v-bismarkb609gmailcoms-projects.vercel.app"
-const ALL_USERS = process.env.ALL_USERS || 'http://localhost:3000/api/users/all'
-
+const SOCKET_SERVER_URL = process.env.SOCKET_SERVER_URL! || "http://localhost:3001"
+// const ALL_USERS = process.env.ALL_USERS || "http://localhost:3001/api/users"
 
 const ChatRender = () => {
   const [selectedUser, setSelectedUser] = useState<any>(null);
-  const [showChatbox, setShowChatbox] = useState(false);
+  const [showChatbox, setShowChatbox] = useState(true);
   const [allUsers, setAllUsers] = useState<any>([]);
   const [messages, setMessages] = useState<any>([]);
-  const [connections, setConnections] = useState<any>([]);
+  const [users , setUsers] = useState<any>(null);
   const [socket, setSocket] = useState<any>(null);
   const [open, setOpen] = useState(false);
   const { user } = useUser();
-
+  const currentMessage = useRef<any>(null);
+  const toggleShowWindow = () => {
+    setShowChatbox(!showChatbox);
+  };
 
   useEffect(() => {
-
     const socketInstance = io(SOCKET_SERVER_URL, {
       auth: { token: user?.publicMetadata?.userId },
     });
@@ -90,19 +96,19 @@ const ChatRender = () => {
     return () => {
       socketInstance.disconnect();
     };
-  }, [user?.publicMetadata?.userId]);
+  }, [user?.publicMetadata?.userId,selectedUser?._id]);
 
   useEffect(() => {
     (async () => {
       try {
-        const res = await fetch(ALL_USERS, {
+        const res = await fetch("http://localhost:3000/api/users/all", {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
           },
         });
         const users = await res.json();
-        setConnections(users);
+        setUsers(users);
         console.log(users);
       } catch (error) {
         console.error(error);
@@ -110,17 +116,30 @@ const ChatRender = () => {
     })();
   }, []);
 
-  const sendMessage = (text: any) => {
+  useEffect(() => {
+    if (currentMessage.current) {
+      currentMessage.current.scrollIntoView({
+        behavior: 'smooth',
+        block: 'end',
+      });
+    }
+  }, [messages]);
+
+  const sendMessage = (message: any) => {
+    const { text, imageUrl, videoUrl } = message;
     if (socket && selectedUser) {
       const messageData = {
         senderId: user?.publicMetadata?.userId,
         receiverId: selectedUser?._id || selectedUser?.userDetails?._id,
         text: text,
+        imageUrl: imageUrl,
+        videoUrl: videoUrl,
       };
 
-      socket.emit('sendMessage', messageData);
-
+      console.log(messageData);
       
+
+      socket.emit('sendMessage', messageData);
     }
   };
 
@@ -141,51 +160,84 @@ const ChatRender = () => {
   // );
 
   return (
-    <div className="2xl:mx-auto 2xl:max-w-[1400px] rounded-md">
-      <div className="relative h-[78vh] bg-white shadow-md overflow-hidden">
-        <div className="flex gap-[11rem] items-center">
-          <h1 className="font-bold text-xl text-purple-1 px-4 py-2">
-            Messages
-          </h1>
+    <div className="2xl:mx-auto 2xl:max-w-[1400px] ">
+      <div className="relative h-[80vh] overflow-hidden rounded-xl bg-white shadow-md">
+        <div className="mx-3 flex items-center justify-between gap-[12rem] lg:justify-start">
+          <h1 className="py-2 text-xl font-bold  text-purple-1">Messages</h1>
           <div
             onClick={() => setOpen(!open)}
-            className="font-bold text-xl text-purple-1 w-[40px] h-[40px] mt-2 cursor-pointer flex items-center justify-center  rounded-full bg-purple-200"
+            className="mt-2 flex size-[30px] cursor-pointer items-center justify-center rounded-full bg-purple-200 text-center text-xl font-bold text-purple-1"
           >
-            +
+            <LuPlus />
           </div>
         </div>
-        <div className="grid lg:grid-cols-12 gap-4 h-[90%] absolute left-0 right-0 ">
-          <section className="overflow-y-scroll mb-4 scrollbar-hidden lg:col-span-5 xl:col-span-4">
+        <div className="absolute inset-x-0 h-[90%] lg:grid lg:grid-cols-12 ">
+          <section
+            className={`${showChatbox ? 'block' : 'hidden'} scrollbar-hidden mb-4 overflow-y-scroll lg:col-span-5 lg:block xl:col-span-4`}
+          >
             <ChatMenu
               onSelectUser={handleSelectUser}
               users={allUsers}
               showChatbox={showChatbox}
+              setClose={() => setOpen(false)}
+              setShowChatbox={setShowChatbox}
             />
           </section>
-          <section className="hidden  lg:block lg:col-span-7 border border-gray-200 rounded-md mb-4 relative xl:col-span-8">
+          <section
+            className={`${showChatbox ? 'hidden' : 'block'} relative mb-4 rounded-md border border-gray-300 lg:col-span-7 lg:block xl:col-span-8`}
+          >
             {selectedUser ? (
-              <>
-                <ChatboxHeader user={selectedUser} />
-                <div className=" h-[290px] p-2 overflow-x-hidden bg-gray-50 overflow-y-scroll scrollbar space-y-3  ">
+              <div className="flex flex-col">
+                <div className="h-fit">
+                  <ChatboxHeader
+                    user={selectedUser}
+                    toggleShowWindow={toggleShowWindow}
+                  />
+                </div>
+                <div className="scrollbar-hidden scrollbar h-[50vh] space-y-3 overflow-x-hidden overflow-y-scroll bg-black/10 p-2 lg:h-[300px]">
                   {messages?.map((msg: any, index: any) => (
                     <div
-                      className={` max-w-[200px] p-2 text-gray-600 text-[10px] rounded-lg flex items-baseline justify-between  ${user?.publicMetadata?.userId === msg?.msgByUserId ? 'ml-auto bg-purple-50' : 'bg-white'}`}
+                      ref={currentMessage}
+                      className={`max-w-[200px] p-2 text-[10px] text-gray-600 ${user?.publicMetadata?.userId === msg?.msgByUserId ? ' rounded-l-2xl rounded-br-2xl' : ' rounded-r-2xl rounded-bl-2xl'} flex items-baseline justify-between  ${user?.publicMetadata?.userId === msg?.msgByUserId ? 'ml-auto bg-purple-700/10' : 'bg-white'}`}
                       key={index}
                     >
                       <p>{msg.text}</p>
+                      {msg?.imageUrl && (
+                        <Image
+                          src={msg?.imageUrl}
+                          className="size-full object-scale-down"
+                          alt='message image'
+                        />
+                      )}
+                      {msg?.videoUrl && (
+                        <video
+                          src={msg.videoUrl}
+                          className="size-full object-scale-down"
+                          controls
+                        />
+                      )}
                       <div className="">
-                        <p className=" text-purple-400 text-[8px] mt-2">
-                          {msg?.seen ? 'seen' : 'unseen'}
+                        <p className="  mt-2 text-[8px]">
+                          {msg?.seen ? (
+                            <BiCheckDouble
+                              size={22}
+                              className="text-purple-700"
+                            />
+                          ) : (
+                            <LuCheck size={20} className="text-gray-400" />
+                          )}
                         </p>
-                        <p className="text-[8px] ml-auto w-fit">
+                        <p className="ml-auto w-fit text-[8px]">
                           {moment(msg?.createdAt)?.format('hh:mm')}
                         </p>
                       </div>
                     </div>
                   ))}
                 </div>
-                <Input handleSendMessage={sendMessage} />
-              </>
+                <div className="h-fit ">
+                  <Input handleSendMessage={sendMessage} />
+                </div>
+              </div>
             ) : (
               <Message />
             )}
@@ -198,14 +250,15 @@ const ChatRender = () => {
         title="Connections"
       >
         <div className="">
-          {connections?.map((con: any) => (
+          { users?.map((con: any) => 
             <ChatMenuCard
               key={con?._id}
               user={con}
               setClose={() => setOpen(!open)}
               onSelectUser={handleSelectUser}
+              setShowChatbox={setShowChatbox}
             />
-          ))}
+          )}
         </div>
       </MeetingModal>
     </div>

@@ -8,11 +8,11 @@ import HomeCard from './HomeCard';
 import MeetingModal from './MeetingModal';
 import { Call, useStreamVideoClient } from '@stream-io/video-react-sdk';
 import { useUser } from '@clerk/nextjs';
-import Loader from './Loader';
-import { Textarea } from './ui/textarea';
+import Loader from '../reusables/Loader';
+import { Textarea } from '../ui/textarea';
 import ReactDatePicker from 'react-datepicker';
-import { useToast } from './ui/use-toast';
-import { Input } from './ui/input';
+import { useToast } from '../ui/use-toast';
+import { Input } from '../ui/input';
 
 const initialValues = {
   dateTime: new Date(),
@@ -81,7 +81,7 @@ const MeetingTypeList = () => {
         img="/icons/join-meeting.svg"
         title="Join Meeting"
         description="via invitation link"
-        className="bg-blue-1"
+        className="  bg-blue-300"
         handleClick={() => setMeetingState('isJoiningMeeting')}
       />
       <HomeCard
@@ -95,7 +95,7 @@ const MeetingTypeList = () => {
         img="/icons/recordings.svg"
         title="View Recordings"
         description="Meeting Recordings"
-        className="bg-yellow-1"
+        className="bg-yellow-400"
         handleClick={() => router.push('/recordings')}
       />
 

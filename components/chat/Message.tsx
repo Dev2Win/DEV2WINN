@@ -3,9 +3,9 @@ import { FiMessageCircle } from "react-icons/fi";
 
 const Message = () => {
   return (
-    <div className='w-full flex flex-col justify-center items-center gap-4 h-[100%]'>
-        <FiMessageCircle size={50} className='text-gray-400' />
-       <h1 className='text-gray-400 text-2xl'>Send chat and view conversation</h1>
+    <div className='flex h-[100%] w-full flex-col items-center justify-center gap-4'>
+        <FiMessageCircle size={40} className='text-gray-400' />
+       <h1 className='text-lg text-gray-400'>Send chat and view conversation</h1>
     </div>
   )
 }

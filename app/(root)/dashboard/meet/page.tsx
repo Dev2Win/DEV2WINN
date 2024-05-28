@@ -1,4 +1,4 @@
-import MeetingTypeList from '@/components/MeetingTypeList'
+import MeetingTypeList from '@/components/meeting/MeetingTypeList'
 import React from 'react'
 
 const page = () => {

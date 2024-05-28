@@ -2,7 +2,7 @@
 
 import { Call, CallRecording } from '@stream-io/video-react-sdk';
 
-import Loader from './Loader';
+import Loader from '../reusables/Loader';
 import { useGetCalls } from '@/hooks/useGetCalls';
 import MeetingCard from './MeetingCard';
 import { useEffect, useState } from 'react';
