@@ -145,3 +145,18 @@ export const ImagesData = [
     { image: Img09, id: "9" },
     { image: Img10, id: "10" },
 ]
+
+ export const barchartData = [
+    { month: 'January', Study: 70, Exam: 40 },
+    { month: 'February', Study: 90, Exam: 12},
+    { month: 'March', Study: 40, Exam: 10 },
+    { month: 'April', Study: 80, Exam: 20},
+    { month: 'May', Study: 80, Exam: 14},
+    { month: 'June', Study: 75, Exam: 20},
+    { month: 'July', Study: 80, Exam: 30 },
+    { month: 'August', Study: 60, Exam: 42},
+    { month: 'September', Study: 50, Exam: 30 },
+    { month: 'October', Study: 80, Exam: 20},
+    { month: 'November', Study: 85, Exam: 24},
+    { month: 'December', Study: 75, Exam: 26},
+  ];

@@ -2,18 +2,24 @@ import React from 'react';
 import Image from 'next/image';
 import avater from '../../public/images/avatar-3.png';
 import moment from 'moment';
-
+import { FaImage, FaVideo } from 'react-icons/fa';
 
 // type CardProps = {
 //   user: UsersProps;
 //   onSelectUser: (user: UsersProps) => void;
 // };
 
-const ChatMenuCard = ({ user, onSelectUser, setClose, showChatbox , setShowChatbox}: any) => {
+const ChatMenuCard = ({
+  user,
+  onSelectUser,
+  setClose,
+  showChatbox,
+  setShowChatbox,
+}: any) => {
   const handleUserClick = () => {
     onSelectUser(user);
-   // setClose();
-    setShowChatbox(!showChatbox)
+    setShowChatbox(!showChatbox);
+    setClose();
   };
 
   return (
@@ -30,7 +36,7 @@ const ChatMenuCard = ({ user, onSelectUser, setClose, showChatbox , setShowChatb
           className="rounded-full"
         />
       </div>
-      <div className='flex flex-col justify-between flex-grow'>
+      <div className="flex flex-col justify-between flex-grow">
         <div className="flex justify-between items-center gap-3">
           <h3 className="font-bold flex-start">
             {user?.userDetails?.firstName || user?.firstName}{' '}
@@ -42,10 +48,26 @@ const ChatMenuCard = ({ user, onSelectUser, setClose, showChatbox , setShowChatb
           </p>
         </div>
         <div className="flex justify-between items-center">
+          {user?.lastMsg?.imageUrl && (
+            <div className="flex items-center gap-1">
+              <span>
+                <FaImage />
+              </span>
+              {!user?.lastMsg?.text && <span>Image</span>}
+            </div>
+          )}
+          {user?.lastMsg?.videoUrl && (
+            <div className="flex items-center gap-1">
+              <span>
+                <FaVideo />
+              </span>
+              {!user?.lastMsg?.text && <span>Video</span>}
+            </div>
+          )}
           <p className="text-sm text-gray-400  hover:text-gray-100">
             {user?.lastMsg?.text?.substring(0, 30)}
           </p>
-          
+
           {Boolean(user?.unseenMsg) && (
             <p className="text-[10px] w-5 h-5 flex justify-center items-center ml-auto p-[3px]  bg-purple-500 text-white font-semibold rounded-full">
               {user?.unseenMsg}

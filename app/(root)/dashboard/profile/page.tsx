@@ -1,6 +1,6 @@
 'use client'
 
-import ContentCard from '@/components/ContentCard'
+import ContentCard from '@/components/userProfile/ContentCard'
 
 
 const page = () => {

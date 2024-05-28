@@ -1,6 +1,6 @@
 'use client'
 
-import { FormEvent, useMemo, useState } from 'react';
+import React, { FormEvent, useMemo, useState } from 'react';
 import StepOneMentee from '@/components/profile/StepOneMentee';
 import StepTwoMentee from '@/components/profile/StepTwoMentee';
 import StepFourForm from '@/components/profile/StepFourForm';
@@ -21,14 +21,13 @@ export type FormValues = {
 };
 
 
-const menteeUrl: string = process.env.MENTEE_PROFILE_ENDPOINT  || "http://localhost:3000/api/users/mentee"
+const menteeUrl: string = process.env.MENTEE_URL  || "https://dev-2-winn.vercel.app/api/users/mentee"
 
 
 
 const MultiStepPage = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [complete, setComplete] = useState(false);
-  // const [selectedOptions, setSelectedOptions] = useState([]);
   const [selectedOptionsRaw, setSelectedOptionsRaw] = useState([]);
   const steps: string[] = ['personal', 'career', 'finish'];
 
@@ -62,30 +61,19 @@ const MultiStepPage = () => {
 
   const handleSelect = (selected: any) => {
     setSelectedOptionsRaw(selected);
-    console.log(selected);
   };
-
-
-
-  
 
 
   const handleMenteeFormSubmit = async (event: FormEvent<HTMLFormElement>) => {
     // const { userId } = await getAuth(req);
     event.preventDefault()    
     try {
-      // if (!userId) {
-      //   return res.status(401).json({ error: "Not authenticated" });
-      // }
-      // const formData = new FormData();
-      // formData.append('industry_pref', JSON.stringify(  selectedOptions.map((option: Option) => option.value)));
-      // console.log(formData)
 
       const updatedFormData = {
         ...formData,
         industry_pref: selectedOptions.map((option: Option) => option.value),
       };
-      const response = await fetch("https://dev-2-winn.vercel.app/api/users/mentee", {
+      const response = await fetch(menteeUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

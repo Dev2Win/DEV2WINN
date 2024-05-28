@@ -1,7 +1,6 @@
 import React from 'react';
 import avater from '../../public/images/avatar-3.png';
 import Image from 'next/image';
-import { IoCallOutline, IoVideocamOutline } from 'react-icons/io5';
 import { BsThreeDotsVertical ,BsArrowLeft} from 'react-icons/bs';
 
 
@@ -29,7 +28,6 @@ const ChatboxHeader = (
           alt="user"
           className="rounded-full "
         />
-
         <div className="flex flex-col justify-between items-center gap-1">
           <h3 className="font-bold">{user?.name}</h3>
           <p className="text-sm">{user?.online ? <p className=' text-purple-700'>online</p> : 'offline'}</p>
@@ -37,8 +35,8 @@ const ChatboxHeader = (
       </div>
       
       <div className="flex gap-4">
-        {/* <IoCallOutline className="bg-purple-1/5 p-2 text-4xl rounded-full cursor-pointer" />
-        <IoVideocamOutline className="bg-purple-1/5 p-2 text-4xl rounded-full cursor-pointer" />*/}
+        { /* <IoCallOutline className="bg-purple-1/5 p-2 text-4xl rounded-full cursor-pointer" />
+        <IoVideocamOutline className="bg-purple-1/5 p-2 text-4xl rounded-full cursor-pointer" /> */}
         <BsThreeDotsVertical className="bg-purple-1/5 p-2 text-4xl rounded-full cursor-pointer" /> 
       </div>
     </section>
