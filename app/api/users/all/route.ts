@@ -1,17 +1,16 @@
 /* eslint-disable camelcase */
 import { connectToDB } from "@/lib/db"
-import Mentee from "@/models/Mentee"
-import Mentor from "@/models/Mentor"
+
 import User from "@/models/User"
-import { auth } from "@clerk/nextjs/server"
+// import { auth } from "@clerk/nextjs/server"
 import { NextResponse } from "next/server"
 
 export const GET = async () => {
   try {
     await connectToDB();
 
-    const { sessionClaims } = auth();
-    const userId = sessionClaims?.userId as string;
+    // const { sessionClaims } = auth();
+    // const userId = sessionClaims?.userId as string;
 
     const users = await User.find();
     
