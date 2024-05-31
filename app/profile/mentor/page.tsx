@@ -1,6 +1,6 @@
 'use client';
 
-import {  useMemo, useState } from 'react';
+import React, {  useMemo, useState } from 'react';
 import StepOneMentor from '@/components/profile/StepOneMentor';
 import StepTwoMentor from '@/components/profile/StepTwoMentor';
 import StepFourForm from '@/components/profile/StepFourForm';
@@ -19,7 +19,7 @@ export type FormValues = {
   availability: string;
   expertise: Option[] | null;
 };
-const mentorUrl: string = process.env.MENTOR_PROFILE_ENDPOINT|| 'http://localhost:3000/api/users/mentor'
+const mentorUrl: string = process.env.MENTOR_URL || 'https://dev-2-winn.vercel.app/api/users/mentor'
 
 
 const MultiStepPage = () => {
@@ -36,7 +36,7 @@ const MultiStepPage = () => {
   const [formData, setFormData] = useState<FormValues>({
     title: '',
     bio: '',
-    career_preferences: '',
+    career_preferences: null,
     industry_pref: null,
     experience_level: '',
     availability: '',
@@ -91,7 +91,7 @@ const MultiStepPage = () => {
         industry_pref: selectedOptions.map((option: Option) => option.value),
         expertise: selectedExpertise.map((option: Option) => option.value),
       };
-      const response = await fetch("https://dev-2-winn.vercel.app/api/users/mentor", {
+      const response = await fetch(mentorUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

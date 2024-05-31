@@ -50,16 +50,16 @@ const Background: React.FC<BackgroundProps> = ({
     const popdownButtonClass = 'border ';
 
     return (
-      <div className="flex flex-wrap items-center relative">
-        <div className="sm:hidden inline-flex gap-x-2">
+      <div className="relative flex flex-wrap items-center">
+        <div className="inline-flex gap-x-2 sm:hidden">
           <button
-            className={` w-24 py-2 text-sm font-bold rounded-md text-black ${mainButtonClass} ${secondButtonClass} ${thirdButtonClass} ${fourthButtonClass} `}
+            className={` w-24 rounded-md py-2 text-sm font-bold text-black ${mainButtonClass} ${secondButtonClass} ${thirdButtonClass} ${fourthButtonClass} `}
           >
             {visibleItems[0]}
           </button>
           {remainingItems.length > 0 && (
             <button
-              className={`rounded-md px-3 py-1 mr-2  cursor-pointer ${popdownButtonClass}`}
+              className={`mr-2 cursor-pointer rounded-md px-3  py-1 ${popdownButtonClass}`}
               onClick={() => showPopdown(setPopdown, popdownState)}
             >
               +{remainingItems.length}
@@ -68,20 +68,20 @@ const Background: React.FC<BackgroundProps> = ({
         </div>
         <div className="hidden sm:flex">
           <button
-            className={` w-24 py-2 text-sm mr-2 font-bold rounded-md text-black ${mainButtonClass} ${secondButtonClass} ${thirdButtonClass} ${fourthButtonClass} `}
+            className={` mr-2 w-24 rounded-md py-2 text-sm font-bold text-black ${mainButtonClass} ${secondButtonClass} ${thirdButtonClass} ${fourthButtonClass} `}
           >
             {visibleItems[0]}
           </button>
           {visibleItems.length > 1 && (
             <button
-              className={` w-24 mr-2 py-2 text-sm font-bold rounded-md text-black ${largeButtonClass} ${secondButtonClass} ${thirdButtonClass} ${fourthButtonClass} `}
+              className={` mr-2 w-24 rounded-md py-2 text-sm font-bold text-black ${largeButtonClass} ${secondButtonClass} ${thirdButtonClass} ${fourthButtonClass} `}
             >
               {visibleItems[1]}
             </button>
           )}
           {remainingItems.length > 0 && (
             <button
-              className={`rounded-md px-3  mr-2  cursor-pointer ${popdownButtonClass}`}
+              className={`mr-2 cursor-pointer  rounded-md  px-3 ${popdownButtonClass}`}
               onClick={() => showPopdown(setPopdown, popdownState)}
             >
               +{remainingItems.length}
@@ -89,9 +89,9 @@ const Background: React.FC<BackgroundProps> = ({
           )}
         </div>
         {popdownState && (
-          <div className="absolute z-10 bg-white rounded-md shadow-lg p-4 top-8 left-0">
+          <div className="absolute left-0 top-8 z-10 rounded-md bg-white p-4 shadow-lg">
             {remainingItems.map((item, index) => (
-              <button key={index} className="block mb-2">
+              <button key={index} className="mb-2 block">
                 {item}
               </button>
             ))}
@@ -102,9 +102,9 @@ const Background: React.FC<BackgroundProps> = ({
   };
 
   return (
-    <div className="p-4 mt-8 border flex  w-full lg:w-8/12  flex-col rounded-lg gap-y-6 px-4 py-8">
+    <div className="mt-8 flex w-full flex-col  gap-y-6 rounded-lg  border p-4 px-4 py-8 lg:w-8/12">
       <div className="flex justify-between">
-        <h3 className="text-lg font-semibold mb-2">Expertise</h3>
+        <h3 className="mb-2 text-lg font-semibold">Expertise</h3>
         {renderItems(
           expertise,
           setShowExpertisePopdown,
@@ -114,7 +114,7 @@ const Background: React.FC<BackgroundProps> = ({
       </div>
       <hr className="mx-2"></hr>
       <div className="flex justify-between">
-        <h3 className="text-lg font-semibold mb-2">Disciplines</h3>
+        <h3 className="mb-2 text-lg font-semibold">Disciplines</h3>
         {renderItems(
           disciplines,
           setShowDisciplinesPopdown,
@@ -124,7 +124,7 @@ const Background: React.FC<BackgroundProps> = ({
       </div>
       <hr className="mx-2"></hr>
       <div className="flex justify-between">
-        <h3 className="text-lg font-semibold mb-2">Industries</h3>
+        <h3 className="mb-2 text-lg font-semibold">Industries</h3>
         {renderItems(
           industries,
           setShowIndustriesPopdown,
@@ -134,7 +134,7 @@ const Background: React.FC<BackgroundProps> = ({
       </div>
       <hr className="mx-2"></hr>
       <div className="flex justify-between">
-        <h3 className="text-lg font-semibold mb-2">Fluent in</h3>
+        <h3 className="mb-2 text-lg font-semibold">Fluent in</h3>
         {renderItems(
           fluentin,
           setShowFluentinPopdown,

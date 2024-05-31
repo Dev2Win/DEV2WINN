@@ -1,6 +1,4 @@
 
-import user from "../public/product.jpeg";
-import user2 from "../public/avatar.jpg";
 import avater from '../../public/images/avatar-1.jpeg'
 import avater2 from '../../public/images/avatar-2.jpeg'
 

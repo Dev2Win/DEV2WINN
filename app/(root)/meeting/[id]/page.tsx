@@ -7,9 +7,9 @@ import { useParams } from 'next/navigation';
 import { Loader } from 'lucide-react';
 
 import { useGetCallById } from '@/hooks/useGetCallById';
-import Alert from '@/components/Alert';
-import MeetingSetup from '@/components/MeetingSetup';
-import MeetingRoom from '@/components/MeetingRoom';
+import Alert from '@/components/reusables/Alert';
+import MeetingSetup from '@/components/meeting/MeetingSetup';
+import MeetingRoom from '@/components/meeting/MeetingRoom';
 
 const MeetingPage = () => {
   const { id } = useParams();

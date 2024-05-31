@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import { connectToDB } from "@/lib/db"
 import Mentee from "@/models/Mentee"
 import Mentor from "@/models/Mentor"
@@ -22,7 +23,13 @@ export const GET = async () => {
     let userInfo;
 
     const menteeInfo = await Mentee.findOne({userId:user._id});
+    // eslint-disable-next-line camelcase
+    
+  // eslint-disable-next-line camelcase
+
+
     if (menteeInfo) {
+
       userInfo = { message: "MENTEE fetched", user:  { ...user.toObject(), menteeInfo } };
     } else {
       const mentorInfo = await Mentor.findOne({userId:user._id});
@@ -39,3 +46,4 @@ export const GET = async () => {
     return NextResponse.json({ message: "Internal server error" });
   }
 };
+

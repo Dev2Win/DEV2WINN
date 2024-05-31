@@ -9,11 +9,7 @@ import { Schema, model, models} from "mongoose";
   industry_pref: [{type:String, required: false }], // health , agriculture , mines , law , based on career choice
   availability: [{ type :String, required: false }], // weekdays and weekends and everyday 
   education_status:{type:String, required: false },// degree , high school diploma , masters , phd
-  chats: {
-    type: [{ type: Schema.Types.ObjectId, ref: "Chat" }],
-    default: [],
-    required: false
-  },
+ 
 });
 
 const Mentee = models.Mentee || model("Mentee", MenteeSchema)
