@@ -22,8 +22,6 @@ type CardProps = {
 };
 
 
-
-
 const Home = () => {
   const [value] = useState<number>(8.966);
 
