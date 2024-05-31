@@ -32,9 +32,6 @@ export default function Header() {
           Submit
         </button>
       </div>
-      <Paper shadow="xs" className="relative p-[8px] border border-gray-300">
-        <FiEdit className="text-gray-600 text-xl" />
-      </Paper>
     </header>
   );
 }
