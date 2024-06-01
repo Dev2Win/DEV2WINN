@@ -47,7 +47,7 @@ const Page = () => {
           ))}
         </div>
 
-        <div className="w-full flex items-start gap-3 h-screen overflow-y-scroll fixed left-0 lg:left-[300px] right-6 p-4 ">
+        <div className="flex items-start gap-3 h-screen overflow-y-scroll fixed left-0 lg:left-[310px] right-0 ">
           <MdOutlineMenu 
             className="text-gray-700 lg:hidden" 
             size={34} 
