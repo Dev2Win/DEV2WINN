@@ -28,7 +28,7 @@ const Page = () => {
 
   return (
     <main className="w-full">
-      <div className="fixed top-0 left-0 right-0 h-[80px]">
+      <div className="fixed top-0 left-0 right-0 h-[80px] shadow-md">
         <Navbar />
       </div>
 
@@ -47,14 +47,14 @@ const Page = () => {
           ))}
         </div>
 
-        <div className="w-full flex items-start gap-3 h-screen overflow-y-scroll fixed left-0 lg:left-[300px] p-4 bg-black/10">
+        <div className="w-full flex items-start gap-3 h-screen overflow-y-scroll fixed left-0 lg:left-[300px] right-6 p-4 ">
           <MdOutlineMenu 
             className="text-gray-700 lg:hidden" 
             size={34} 
             onClick={() => setShowMenu(true)} 
           />
 
-          <div>
+          <div className='pr-6'>
             <h1 className="text-xl font-bold mb-2">
               {selectedSubmodule?.title}
             </h1>
