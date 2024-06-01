@@ -2,6 +2,7 @@ import React from 'react';
 import { GoBook } from 'react-icons/go';
 import { LuUsers2 } from "react-icons/lu";
 import { BiNotepad } from "react-icons/bi";
+import Link from 'next/link';
 
 // kindly resolve typescript properly  
 
@@ -15,7 +16,7 @@ import { BiNotepad } from "react-icons/bi";
 
 const Card = ({ card }:any) => {
   return (
-    <div className="min-w-fit rounded-xl p-6 text-gray-700" style={{ backgroundColor: card.bgColor }}>
+    <Link href={`/learning-materials`} className="min-w-fit rounded-xl p-6 text-gray-700" style={{ backgroundColor: card.bgColor }}>
       <div className="w-fit rounded-full bg-white p-2">
         <card.icon size={30} style={{ color: card.bgColor }}/>
       </div>
@@ -40,7 +41,7 @@ const Card = ({ card }:any) => {
           <small>{card.studentsCount}</small>
         </article>
       </div>
-    </div>
+    </Link>
   );
 };
 
