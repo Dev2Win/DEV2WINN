@@ -3,21 +3,17 @@ import { GoBook } from 'react-icons/go';
 import { LuUsers2 } from 'react-icons/lu';
 import { BiNotepad } from 'react-icons/bi';
 import Link from 'next/link';
+import { Course } from '@/app/(root)/dashboard/page';
 
-// kindly resolve typescript properly
 
-// type CardProps = {
-//   icon: any;
-//   title: string;
-//   booksCount: number;
-//   studentsCount: number;
-//   assignmentCounts: number;
-// };
+type CardProps = {
+  card: Course;
+};
 
-const Card = ({ card }: any) => {
+const Card = ({ card }: CardProps) => {
   return (
     <Link
-      href={`/learning-materials/${card.title}`}
+      href={`/dashboard/${card.id}`}
       className="min-w-fit rounded-xl p-6 text-gray-700"
       style={{ backgroundColor: card.bgColor }}
     >

@@ -6,19 +6,38 @@
 import Header from '@/components/lms/Header';
 import React, { useState } from 'react';
 import Card from '@/components/lms/Card';
-import { cardData, todoListData } from '@/lib/utils';
+import { todoListData } from '@/lib/utils';
+import { courses } from '@/lib/lmscontent';
 import Barchart from '@/components/lms/BarChart';
 import Todo from '@/components/lms/Todo';
 import Speedometer from '@/components/lms/Speedometer';
+import { StaticImageData } from 'next/image';
 
 
-type CardProps = {
-  icon: any;
+
+export type Submodule = {
+  id: number;
   title: string;
+  content: string;
+}
+
+export type Module = {
+  id: number;
+  title: string;
+  submodules: Submodule[];
+}
+
+export type Course = {
+  id: number;
+  title: string;
+  icon: any; 
   booksCount: number;
   studentsCount: number;
   assignmentCounts: number;
-};
+  bgColor: string;
+  courseLogo: StaticImageData;
+  courseroadmap: Module[];
+}
 
 
 const Home = () => {
@@ -32,12 +51,11 @@ const Home = () => {
 
         <section className="col-span-4">
           <div className="scrollbar-hidden flex gap-4 overflow-x-scroll">
-            {cardData.map((card: CardProps) => (
-              <Card key={card.title} card={card} />
+            {courses.map((card: Course) => (
+              <Card key={card.id} card={card} />
             ))}
           </div>
           </section>
-
 
           <div className="col-span-4 lg:col-span-3 grid grid-cols-10 gap-6">
                 <div className="col-span-10 text-gray-800 md:col-span-5 lg:col-span-6">
