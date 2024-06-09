@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import useStore from '@/lib/store';
 import { menteeSidebar, mentorSidebar } from '@/constants';
-import { cn } from '@/lib/utils';
+
 
 const Sidebar = () => {
   const pathname = usePathname();
@@ -23,9 +23,9 @@ const Sidebar = () => {
             >
               <Link
                 href={item.route}
-                className={cn({
-                  'bg-purple-1/40 rounded-md  p-2 text-white': isActive,
-                })}
+                className={` ${ isActive ? 'bg-purple-1/40 rounded-md  p-2 text-white' : "" }
+                  
+                `}
               >
                 <Image
                   src={item.imgURL}

@@ -10,6 +10,8 @@ import { cardData, todoListData } from '@/lib/utils';
 import Barchart from '@/components/lms/BarChart';
 import Todo from '@/components/lms/Todo';
 import Speedometer from '@/components/lms/Speedometer';
+import UserCard from '@/components/users/UserCard';
+import image from '@/public/images/aboutImage.webp'
 
 
 type CardProps = {
@@ -23,6 +25,33 @@ type CardProps = {
 
 const Home = () => {
   const [value] = useState<number>(8.966);
+  const mentors = [
+    {
+      image: image,
+      name: 'Ayesha Khan',
+      title: 'Senior Program Manager at Upstart',
+
+      experience: 20,
+      reviews: 0,
+    },
+    {
+      image: image,
+      name: 'Ayesha Khan',
+      title: 'Senior Program Manager at Upstart',
+
+      experience: 20,
+      reviews: 0,
+    },
+    {
+      image: image,
+      name: 'Ayesha Khan',
+      title: 'Senior Program Manager at Upstart',
+
+      experience: 20,
+      reviews: 0,
+    },
+    // Add more mentor data as needed
+  ];
 
   return (
     <section className="flex size-full flex-col gap-5 2xl:w-[1500px] 2xl:mx-auto">
@@ -39,26 +68,42 @@ const Home = () => {
           </section>
 
 
-          <div className="col-span-4 lg:col-span-3 grid grid-cols-10 gap-6">
-                <div className="col-span-10 text-gray-800 md:col-span-5 lg:col-span-6">
+          <div className="col-span-4 flex gap-5 ">
+                {/* <div className="col-span-10 text-gray-800 md:col-span-5 lg:col-span-6">
                  <h1 className="mb-4 text-xl font-bold">Hours spent</h1>
                    <div className="rounded-lg border border-gray-300 p-4 text-black">
                     <Barchart />
                    </div>
-                </div>
-                            
-            <div className="col-span-10  md:col-span-5 lg:col-span-4">
+                </div> */}
+              <div className=" space-y-4 p-3 ">
+              <h1 className=' font-bold text-[1.5rem]'> Your Top Mentor Matches</h1>
+              <div className=" flex  bg-slate-50 p-4 rounded-lg justify-between">
+               <p className='  font-bold text-gray-400'>Still want to explore great matches? </p>
+               <p className='  font-medium text-purple-500 text-[1rem]  cursor-pointer'>Explore mentors</p>
+              </div>
+<div className="flex gap-4">
+  
+{mentors.map((mentor, index) => (
+          <UserCard
+            key={index}
+            data={mentor}
+          />
+        ))}
+</div>
+               
+                </div>             
+            <div className="">
               <h1 className='mb-4 text-xl font-bold'>Performance</h1>
                 <Speedometer value={value}/>
             </div>
          </div>  
 
-         <div className='col-span-4 lg:col-span-1 '>
+         {/* <div className='col-span-4 lg:col-span-1 '>
             <h1 className='mb-4 mt-6 text-xl font-bold'>To-do List</h1>
             {todoListData.map((todos:any) => (
               <Todo key={todos.title} todos={todos}/>
             ))}
-          </div>    
+          </div>     */}
       </div>
     </section>
   );

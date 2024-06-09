@@ -5,17 +5,20 @@ import image from '@/public/images/Simon.webp';
 import Image from 'next/image';
 import Overview from './Overview';
 import { useEffect, useState } from 'react';
-import MeetingModal from '../meeting/MeetingModal';
 import BasicInfo from './BasicInfo';
 import ModalExperience from './ModalExperience';
 import SocialLinks from './SocialLinks';
+import GeneralModal from '../reusables/GeneralModal';
+import useStore from '@/lib/store';
 
 // eslint-disable-next-line camelcase
-const get_all_users = process.env.GET_ALL_USERS || "https://dev-2-winn.vercel.app/api/users"
+const get_all_users = process.env.GET_ALL_USERS || "http://localhost:3000/api/users"
 
 const ContentCard = () => {
   const [profileData, setProfileData] = useState<any>([]);
   const [showModal, setShowModal] = useState(false);
+
+const {setUserDetails}= useStore();
   const [workExperience, setWorkExperience] = useState<
     {
       industry: string;
@@ -83,7 +86,7 @@ const ContentCard = () => {
   //   console.log(formData);
   // };
 
-  const handleClick = () => {};
+
 
   useEffect(() => {
     (async () => {
@@ -96,7 +99,9 @@ const ContentCard = () => {
         });
         const profileInfo: any = await res.json();
         setProfileData(profileInfo?.user);
-        console.log(profileInfo);
+        setUserDetails(profileInfo?.user)
+        
+       
       } catch (error) {}
     })();
   }, []);
@@ -158,11 +163,11 @@ const ContentCard = () => {
         </div>
       </div>
       {showModal && (
-        <MeetingModal
+        <GeneralModal
           isOpen={showModal}
           onClose={() => setShowModal(!showModal)}
           title="Edit Profile"
-          handleClick={handleClick}
+          
         >
           <Tabs
             tabs={[
@@ -206,7 +211,7 @@ const ContentCard = () => {
               },
             ]}
           />
-        </MeetingModal>
+        </GeneralModal>
       )}
     </div>
   );

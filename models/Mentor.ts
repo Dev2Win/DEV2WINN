@@ -4,6 +4,11 @@ import { Schema, model, models } from "mongoose";
 const MentorSchema = new Schema({
   userId: { type: Schema.Types.ObjectId, ref: "User" },
     career_preferences: [{type: String , required : false}],
+    bio: { type: String , required:false },
+    title: { type: String , required:false },
+    gender: { type: String , required:false },
+    country: { type: String , required:false },
+    languages: [{type:String, required: false }],
      industry_pref: [{type:String, required: false }],
      expertise: [{ type :String, required: false }], 
      education: [{ type :String, required: false }],

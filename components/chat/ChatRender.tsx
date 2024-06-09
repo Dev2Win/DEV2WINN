@@ -14,6 +14,7 @@ import ChatMenuCard from './ChatMenuCard';
 import { BiCheckDouble } from 'react-icons/bi';
 import { LuCheck, LuPlus } from 'react-icons/lu';
 import Image from 'next/image';
+import GeneralModal from '../reusables/GeneralModal';
 
 const SOCKET_SERVER_URL = process.env.SOCKET_SERVER_URL! || "http://localhost:3001"
 // const ALL_USERS = process.env.ALL_USERS || "http://localhost:3001/api/users"
@@ -130,7 +131,7 @@ const ChatRender = () => {
     if (socket && selectedUser) {
       const messageData = {
         senderId: user?.publicMetadata?.userId,
-        receiverId: selectedUser?._id || selectedUser?.userDetails?._id,
+        receiverId: selectedUser?._id ,
         text: text,
         imageUrl: imageUrl,
         videoUrl: videoUrl,
@@ -161,7 +162,7 @@ const ChatRender = () => {
 
   return (
     <div className="2xl:mx-auto 2xl:max-w-[1400px] ">
-      <div className="relative h-[80vh] overflow-hidden rounded-xl bg-white shadow-md">
+      <div className="relative h-[80vh] overflow-hidden rounded-xl bg-white ">
         <div className="mx-3 flex items-center justify-between gap-[12rem] lg:justify-start">
           <h1 className="py-2 text-xl font-bold  text-purple-1">Messages</h1>
           <div
@@ -244,7 +245,7 @@ const ChatRender = () => {
           </section>
         </div>
       </div>
-      <MeetingModal
+      <GeneralModal
         isOpen={open}
         onClose={() => setOpen(!open)}
         title="Connections"
@@ -260,7 +261,7 @@ const ChatRender = () => {
             />
           )}
         </div>
-      </MeetingModal>
+      </GeneralModal>
     </div>
   );
 };

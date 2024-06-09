@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 
-const RECOMMENDATIONS = process.env.RECOMMENDATIONS || "https://dev-2-winn.vercel.app/api/users/recommendations/"
+const RECOMMENDATIONS = process.env.RECOMMENDATIONS || "http://localhost:3000/api/users/recommendations/"
 const Mentors = () => {
     
   useEffect(() => {

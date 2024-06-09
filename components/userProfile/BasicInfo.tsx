@@ -1,18 +1,15 @@
 'use client';
+import useStore from '@/lib/store';
 import Image from 'next/image';
 import React, { useState, useRef } from 'react';
 
 interface ProfileEditProps {}
 
 const ProfileEdit: React.FC<ProfileEditProps> = () => {
-  const [formData, setFormData] = useState({
-    fullName: '',
-    gender: '',
-    country: '',
-    languages: '',
-    bio: '',
-    profilePhoto: null as File | null,
-  });
+  const {userDetails} = useStore()
+  const [formData, setFormData] = useState(
+   userDetails
+  );
 
   const [preview, setPreview] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -29,6 +26,10 @@ const ProfileEdit: React.FC<ProfileEditProps> = () => {
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       const file = e.target.files[0];
+
+      // upload to cloud and get cloudinary img url
+      console.log(file,formData);
+      
       setFormData((prevData) => ({ ...prevData, profilePhoto: file }));
       setPreview(URL.createObjectURL(file));
     }
@@ -52,7 +53,7 @@ const ProfileEdit: React.FC<ProfileEditProps> = () => {
   };
 
   return (
-    <div className="max-w-lg mx-auto p-4 h-[50vh] overflow-y-scroll bg-white shadow-md rounded-md">
+    <div className="max-w-lg mx-auto p-4 h-[50vh] overflow-y-scroll bg-white  rounded-md">
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
           <label className="block text-sm font-medium text-gray-700">
@@ -105,12 +106,25 @@ const ProfileEdit: React.FC<ProfileEditProps> = () => {
 
         <div className="mb-4">
           <label className="block text-sm font-medium text-gray-700">
-            Your full name
+            FirstName
           </label>
           <input
             type="text"
-            name="fullName"
-            value={formData.fullName}
+            name="firstName"
+            value={formData.firstName}
+            onChange={handleChange}
+            className="mt-2 p-2 border rounded w-full"
+            required
+          />
+        </div>
+        <div className="mb-4">
+          <label className="block text-sm font-medium text-gray-700">
+            LastName
+          </label>
+          <input
+            type="text"
+            name="lastName"
+            value={formData.lastName}
             onChange={handleChange}
             className="mt-2 p-2 border rounded w-full"
             required
