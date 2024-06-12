@@ -1,111 +1,115 @@
 'use client';
+import useStore from '@/lib/store';
 import React, { useState } from 'react';
 
 interface Experience {
+  id: string;
   company: string;
   role: string;
-  industry: string;
-  location: string;
   startDate: string;
   endDate: string;
   current: boolean;
 }
 
 interface ExperienceFormProps {
-  onAddExperience: (newExperience: Experience) => void;
+  initialExperience?: Experience;
+  onAddExperience?: (newExperience: Experience) => void;
 }
 
-const ExperienceForm: React.FC<ExperienceFormProps> = ({ onAddExperience }) => {
-  const [company, setCompany] = useState('');
-  const [role, setRole] = useState('');
-  const [industry, setIndustry] = useState('');
-  const [location, setLocation] = useState('');
-  const [startDate, setStartDate] = useState('');
-  const [endDate, setEndDate] = useState('');
-  const [current, setCurrent] = useState(false);
+const ExperienceForm: React.FC<ExperienceFormProps> = ({
+  initialExperience,
+  onAddExperience,
+}) => {
+  const [company, setCompany] = useState(initialExperience?.company || '');
+  const [role, setRole] = useState(initialExperience?.role || '');
+  const [startDate, setStartDate] = useState(
+    initialExperience?.startDate || '',
+  );
+  const [endDate, setEndDate] = useState(initialExperience?.endDate || '');
+  const [current, setCurrent] = useState(initialExperience?.current || false);
+  const {
+    addExperience,
+    updateExperience,
+    setShowUpdateForm,
+    setShowWorkExperienceForm,
+  } = useStore();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onAddExperience({
+    const newExperience = {
+      id: initialExperience ? initialExperience.id : generateUUID(),
       company,
       role,
-      industry,
-      location,
       startDate,
       endDate,
       current,
-    });
-    setCompany('');
-    setRole('');
-    setIndustry('');
-    setLocation('');
-    setStartDate('');
-    setEndDate('');
-    setCurrent(false);
+    };
+
+    if (initialExperience) {
+      updateExperience(newExperience);
+      setShowUpdateForm(false);
+    } else {
+      addExperience(newExperience);
+      setShowWorkExperienceForm(false);
+      // onAddExperience && onAddExperience(newExperience);
+    }
   };
+
+  function generateUUID() {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(
+      /[xy]/g,
+      function (c) {
+        const r = (Math.random() * 16) | 0;
+        const v = c === 'x' ? r : (r & 0x3) | 0x8;
+        return v.toString(16);
+      },
+    );
+  }
 
   return (
     <form
       onSubmit={handleSubmit}
-      className="bg-white p-4 rounded-md shadow-md mb-4"
+      className="mb-4 rounded-md bg-white p-4 shadow-md"
     >
       <div className="mb-4">
-        <label className="block text-gray-700 font-bold mb-2">Company</label>
+        <label className="mb-2 block font-bold text-gray-700">Company</label>
         <input
           type="text"
           value={company}
           onChange={(e) => setCompany(e.target.value)}
-          className="w-full px-3 py-2 bg-gray-100 border border-gray-300 rounded-md"
+          className="w-full rounded-md border border-gray-300 bg-gray-100 px-3 py-2"
         />
       </div>
       <div className="mb-4">
-        <label className="block text-gray-700 font-bold mb-2">Role</label>
+        <label className="mb-2 block font-bold text-gray-700">Role</label>
         <input
           type="text"
           value={role}
           onChange={(e) => setRole(e.target.value)}
-          className="w-full px-3 py-2 bg-gray-100 border border-gray-300 rounded-md"
+          className="w-full rounded-md border border-gray-300 bg-gray-100 px-3 py-2"
         />
       </div>
       <div className="mb-4">
-        <label className="block text-gray-700 font-bold mb-2">Industry</label>
-        <input
-          type="text"
-          value={industry}
-          onChange={(e) => setIndustry(e.target.value)}
-          className="w-full px-3 py-2 bg-gray-100 border border-gray-300 rounded-md"
-        />
-      </div>
-      <div className="mb-4">
-        <label className="block text-gray-700 font-bold mb-2">Location</label>
-        <input
-          type="text"
-          value={location}
-          onChange={(e) => setLocation(e.target.value)}
-          className="w-full px-3 py-2 bg-gray-100 border border-gray-300 rounded-md"
-        />
-      </div>
-      <div className="mb-4">
-        <label className="block text-gray-700 font-bold mb-2">Start Date</label>
+        <label className="mb-2 block font-bold text-gray-700">Start Date</label>
         <input
           type="date"
           value={startDate}
           onChange={(e) => setStartDate(e.target.value)}
-          className="w-full px-3 py-2 bg-gray-100 border border-gray-300 rounded-md"
+          className="w-full rounded-md border border-gray-300 bg-gray-100 px-3 py-2"
         />
       </div>
       <div className="mb-4">
-        <label className="block text-gray-700 font-bold mb-2">End Date</label>
+        <label className="mb-2 block font-bold text-gray-700">End Date</label>
         <input
           type="date"
           value={endDate}
           onChange={(e) => setEndDate(e.target.value)}
-          className="w-full px-3 py-2 bg-gray-100 border border-gray-300 rounded-md"
+          className="w-full rounded-md border border-gray-300 bg-gray-100 px-3 py-2"
           disabled={current}
         />
       </div>
       <div className="mb-4">
-        <label className="block text-gray-700 font-bold mb-2">
+        <label className="mb-2 block font-bold text-gray-700">
           <input
             type="checkbox"
             checked={current}
@@ -115,11 +119,12 @@ const ExperienceForm: React.FC<ExperienceFormProps> = ({ onAddExperience }) => {
           Current
         </label>
       </div>
+
       <button
         type="submit"
-        className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors duration-300"
+        className="rounded-md bg-blue-500 px-4 py-2 text-white transition-colors duration-300 hover:bg-blue-600"
       >
-        Add Experience
+        {initialExperience ? 'Update' : 'Add'}
       </button>
     </form>
   );

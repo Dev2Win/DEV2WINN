@@ -4,11 +4,13 @@ import ProfileCard from './ProfileCard';
 import image from '@/public/images/Simon.webp';
 import Image from 'next/image';
 import Overview from './Overview';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import MeetingModal from './MeetingModal';
 import BasicInfo from './BasicInfo';
 import ModalExperience from './ModalExperience';
 import SocialLinks from './SocialLinks';
+import Reviews from './Reviews';
+import useStore from '@/lib/store';
 
 // const get_all_users =
 // process.env.GET_ALL_USERS || 'https://dev-2-winn.vercel.app/api/users';
@@ -16,25 +18,52 @@ import SocialLinks from './SocialLinks';
 const ContentCard = () => {
   const [profileData, setProfileData] = useState<any>([]);
   const [showModal, setShowModal] = useState(false);
-  const [workExperience, setWorkExperience] = useState<
-    {
-      industry: string;
-      role: string;
-      company: string;
-      location: string;
-      startDate: string;
-      endDate: string;
-      current: boolean;
-    }[]
-  >([]);
-  const [education, setEducation] = useState<
-    {
-      university: string;
-      degree: string;
-      startYear: string;
-      endYear: string;
-    }[]
-  >([]);
+  const { experiences, addExperience } = useStore();
+  const { education, addEducation } = useStore();
+
+  // function generateUUID() {
+  //   return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(
+  //     /[xy]/g,
+  //     function (c) {
+  //       const r = (Math.random() * 16) | 0,
+  //         v = c == 'x' ? r : (r & 0x3) | 0x8;
+  //       return v.toString(16);
+  //     },
+  //   );
+  // }
+
+  // const uuid = generateUUID();
+  // const handleEducation = () => {
+  //   addEducation({
+  //     id: uuid,
+  //     university: string,
+  //     degree: string,
+  //     startYear: string,
+  //     endYear: string,
+  //   });
+  // };
+
+  const memoizedExperiences = useMemo(() => experiences, [experiences]);
+  const memoizedEducation = useMemo(() => education, [education]);
+  // const [workExperience, setWorkExperience] = useState<
+  //   {
+  //     industry: string;
+  //     role: string;
+  //     company: string;
+  //     location: string;
+  //     startDate: string;
+  //     endDate: string;
+  //     current: boolean;
+  //   }[]
+  // >([]);
+  // const [education, setEducation] = useState<
+  //   {
+  //     university: string;
+  //     degree: string;
+  //     startYear: string;
+  //     endYear: string;
+  //   }[]
+  // >([]);
   // const [formData, setFormData] = useState({
   //   name: '',
   //   gender: '',
@@ -103,14 +132,14 @@ const ContentCard = () => {
 
   return (
     <div>
-      <div className=" bg-primary w-full  h-[140px]"></div>
-      <div className="  px-[5%] mt-[-2rem]">
+      <div className=" bg-primary h-[140px]  w-full"></div>
+      <div className="  mt-[-2rem] px-[5%]">
         <div className="">
           <div className="flex w-full items-center justify-between">
-            <div className="flex items-center gap-5">
-              <div className=" w-[150px] bg-white flex items-center justify-center h-[150px] rounded-full">
+            <div className="flex flex-col items-center gap-5 lg:flex">
+              <div className=" flex h-[150px] w-[150px] items-center justify-center rounded-full bg-white">
                 <Image
-                  className="  bg-primary w-[140px] h-[140px] rounded-full"
+                  className="  bg-primary h-[140px] w-[140px] rounded-full"
                   src={image}
                   alt=""
                 />
@@ -124,7 +153,7 @@ const ContentCard = () => {
               </div>
             </div>
             <button
-              className="bg-purple-1/40 p-2 text-white rounded-md   "
+              className="rounded-md bg-purple-1/40 p-2 text-white   "
               onClick={() => setShowModal(!showModal)}
             >
               Edit Profile
@@ -144,7 +173,7 @@ const ContentCard = () => {
                 },
                 {
                   title: 'Reviews',
-                  content: <div>hello i am reviews</div>,
+                  content: <Reviews />,
                   value: 5,
                 },
                 {
@@ -191,10 +220,10 @@ const ContentCard = () => {
                 title: 'Experience',
                 content: (
                   <ModalExperience
-                    workExperience={workExperience}
-                    education={education}
-                    onWorkExperienceChange={setWorkExperience}
-                    onEducationChange={setEducation}
+                    workExperience={memoizedExperiences}
+                    education={memoizedEducation}
+                    onWorkExperienceChange={addExperience}
+                    onEducationChange={addEducation}
                   />
                 ),
                 value: '',

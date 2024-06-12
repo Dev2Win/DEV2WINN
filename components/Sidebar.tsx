@@ -12,19 +12,19 @@ const Sidebar = () => {
   const sidebarLinks = name === 'mentee' ? menteeSidebar : mentorSidebar;
 
   return (
-    <section className="sticky left-0 h-[42.5rem] max-md:h-[28rem] top-0 flex flex-col justify-between bg-white shadow-xl p-6 pt-28 text-[#17171d] max-sm:hidden lg:w-[8rem]">
-      <div className="flex flex-col ">
+    <section className="sticky left-0 top-0 flex h-[42.5rem] flex-col justify-between bg-white p-6 pt-28 text-[#17171d] shadow-xl max-md:h-[42.5rem] max-sm:hidden lg:w-[8rem]">
+      <div className="flex  flex-col max-md:gap-y-8 ">
         {sidebarLinks.map((item) => {
           const isActive = pathname === item.route;
           return (
             <div
               key={item.label}
-              className="flex flex-col gap-2 items-center  p-4 rounded-lg justify-start"
+              className="flex flex-col items-center justify-start gap-2  rounded-lg p-4 "
             >
               <Link
                 href={item.route}
                 className={cn({
-                  'bg-purple-1/40 rounded-md  p-2 text-white': isActive,
+                  'rounded-md bg-purple-1/40  p-2 text-white': isActive,
                 })}
               >
                 <Image
@@ -37,7 +37,7 @@ const Sidebar = () => {
               </Link>
               <Link
                 href={item.route}
-                className="text-xs font-semibold max-lg:hidden hover:text-purple-1"
+                className="text-xs font-semibold hover:text-purple-1 max-lg:hidden"
               >
                 {item.label}
               </Link>
