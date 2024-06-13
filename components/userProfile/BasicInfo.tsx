@@ -3,11 +3,11 @@ import useStore from '@/lib/store';
 import Image from 'next/image';
 import React, { useState, useRef } from 'react';
 
-interface ProfileEditProps {}
 
-const ProfileEdit: React.FC<ProfileEditProps> = () => {
+
+const ProfileEdit: React.FC<any> = () => {
   const {userDetails} = useStore()
-  const [formData, setFormData] = useState(
+  const [formData, setFormData] = useState<any>(
    userDetails
   );
 
@@ -111,7 +111,7 @@ const ProfileEdit: React.FC<ProfileEditProps> = () => {
           <input
             type="text"
             name="firstName"
-            value={formData.firstName}
+            value={formData?.firstName}
             onChange={handleChange}
             className="mt-2 p-2 border rounded w-full"
             required
@@ -124,9 +124,9 @@ const ProfileEdit: React.FC<ProfileEditProps> = () => {
           <input
             type="text"
             name="lastName"
-            value={formData.lastName}
+            value={formData?.lastName}
             onChange={handleChange}
-            className="mt-2 p-3 border rounded-lg focus:outline-none bg-slate-100  w-full"
+            className="mt-2 p-2 border rounded w-full"
             required
           />
         </div>
@@ -137,9 +137,9 @@ const ProfileEdit: React.FC<ProfileEditProps> = () => {
           </label>
           <select
             name="gender"
-            value={formData.gender}
+            value={formData?.gender}
             onChange={handleChange}
-            className="mt-2 py-3 border rounded-lg focus:outline-none bg-slate-100  w-full"
+            className="mt-2 p-2 border rounded w-full"
             required
           >
             <option value="">Select one</option>
@@ -155,9 +155,9 @@ const ProfileEdit: React.FC<ProfileEditProps> = () => {
           </label>
           <select
             name="country"
-            value={formData.country}
+            value={formData?.country}
             onChange={handleChange}
-            className="mt-2 py-3 border rounded-lg focus:outline-none bg-slate-100  w-full"
+            className="mt-2 p-2 border rounded w-full"
             required
           >
             <option value="">Select one</option>
@@ -175,9 +175,9 @@ const ProfileEdit: React.FC<ProfileEditProps> = () => {
           <input
             type="text"
             name="languages"
-            value={formData.languages}
+            value={formData?.languages}
             onChange={handleChange}
-            className="mt-2 py-3 border rounded-lg focus:outline-none bg-slate-100  w-full"
+            className="mt-2 p-2 border rounded w-full"
             required
           />
         </div>
@@ -186,9 +186,9 @@ const ProfileEdit: React.FC<ProfileEditProps> = () => {
           <label className="block text-sm font-medium text-gray-700">Bio</label>
           <textarea
             name="bio"
-            value={formData.bio}
+            value={formData?.bio}
             onChange={handleChange}
-            className="mt-2 py-3 px-3 border rounded-lg focus:outline-none bg-slate-100  w-full"
+            className="mt-2 p-2 border rounded w-full"
             rows={3}
             required
           ></textarea>
