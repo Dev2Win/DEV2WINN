@@ -6,12 +6,11 @@ import ExperienceCard from './ExperienceCard';
 import EducationCard from './EducationCard';
 import { options, seniority } from '@/app/profile/data';
 import Select from 'react-select';
+import useStore from '@/lib/store';
 
 interface Experience {
   company: string;
   role: string;
-  industry: string;
-  location: string;
   startDate: string;
   endDate: string;
   current: boolean;
@@ -40,8 +39,8 @@ const ModalExperience: React.FC<ExperienceProps> = ({
   onWorkExperienceChange,
   onEducationChange,
 }) => {
-  const [showWorkExperienceForm, setShowWorkExperienceForm] = useState(false);
-  const [showEducationForm, setShowEducationForm] = useState(false);
+  const { showWorkExperienceForm, setShowWorkExperienceForm } = useStore();
+  const { showEducationForm, setShowEducationForm } = useStore();
   const [selectedOptionsRaw, setSelectedOptionsRaw] = useState([]);
   const [selectedSeniorityRaw, setSelectedSeniorityRaw] = useState([]);
 
@@ -73,12 +72,19 @@ const ModalExperience: React.FC<ExperienceProps> = ({
     onWorkExperienceChange([...workExperience, newExperience]);
     setShowWorkExperienceForm(false);
   };
+  const newExp = new Set(workExperience);
+
+  const mappedArray = [];
+  newExp.forEach((item) => {
+    // Perform mapping operations on each item and push the result to a new array
+    mappedArray.push(item);
+  });
 
   return (
-    <div className="bg-white h-[50vh] overflow-y-scroll p-6 rounded-md">
-      <h2 className="text-2xl font-bold mb-4">Update your profile details</h2>
+    <div className="h-[50vh] overflow-y-scroll rounded-md bg-white p-6">
+      <h2 className="mb-4 text-2xl font-bold">Update your profile details</h2>
       <div className="mb-8">
-        <label className="block text-gray-700 font-bold mb-2">Expertise</label>
+        <label className="mb-2 block font-bold text-gray-700">Expertise</label>
         <Select
           isMulti
           options={NewOptions}
@@ -88,7 +94,7 @@ const ModalExperience: React.FC<ExperienceProps> = ({
         />
       </div>
       <div className="mb-8">
-        <label className="block text-gray-700 font-bold mb-2">Seniority</label>
+        <label className="mb-2 block font-bold text-gray-700">Seniority</label>
         <Select
           isMulti
           options={NewSeniority}
@@ -99,13 +105,13 @@ const ModalExperience: React.FC<ExperienceProps> = ({
       </div>
 
       <div className="mb-8">
-        <h3 className="text-xl font-bold mb-4">Work Experience</h3>
+        <h3 className="mb-4 text-xl font-bold">Work Experience</h3>
         {workExperience.map((experience, index) => (
           <ExperienceCard key={index} experience={experience} />
         ))}
         <button
           onClick={() => setShowWorkExperienceForm(!showWorkExperienceForm)}
-          className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 transition-colors duration-300"
+          className="rounded-md bg-purple-1/50 px-4 py-2 text-white transition-colors duration-300 hover:bg-purple-1"
         >
           {showWorkExperienceForm ? 'Cancel' : 'Add Another'}
         </button>
@@ -115,13 +121,13 @@ const ModalExperience: React.FC<ExperienceProps> = ({
       </div>
 
       <div className="mb-8">
-        <h3 className="text-xl font-bold mb-4">Education</h3>
+        <h3 className="mb-4 text-xl font-bold">Education</h3>
         {education.map((edu, index) => (
           <EducationCard key={index} education={edu} />
         ))}
         <button
           onClick={() => setShowEducationForm(!showEducationForm)}
-          className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 transition-colors duration-300"
+          className="rounded-md bg-purple-1/50 px-4 py-2 text-white transition-colors duration-300 hover:bg-purple-1"
         >
           {showEducationForm ? 'Cancel' : 'Add Another'}
         </button>

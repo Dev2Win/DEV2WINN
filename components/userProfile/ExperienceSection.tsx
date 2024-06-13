@@ -27,9 +27,9 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
     <>
       <div className=" flex  justify-between">
         <div>
-          <h2 className="text-xl font-bold mb-4">
+          <h2 className="mb-4 text-xl font-bold">
             Experience
-            <span className="text-sm font-bold  bg-purple-1 rounded-full  text-white px-2 py-1 ml-2">
+            <span className="ml-2 rounded-full  bg-purple-1 px-2  py-1 text-sm font-bold text-white">
               {experiences.length}
             </span>
           </h2>
@@ -44,13 +44,13 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
                       alt={exp.company}
                       width={20}
                       height={40}
-                      className="size-12 mr-4 rounded-full"
+                      className="mr-4 size-12 rounded-full"
                     />
                   </div>
                   <div>
                     <p className="font-semibold">{exp.position}</p>
                     <p className="text-gray-600">{exp.company}</p>
-                    <p className="text-sm font-semibold bg-purple-1/20 text-white  text-center  ">
+                    <p className="bg-purple-1/20 text-center text-sm font-semibold  text-white  ">
                       {exp.startYear} - {exp.endYear || 'Present'}
                     </p>
                   </div>
@@ -61,7 +61,7 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
         <div>
           {experiences.length > 1 && (
             <button
-              className="text-purple-1 text-sm font-bold focus:outline-none"
+              className="text-sm font-bold text-purple-1 focus:outline-none"
               onClick={toggleExpanded}
             >
               {expanded ? 'View Less' : 'View All'}

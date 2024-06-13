@@ -126,7 +126,7 @@ const ProfileEdit: React.FC<ProfileEditProps> = () => {
             name="lastName"
             value={formData.lastName}
             onChange={handleChange}
-            className="mt-2 p-2 border rounded w-full"
+            className="mt-2 p-3 border rounded-lg focus:outline-none bg-slate-100  w-full"
             required
           />
         </div>
@@ -139,7 +139,7 @@ const ProfileEdit: React.FC<ProfileEditProps> = () => {
             name="gender"
             value={formData.gender}
             onChange={handleChange}
-            className="mt-2 p-2 border rounded w-full"
+            className="mt-2 py-3 border rounded-lg focus:outline-none bg-slate-100  w-full"
             required
           >
             <option value="">Select one</option>
@@ -157,7 +157,7 @@ const ProfileEdit: React.FC<ProfileEditProps> = () => {
             name="country"
             value={formData.country}
             onChange={handleChange}
-            className="mt-2 p-2 border rounded w-full"
+            className="mt-2 py-3 border rounded-lg focus:outline-none bg-slate-100  w-full"
             required
           >
             <option value="">Select one</option>
@@ -177,7 +177,7 @@ const ProfileEdit: React.FC<ProfileEditProps> = () => {
             name="languages"
             value={formData.languages}
             onChange={handleChange}
-            className="mt-2 p-2 border rounded w-full"
+            className="mt-2 py-3 border rounded-lg focus:outline-none bg-slate-100  w-full"
             required
           />
         </div>
@@ -188,7 +188,7 @@ const ProfileEdit: React.FC<ProfileEditProps> = () => {
             name="bio"
             value={formData.bio}
             onChange={handleChange}
-            className="mt-2 p-2 border rounded w-full"
+            className="mt-2 py-3 px-3 border rounded-lg focus:outline-none bg-slate-100  w-full"
             rows={3}
             required
           ></textarea>
