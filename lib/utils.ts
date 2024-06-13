@@ -58,7 +58,7 @@ export const footerLinks = {
 
 
 export const cardData = [
-  {
+  { 
     icon: IoMdAnalytics,
     title: "Software Engineering",
     booksCount: 120,

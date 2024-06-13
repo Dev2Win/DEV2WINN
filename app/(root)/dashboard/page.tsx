@@ -4,54 +4,92 @@
 
 'use client'
 import Header from '@/components/lms/Header';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Card from '@/components/lms/Card';
-import { cardData, todoListData } from '@/lib/utils';
+import { todoListData } from '@/lib/utils';
+import { courses } from '@/lib/lmscontent';
 import Barchart from '@/components/lms/BarChart';
 import Todo from '@/components/lms/Todo';
 import Speedometer from '@/components/lms/Speedometer';
 import UserCard from '@/components/users/UserCard';
 import image from '@/public/images/aboutImage.webp'
+import { StaticImageData } from 'next/image';
 
 
-type CardProps = {
-  icon: any;
+
+export type Submodule = {
+  id: number;
   title: string;
+  content: string;
+}
+
+export type Module = {
+  id: number;
+  title: string;
+  submodules: Submodule[];
+}
+
+export type Course = {
+  id: number;
+  title: string;
+  icon: any; 
   booksCount: number;
   studentsCount: number;
   assignmentCounts: number;
-};
+  bgColor: string;
+  courseLogo: StaticImageData;
+  courseroadmap: Module[];
+}
 
 
 const Home = () => {
   const [value] = useState<number>(8.966);
-  const mentors = [
-    {
-      image: image,
-      name: 'Ayesha Khan',
-      title: 'Senior Program Manager at Upstart',
+  const [mentors,setMentors]= useState([])
+  // const mentors = [
+  //   {
+  //     image: image,
+  //     name: 'Ayesha Khan',
+  //     title: 'Senior Program Manager at Upstart',
 
-      experience: 20,
-      reviews: 0,
-    },
-    {
-      image: image,
-      name: 'Ayesha Khan',
-      title: 'Senior Program Manager at Upstart',
+  //     experience: 20,
+  //     reviews: 0,
+  //   },
+  //   {
+  //     image: image,
+  //     name: 'Ayesha Khan',
+  //     title: 'Senior Program Manager at Upstart',
 
-      experience: 20,
-      reviews: 0,
-    },
-    {
-      image: image,
-      name: 'Ayesha Khan',
-      title: 'Senior Program Manager at Upstart',
+  //     experience: 20,
+  //     reviews: 0,
+  //   },
+  //   {
+  //     image: image,
+  //     name: 'Ayesha Khan',
+  //     title: 'Senior Program Manager at Upstart',
 
-      experience: 20,
-      reviews: 0,
-    },
-    // Add more mentor data as needed
-  ];
+  //     experience: 20,
+  //     reviews: 0,
+  //   },
+  //   // Add more mentor data as needed
+  // ];
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const res = await fetch("http://localhost:3000/api/users/mentor", {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+        const users = await res.json();
+        setMentors(users);
+        console.log(users);
+      } catch (error) {
+        console.error(error);
+      }
+    })();
+  }, []);
 
   return (
     <section className="flex size-full flex-col gap-5 2xl:w-[1500px] 2xl:mx-auto">
@@ -61,8 +99,8 @@ const Home = () => {
 
         <section className="col-span-4">
           <div className="scrollbar-hidden flex gap-4 overflow-x-scroll">
-            {cardData.map((card: CardProps) => (
-              <Card key={card.title} card={card} />
+            {courses.map((card: Course) => (
+              <Card key={card.id} card={card} />
             ))}
           </div>
           </section>
@@ -83,7 +121,7 @@ const Home = () => {
               </div>
 <div className="flex gap-4">
   
-{mentors.map((mentor, index) => (
+{mentors?.map((mentor, index) => (
           <UserCard
             key={index}
             data={mentor}

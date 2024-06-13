@@ -9,33 +9,40 @@ import { NextResponse } from "next/server";
 //     }
 // }
 
-export const GET = async({params}:any)=>{
- try {
-    const {mentorId} = params
+// export const GET = async({params}:any)=>{
+//  try {
+//     const {mentorId} = params
 
-    await connectToDB()
-    const mentorInfo = await Mentor.findById({ mentorId })
+//     await connectToDB()
+//     const mentorInfo = await Mentor.findById({ mentorId })
 
-    if(!mentorInfo){
-    return NextResponse.json({ message: "Mentor not found" })
-    }
+//     if(!mentorInfo){
+//     return NextResponse.json({ message: "Mentor not found" })
+//     }
 
-    return NextResponse.json({ message: "SUCCESS", user: mentorInfo })
- }
+//     return NextResponse.json({ message: "SUCCESS", user: mentorInfo })
+//  }
 
- catch (error) {
-    return NextResponse.json({message:'failed to fetch mentor'})
- }
+//  catch (error) {
+//     return NextResponse.json({message:'failed to fetch mentor'})
+//  }
 
-}
+// }
 
-export const PUT = async(req:Request,{params}:any)=>{
+export const PATCH = async(req:Request,{params}:any)=>{
     try {
        const {mentorId} = params
+       console.log(mentorId);
+       
        const response = await req.json()
+       console.log(response);
+       
    
        await connectToDB()
-       const mentorInfo = await Mentor.findByIdAndUpdate({ mentorId },response,{ new: true })
+       const mentorInfo = await Mentor.findByIdAndUpdate( mentorId ,response,{ new: true })
+
+       console.log(mentorInfo);
+       
    
        if(!mentorInfo){
        return NextResponse.json({ message: "Mentor  not updated" })
