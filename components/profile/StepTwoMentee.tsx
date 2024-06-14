@@ -1,7 +1,9 @@
 'use client'
 
+import React from 'react';
 import { FormValues } from '@/app/profile/mentee/page';
 import Stepper from './Stepper'
+import { careerPrefOptions } from '@/app/profile/data';
 
 
 type FormTwo = {
@@ -37,7 +39,7 @@ function StepThreeForm({onNext, onPrevious, formData, handleFormChange, steps, c
             <option value="" className='text-gray-400'>Level of Education</option>
             <option value="high school diploma">High school diploma</option>
             <option value="degree">Degree</option>
-            <option value="masters">Master's</option>
+            <option value="masters"> Masters</option>
             <option value="masters">Phd</option>
 
           </select>
@@ -53,9 +55,12 @@ function StepThreeForm({onNext, onPrevious, formData, handleFormChange, steps, c
             className='my-1 px-2 py-1 text-sm text-gray-700 block w-full border border-gray-300 rounded-md shadow-sm focus:outline-black/20'
           >
             <option value="" className='text-gray-400'>Career Path</option>
-            <option value="business">Business</option>
-            <option value="technology">Technology</option>
-            <option value="entrepreneurship">Entrepreneurship</option>
+            {
+              careerPrefOptions.map((item)=>(
+                <option key={item.label} value={item.value}>{item.label}</option>
+              ))
+            }
+            
           </select>
          </div>
 

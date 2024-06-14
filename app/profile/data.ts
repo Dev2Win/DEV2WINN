@@ -6,6 +6,14 @@ export const options = [
   { label: 'based on career choice', value: 'based on career choice' },
 ];
 
+export const languages = [
+  { label: 'English', value: 'English' },
+  { label: 'French', value: 'French' },
+  { label: 'Ga', value: 'Ga' },
+  { label: 'Twi', value: 'Twi' },
+
+];
+
 export type Option = {
   value: string;
   label: string;

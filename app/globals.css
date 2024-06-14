@@ -56,7 +56,7 @@
 /* ==== clerk class override ===== */
 
 .cl-userButtonPopoverActionButtonIcon {
-  color: white;
+  
 }
 
 .cl-logoBox {
@@ -72,10 +72,10 @@
 }
 
 .cl-internal-wkkub3 {
-  color: white;
+  color: black;
 }
 .cl-userButtonPopoverActionButton {
-  color: white;
+  color: black;
 }
 
 /* =============================== */
@@ -158,3 +158,28 @@
     scrollbar-width: none;
   }
  
+
+  /*==========lms profile================*/
+  .relative {
+    position: relative;
+  }
+  
+  .absolute {
+    position: absolute;
+  }
+  
+  .rounded-full {
+    border-radius: 50%;
+  }
+  
+   /*============submodules expansion==============*/
+  .submodules-container {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+  }
+  
+  .submodules-container.expanded {
+    max-height: 1000px; /* Arbitrary large value to allow expansion */
+  }
+  

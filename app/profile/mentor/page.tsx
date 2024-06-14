@@ -1,12 +1,12 @@
 'use client';
 
-import {  useMemo, useState } from 'react';
+import React, {  useMemo, useState } from 'react';
 import StepOneMentor from '@/components/profile/StepOneMentor';
 import StepTwoMentor from '@/components/profile/StepTwoMentor';
 import StepFourForm from '@/components/profile/StepFourForm';
 import { useRouter } from 'next/navigation';
 import useStore from '@/lib/store';
-import { options, Option, expertiseOptions ,careerPrefOptions} from '../data';
+import { options, Option, expertiseOptions, languages ,careerPrefOptions} from '../data';
 
 
 
@@ -17,6 +17,8 @@ export type FormValues = {
   industry_pref: Option[] | null;
   experience_level: string;
   availability: string;
+  gender: string;
+  languages: string[] | null;
   expertise: Option[] | null;
 };
 const mentorUrl: string = process.env.MENTOR_URL || 'http://localhost:3000/api/users/mentor'
@@ -26,6 +28,8 @@ const MultiStepPage = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [complete, setComplete] = useState(false);
   const [selectedOptionsRaw, setSelectedOptionsRaw] = useState([]);
+  const [selectedOptionsLang, setSelectedOptionsLang] = useState([]);
+  
   const [selectedExpertiseRaw, setSelectedExpertiseRaw] = useState([]);
   const [selectedIndustryRaw, setSelectedIndustryRaw] = useState([]);
  
@@ -40,12 +44,16 @@ const MultiStepPage = () => {
     industry_pref: null,
     experience_level: '',
     availability: '',
+    gender: '',
+    languages: null,
     expertise: null,
   });
   
   const selectedOptions = useMemo(() => selectedOptionsRaw, [selectedOptionsRaw]);
   const selectedExpertise = useMemo(() => selectedExpertiseRaw, [selectedExpertiseRaw]);
   const selectedIndustry= useMemo(() => selectedIndustryRaw, [selectedIndustryRaw]);
+  const selectedLangOptions = useMemo(() => selectedOptionsLang, [selectedOptionsLang]);
+
 
   const handleFormChange = (
     e: React.ChangeEvent<
@@ -69,6 +77,10 @@ const MultiStepPage = () => {
     setSelectedOptionsRaw(selected);
     console.log(selected);
   };
+  const handleSelectLang = (selected: any) => {
+    setSelectedOptionsLang(selected);
+    console.log(selected);
+  };
 
   const handleExpertise = (selected: any) => {
     setSelectedExpertiseRaw(selected);
@@ -88,8 +100,10 @@ const MultiStepPage = () => {
 
       const updatedFormData = {
         ...formData,
-        industry_pref: selectedOptions.map((option: Option) => option.value),
+        industry_pref: selectedIndustry.map((option: Option) => option.value),
         expertise: selectedExpertise.map((option: Option) => option.value),
+        career_preferences: selectedOptions.map((option: Option) => option.value),
+        languages: selectedLangOptions.map((option: Option) => option.value),
       };
       const response = await fetch(mentorUrl, {
         method: 'POST',
@@ -126,11 +140,12 @@ const MultiStepPage = () => {
           formData={formData}
           handleFormChange={handleFormChange}
           complete={complete}
-          options={careerPrefOptions}
+          options={languages}
           currentStep={currentStep}
           steps={steps}
-          selectedOptions={selectedOptions}
+          selectedOptions={selectedLangOptions}
           handleSelect={handleSelect}
+          handleSelectLang={handleSelectLang}
         />
       )}
 
@@ -144,8 +159,11 @@ const MultiStepPage = () => {
           currentStep={currentStep}
           steps={steps}
           handleIndustry={handleIndustry}
-          expertiseOptions={expertiseOptions}
           IndustryOptions={options}
+          selectedOptions={selectedOptions}
+          handleSelect={handleSelect}
+          options={careerPrefOptions}
+          expertiseOptions={expertiseOptions}
           selectedExpertise={selectedExpertise}
           selectedIndustry={selectedIndustry}
           handleExpertise={handleExpertise}

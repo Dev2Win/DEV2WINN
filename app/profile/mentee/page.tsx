@@ -1,6 +1,6 @@
 'use client'
 
-import { FormEvent, useMemo, useState } from 'react';
+import React, { FormEvent, useMemo, useState } from 'react';
 import StepOneMentee from '@/components/profile/StepOneMentee';
 import StepTwoMentee from '@/components/profile/StepTwoMentee';
 import StepFourForm from '@/components/profile/StepFourForm';
@@ -21,7 +21,7 @@ export type FormValues = {
 };
 
 
-const menteeUrl: string = process.env.MENTEE_URL  || "https://localhost:3000/api/users/mentee"
+const menteeUrl: string = process.env.MENTEE_URL  || "http://localhost:3000/api/users/mentee"
 
 
 

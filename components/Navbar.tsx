@@ -21,7 +21,16 @@ const Navbar = () => {
       </Link>
       <div className="flex-between gap-5">
         <SignedIn>
-          <UserButton afterSignOutUrl="/sign-in" />
+          <UserButton   appearance={{
+        elements: {
+          modal: 'bg-white shadow-md rounded p-4',
+          // Assuming we want to change text colors inside the modal
+          modalTitle: 'text-red-500', // Change title text color
+          modalSubtitle: 'text-blue-500', // Change subtitle text color
+          formFieldLabel: 'text-green-500', // Change form field label color
+          formFieldInput: 'text-purple-500', // Change form field input text color
+        },
+      }} afterSignOutUrl="/sign-in" />
         </SignedIn>
 
         <MobileNav />
