@@ -11,6 +11,7 @@ import ModalExperience from './ModalExperience';
 import SocialLinks from './SocialLinks';
 import Reviews from './Reviews';
 import useStore from '@/lib/store';
+import axios from 'axios';
 
 // const get_all_users =
 // process.env.GET_ALL_USERS || 'https://dev-2-winn.vercel.app/api/users';
@@ -117,7 +118,7 @@ const ContentCard = () => {
   useEffect(() => {
     (async () => {
       try {
-        const res = await fetch('https://dev-2-winn.vercel.app/api/users/', {
+        const res = await fetch('http://localhost:3000/api/users', {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -129,6 +130,24 @@ const ContentCard = () => {
       } catch (error) {}
     })();
   }, []);
+  // useEffect(() => {
+  //   const fetchProfileData = async () => {
+  //     try {
+  //       const res = await axios.get('http://localhost:3000/api/users/', {
+  //         headers: {
+  //           'Content-Type': 'application/json',
+  //         },
+  //       });
+  //       const profileInfo = res.data;
+  //       setProfileData(profileInfo?.user);
+  //       console.log(profileInfo);
+  //     } catch (error) {
+  //       console.error('Error fetching the data:', error);
+  //     }
+  //   };
+
+  //   fetchProfileData();
+  // }, []);
 
   return (
     <div>

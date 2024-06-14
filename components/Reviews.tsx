@@ -47,11 +47,11 @@ const Reviews: React.FC = () => {
         <div key={index} className="bg-white p-6  ">
           <p className="text-sm text-gray-500">{review.date}</p>
           <p className="mt-2 text-gray-900">{review.review}</p>
-          <div className=" space-x-2">
+          <div className="flex space-x-2 mt-2">
             {review.attributes.map((attr, idx) => (
               <span
                 key={idx}
-                className="inline-block rounded-md bg-purple-1/40 p-2 text-sm text-white"
+                className=" rounded-md bg-purple-1/40 p-2 max-md:w-full max-md:text-xs text-sm text-white"
               >
                 😊{attr}
               </span>
