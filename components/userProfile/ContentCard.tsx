@@ -5,7 +5,6 @@ import image from '@/public/images/Simon.webp';
 import Image from 'next/image';
 import Overview from './Overview';
 import { useEffect, useMemo, useState } from 'react';
-import MeetingModal from './MeetingModal';
 import BasicInfo from './BasicInfo';
 import ModalExperience from './ModalExperience';
 import SocialLinks from './SocialLinks';
@@ -14,7 +13,8 @@ import useStore from '@/lib/store';
 import GeneralModal from '../reusables/GeneralModal';
 
 // eslint-disable-next-line camelcase
-const get_all_users = process.env.GET_ALL_USERS || "http://localhost:3000/api/users"
+const get_all_users =
+  process.env.GET_ALL_USERS || 'http://localhost:3000/api/users';
 
 const ContentCard = () => {
   const [profileData, setProfileData] = useState<any>([]);
@@ -113,8 +113,6 @@ const ContentCard = () => {
   //   console.log(formData);
   // };
 
-
-
   useEffect(() => {
     (async () => {
       try {
@@ -126,8 +124,6 @@ const ContentCard = () => {
         });
         const profileInfo: any = await res.json();
         setProfileData(profileInfo?.user);
-        setUserDetails(profileInfo?.user)
-        
        
       } catch (error) {}
     })();
@@ -212,7 +208,6 @@ const ContentCard = () => {
           isOpen={showModal}
           onClose={() => setShowModal(!showModal)}
           title="Edit Profile"
-          
         >
           <Tabs
             tabs={[

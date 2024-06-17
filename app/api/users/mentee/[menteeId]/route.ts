@@ -18,10 +18,10 @@ export const GET = async (request: Request, { params }: ParamsProps) => {
 }
 
 // using PATCH coz not all fields will be updated by the user
-export const PATCH =  async (request: Request,{ params }: ParamsProps) => {
+export const PATCH = async (request: Request, { params }: ParamsProps) => {
+    
     const { menteeId } = params
     const res = await request.json()
-    
     // query the mentee id and update it
     await connectToDB()
     const updatedMentee = await Mentee.findByIdAndUpdate({ menteeId }, res, { new: true })

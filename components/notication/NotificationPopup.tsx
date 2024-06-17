@@ -1,5 +1,5 @@
 // src/components/NotificationPopup.jsx
-import React, { useState } from 'react';
+import React from 'react';
 
 const notifications = [
   {

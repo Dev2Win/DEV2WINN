@@ -6,13 +6,9 @@
 import Header from '@/components/lms/Header';
 import React, { useEffect, useState } from 'react';
 import Card from '@/components/lms/Card';
-import { todoListData } from '@/lib/utils';
 import { courses } from '@/lib/lmscontent';
-import Barchart from '@/components/lms/BarChart';
-import Todo from '@/components/lms/Todo';
 import Speedometer from '@/components/lms/Speedometer';
 import UserCard from '@/components/users/UserCard';
-import image from '@/public/images/aboutImage.webp'
 import { StaticImageData } from 'next/image';
 
 

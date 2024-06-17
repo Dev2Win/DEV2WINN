@@ -1,8 +1,10 @@
+import Image from "next/image";
+
 const ProfileCard = ({ name, image, title }: any) => {
   return (
     <div className=" md:w-[250px] h-[240px]  flex flex-col items-center justify-center space-y-3 shadow-xl">
       <div className=" bg-red-100 w-[115px] h-[115px] rounded-full flex items-center justify-center ">
-        <img
+        <Image
           className=" bg-primary    object-contain  rounded-full w-[110px] h-[110px]"
           src={image}
           alt=""

@@ -9,6 +9,7 @@ import Select from 'react-select';
 import useStore from '@/lib/store';
 
 interface Experience {
+  id: string;
   company: string;
   role: string;
   startDate: string;
@@ -20,6 +21,7 @@ const NewOptions: any = options;
 const NewSeniority: any = seniority;
 
 interface Education {
+  id: string;
   university: string;
   degree: string;
   startYear: string;
@@ -107,7 +109,7 @@ const ModalExperience: React.FC<ExperienceProps> = ({
       <div className="mb-8">
         <h3 className="mb-4 text-xl font-bold">Work Experience</h3>
         {workExperience.map((experience, index) => (
-          <ExperienceCard key={index} experience={experience} />
+          <ExperienceCard index={index} key={index} experience={experience} />
         ))}
         <button
           onClick={() => setShowWorkExperienceForm(!showWorkExperienceForm)}
@@ -123,7 +125,7 @@ const ModalExperience: React.FC<ExperienceProps> = ({
       <div className="mb-8">
         <h3 className="mb-4 text-xl font-bold">Education</h3>
         {education.map((edu, index) => (
-          <EducationCard key={index} education={edu} />
+          <EducationCard index={index} key={index} education={edu} />
         ))}
         <button
           onClick={() => setShowEducationForm(!showEducationForm)}

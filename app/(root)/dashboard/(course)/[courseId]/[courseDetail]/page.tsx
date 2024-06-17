@@ -1,9 +1,10 @@
+/* eslint-disable no-unused-vars */
 'use client';
 
 import { courses } from '@/lib/lmscontent';
 import { useParams, useRouter } from 'next/navigation';
 import { Submodule, Course, Module } from '../../../page';
-import { BsArrowRightShort, BsArrowLeftShort } from 'react-icons/bs';
+
 
 const Page = () => {
   const params = useParams();

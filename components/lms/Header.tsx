@@ -2,10 +2,10 @@
 
 import { Input, Paper } from '@mantine/core';
 import { IoNotificationsOutline } from 'react-icons/io5';
-import { FiEdit,FiSearch } from 'react-icons/fi';
+import { FiSearch } from 'react-icons/fi';
 import NotificationPopup from '../notication/NotificationPopup';
 import { useState } from 'react';
-import GeneralModal from '../reusables/GeneralModal';
+
 import Popup from '../reusables/Popup';
 
 export default function Header() {
