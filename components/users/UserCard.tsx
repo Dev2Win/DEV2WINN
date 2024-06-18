@@ -9,7 +9,7 @@ const UserCard = ({ data }: any) => {
   const [checkConnection,setCheckConnection]= useState([])
   const handleConnect = async () => {
     try {
-      const response = await fetch(`http://localhost:3000/api/users/mentor/${data?._id}`, {
+      const response:any = await fetch(`http://localhost:3000/api/users/mentor/${data?._id}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
