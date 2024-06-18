@@ -13,8 +13,7 @@ import useStore from '@/lib/store';
 import GeneralModal from '../reusables/GeneralModal';
 
 // eslint-disable-next-line camelcase
-const get_all_users =
-  process.env.GET_ALL_USERS || 'http://localhost:3000/api/users';
+const get_all_users = process.env.GET_ALL_USERS || "https://dev-2-winn.vercel.app/api/users"
 
 const ContentCard = () => {
   const [profileData, setProfileData] = useState<any>([]);
@@ -113,6 +112,8 @@ const ContentCard = () => {
   //   console.log(formData);
   // };
 
+
+
   useEffect(() => {
     (async () => {
       try {
@@ -124,28 +125,12 @@ const ContentCard = () => {
         });
         const profileInfo: any = await res.json();
         setProfileData(profileInfo?.user);
+        // setUserDetails(profileInfo?.user)
+        
        
       } catch (error) {}
     })();
   }, []);
-  // useEffect(() => {
-  //   const fetchProfileData = async () => {
-  //     try {
-  //       const res = await axios.get('http://localhost:3000/api/users/', {
-  //         headers: {
-  //           'Content-Type': 'application/json',
-  //         },
-  //       });
-  //       const profileInfo = res.data;
-  //       setProfileData(profileInfo?.user);
-  //       console.log(profileInfo);
-  //     } catch (error) {
-  //       console.error('Error fetching the data:', error);
-  //     }
-  //   };
-
-  //   fetchProfileData();
-  // }, []);
 
   return (
     <div>
@@ -208,6 +193,7 @@ const ContentCard = () => {
           isOpen={showModal}
           onClose={() => setShowModal(!showModal)}
           title="Edit Profile"
+          
         >
           <Tabs
             tabs={[
