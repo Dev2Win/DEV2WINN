@@ -9,7 +9,6 @@ import ChatMenu from '@/components/chat/ChatMenu';
 import io from 'socket.io-client';
 import moment from 'moment';
 import { useUser } from '@clerk/clerk-react';
-import MeetingModal from '../meeting/MeetingModal';
 import ChatMenuCard from './ChatMenuCard';
 import { BiCheckDouble } from 'react-icons/bi';
 import { LuCheck, LuPlus } from 'react-icons/lu';

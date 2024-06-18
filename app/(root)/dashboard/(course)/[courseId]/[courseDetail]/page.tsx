@@ -16,13 +16,13 @@ const Page = () => {
   let currentCourse: Course | undefined;
 
   for (const course of courses) {
-    for (const module of course.courseroadmap) {
-      const submodule = module.submodules.find(
+    for (const modules of course.courseroadmap) {
+      const submodule = modules.submodules.find(
         (sub) => sub.id === courseDetailId,
       );
       if (submodule) {
         foundSubmodule = submodule;
-        currentModule = module;
+        currentModule = modules;
         currentCourse = course;
         break;
       }
