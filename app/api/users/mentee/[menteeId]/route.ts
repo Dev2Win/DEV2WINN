@@ -9,7 +9,7 @@ type ParamsProps = {
 }
 
 // fetching a specific mentee information
-export const GET = async ( { params }: ParamsProps) => {
+export const GET = async (request: Request, { params }: ParamsProps) => {
     const { menteeId } = params 
 
     await connectToDB()
