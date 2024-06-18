@@ -22,6 +22,9 @@ type FormTwo = {
   handleIndustry:any;
   selectedIndustry:any;
   handleExpertise: any;
+  options: any;
+  handleSelect:any;
+  selectedOptions:any;
   expertiseOptions : any[]
   IndustryOptions: any[]
 };
@@ -34,6 +37,9 @@ function StepTwoForm({
   steps,
   currentStep,
   complete,
+  options,
+  selectedOptions,
+  handleSelect,
   selectedExpertise,
   handleExpertise,
   handleIndustry,selectedIndustry,
@@ -66,6 +72,22 @@ function StepTwoForm({
           placeholder="Select options..."
         />
       </div> */}
+        <div className="w-[80%] my-1">
+        <label
+          htmlFor="industry_pref"
+          className="font-semibold text-gray-700 text-sm"
+        >
+         Career Preferences
+        </label>
+       
+        <Select
+          isMulti
+          options={options}
+          value={selectedOptions}
+          onChange={handleSelect}
+          placeholder="Select options..."
+        />
+      </div>
       <div className="w-[80%] my-1">
         <label
           htmlFor="expertise"
@@ -103,6 +125,29 @@ function StepTwoForm({
           <option value="novice">Novice</option>
           <option value="intermediate">Intermediate</option>
           <option value="expert">Expert</option>
+        </select>
+      </div>
+
+      <div className="w-[80%] my-2">
+        <label
+          htmlFor="experience_level"
+          className="font-semibold text-gray-700 text-sm"
+        >
+          Availability
+        </label>
+        <select
+          id="availability"
+          name="availability"
+          value={formData.availability}
+          
+          onChange={handleFormChange}
+          className="my-1 px-2 py-1 text-sm text-gray-700 block w-full border border-gray-300 rounded-md shadow-sm focus:outline-black/20"
+          required
+        >
+         
+          <option value="novice">weekdays</option>
+          <option value="intermediate">Weekends</option>
+          <option value="expert">Everyday</option>
         </select>
       </div>
 

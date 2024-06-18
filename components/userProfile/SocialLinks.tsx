@@ -75,7 +75,7 @@ const SocialLinks: React.FC<SocialLinksProps> = () => {
             name="twitter"
             value={formData.twitter}
             onChange={handleChange}
-            className="mt-2 p-2 border rounded w-full"
+            className="mt-2 p-3 border rounded-lg focus:outline-none bg-slate-100  w-full"
           />
         </div>
 
@@ -88,7 +88,7 @@ const SocialLinks: React.FC<SocialLinksProps> = () => {
             name="website"
             value={formData.website}
             onChange={handleChange}
-            className="mt-2 p-2 border rounded w-full"
+            className="mt-2 p-3 border rounded-lg focus:outline-none bg-slate-100  w-full"
           />
         </div>
 
@@ -121,7 +121,7 @@ const SocialLinks: React.FC<SocialLinksProps> = () => {
                 value={newLink.title}
                 onChange={handleNewLinkChange}
                 placeholder="Enter title"
-                className="p-2 border rounded-l-md w-1/3"
+                className="p-2 border rounded-1-md placeholder:text-sm focus:outline-none bg-slate-300  w-1/3"
               />
               <input
                 type="text"
@@ -129,7 +129,7 @@ const SocialLinks: React.FC<SocialLinksProps> = () => {
                 value={newLink.url}
                 onChange={handleNewLinkChange}
                 placeholder="Enter URL"
-                className="p-2 border rounded-r-md w-2/3"
+                 className=" p-2 border rounded-r-md focus:outline-none  w-2/3"
               />
               <button
                 type="button"

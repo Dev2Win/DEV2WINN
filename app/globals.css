@@ -172,3 +172,14 @@
     border-radius: 50%;
   }
   
+   /*============submodules expansion==============*/
+  .submodules-container {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+  }
+  
+  .submodules-container.expanded {
+    max-height: 1000px; /* Arbitrary large value to allow expansion */
+  }
+  
