@@ -25,6 +25,5 @@ export const PATCH =  async (request: Request,{ params }: ParamsProps) => {
     // query the mentee id and update it
     await connectToDB()
     const updatedMentee = await Mentee.findByIdAndUpdate({ menteeId }, res, { new: true })
-
     return NextResponse.json({message:'success', user: updatedMentee })
 }

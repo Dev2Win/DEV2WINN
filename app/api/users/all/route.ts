@@ -17,12 +17,8 @@ export const GET = async () => {
     if (!users || users.length === 0) {
       return NextResponse.json({ message: "User not found" });
     }
-
-     
+ 
   // eslint-disable-next-line camelcase
-
-
-  
 
     return NextResponse.json(users);
   } catch (error) {

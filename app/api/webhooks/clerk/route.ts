@@ -1,7 +1,6 @@
 
 
-import { createUser } from "@/lib/connect";
-
+import { createUser} from "@/lib/connect";
 import { WebhookEvent,clerkClient } from "@clerk/nextjs/server";
 import { headers } from "next/headers";
 import { NextResponse } from "next/server";
@@ -59,12 +58,28 @@ export async function POST(req: Request) {
   const { id } = evt.data;
   const eventType = evt.type;
 
-  // if (eventType === "user.deleted"){
-    // const {id} = evt.data
+  if (eventType === "user.updated"){
+    // const {id, email_addresses, first_name, last_name} = evt.data
+
+    // const user:any = {
+    //   clerkId: id,
+    //   email: email_addresses[0].email_address,
+    //   firstName: first_name,
+    //   lastName: last_name,
+      
+     
+    // };
+
+    // await updateUser(user)
+
+   
+
     // delete user but first have to get the userId and then check if its a mentor or mentee and then delete as well
     // search for the kind of user based on userid and delete 
     // delete the user
-  // }
+  }
+
+  // user.edited
 
   // CREATE User in mongodb
 
@@ -78,6 +93,7 @@ export async function POST(req: Request) {
       email: email_addresses[0].email_address,
       firstName: first_name,
       lastName: last_name,
+    
      
     };
 

@@ -21,7 +21,7 @@ export type FormValues = {
 };
 
 
-const menteeUrl: string = process.env.MENTEE_URL  || "https://dev-2-winn.vercel.app/api/users/mentee"
+const menteeUrl: string = process.env.MENTEE_URL  || "http://localhost:3000/api/users/mentee"
 
 
 

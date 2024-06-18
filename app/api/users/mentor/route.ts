@@ -33,3 +33,31 @@ export const POST = async (req: NextRequest) => {
     return NextResponse.json({ message: 'Failed to create mentor' });
   }
 };
+
+
+export const GET = async () => {
+  try {
+    await connectToDB();
+
+    // const { sessionClaims } = auth();
+    // const userId = sessionClaims?.userId as string;
+
+    const mentors = await Mentor.find().populate('userId');
+    
+    if (!mentors || mentors.length === 0) {
+      return NextResponse.json({ message: "User not found" });
+    }
+
+     
+  // eslint-disable-next-line camelcase
+
+
+  
+
+    return NextResponse.json(mentors);
+  } catch (error) {
+    console.error("Error:", error);
+    return NextResponse.json({ message: "Internal server error" });
+  }
+};
+

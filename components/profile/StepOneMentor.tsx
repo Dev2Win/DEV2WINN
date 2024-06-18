@@ -15,6 +15,7 @@ type FormOne = {
   options: any[];
   selectedOptions: any;
   handleSelect: any;
+  handleSelectLang: any;
 };
 
 function StepOneMentor({
@@ -26,6 +27,7 @@ function StepOneMentor({
   steps,
   selectedOptions,
   handleSelect,
+  handleSelectLang,
   options
 }: FormOne) {
 
@@ -78,32 +80,32 @@ function StepOneMentor({
           htmlFor="industry_pref"
           className="font-semibold text-gray-700 text-sm"
         >
-          Career Preference
+         Your Languages 
         </label>
        
         <Select
           isMulti
           options={options}
           value={selectedOptions}
-          onChange={handleSelect}
+          onChange={handleSelectLang}
           placeholder="Select options..."
         />
       </div>
 
       <div className='w-[80%] my-1'>
-          <label htmlFor="availability" className='font-semibold text-gray-700 text-sm'>Availability</label>
+          <label htmlFor="gender" className='font-semibold text-gray-700 text-sm'>Gender</label>
           <select
-            id="availability"
-            name="availability"
-            value={formData.availability}
+            id="gender"
+            name="gender"
+            value={formData.gender}
             onChange={handleFormChange}
             className='my-1 px-2 py-1 text-sm text-gray-700 block w-full border border-gray-300 rounded-md shadow-sm focus:outline-black/20'
             required
           >
-            <option value="" className='text-gray-400'>Select availability</option>
-            <option value="Weekdays">Weekdays</option>
-            <option value="Weekends">Weekends</option>
-            <option value="Everyday">Everyday</option>
+            <option value="" className='text-gray-400'>Select Gender</option>
+            <option value="Weekdays">Male</option>
+            <option value="Weekends">Female</option>
+        
           </select>
          </div>
       <button
