@@ -133,7 +133,7 @@ const MultiStepPage = () => {
   };
   
   return (
-    <form >
+    <form className=''>
       {currentStep === 1 && (
         <StepOneMentor
           onNext={handleNext}
