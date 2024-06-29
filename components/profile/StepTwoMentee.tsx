@@ -19,7 +19,7 @@ type FormTwo = {
 function StepThreeForm({onNext, onPrevious, formData, handleFormChange, steps, currentStep, complete} : FormTwo) {
 
   return (
-    <section className='flex flex-col justify-center items-center h-screen max-w-lg mx-auto'>
+    <section className='flex flex-col justify-center items-center h-screen max-w-lg lg:max-w-2xl 2xl:max-w-[1200px] mx-auto'>
       <h1 className="font-bold text-3xl mb-4">Dev2Win</h1>
       <div className='max-w-md'>
          <Stepper currentStep={currentStep} complete={complete} steps={steps}/>
@@ -33,7 +33,7 @@ function StepThreeForm({onNext, onPrevious, formData, handleFormChange, steps, c
             name="education_status"
             value={formData.education_status}
             onChange={handleFormChange}
-            className='my-1 px-2 py-1 text-sm text-gray-700 block w-full border border-gray-300 rounded-md shadow-sm focus:outline-black/20'
+            className='my-1 px-2 py-2 text-sm text-gray-700 block w-full border border-gray-300 rounded-md shadow-sm focus:outline-black/20'
             required
           >
             <option value="" className='text-gray-400'>Level of Education</option>
@@ -45,14 +45,14 @@ function StepThreeForm({onNext, onPrevious, formData, handleFormChange, steps, c
           </select>
          </div>
         
-         <div className='w-[80%] my-1'>
+         <div className='w-[80%] my-1 lg:my-4'>
           <label htmlFor="career_path" className='font-semibold text-gray-700 text-sm'>Career Path</label>
           <select
             id="career_path"
             name="career_path"
             value={formData.career_path}
             onChange={handleFormChange}
-            className='my-1 px-2 py-1 text-sm text-gray-700 block w-full border border-gray-300 rounded-md shadow-sm focus:outline-black/20'
+            className='my-1 px-2 py-2 text-sm text-gray-700 block w-full border border-gray-300 rounded-md shadow-sm focus:outline-black/20'
           >
             <option value="" className='text-gray-400'>Career Path</option>
             {
@@ -71,7 +71,7 @@ function StepThreeForm({onNext, onPrevious, formData, handleFormChange, steps, c
             name="experience_level"
             value={formData.experience_level}
             onChange={handleFormChange}
-            className='my-1 px-2 py-1 text-sm text-gray-700 block w-full border border-gray-300 rounded-md shadow-sm focus:outline-black/20'
+            className='my-1 p-2 text-sm text-gray-700 block w-full border border-gray-300 rounded-md shadow-sm focus:outline-black/20'
           >
             <option value="" className='text-gray-400'>Level of experience</option>
             <option value="novice">Novice</option>

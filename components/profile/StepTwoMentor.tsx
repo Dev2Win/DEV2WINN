@@ -3,6 +3,7 @@
 import { FormValues } from '@/app/profile/mentor/page';
 import Stepper from './Stepper';
 import Select from 'react-select';
+import makeAnimated from 'react-select/animated';
 import React from 'react';
 
 
@@ -48,14 +49,17 @@ function StepTwoForm({
 
 }: FormTwo) {
 
+  const animatedComponents = makeAnimated();
+
+
  
   return (
-    <section className="flex flex-col justify-center items-center h-screen max-w-lg mx-auto">
+    <section className="flex flex-col justify-center items-center h-screen max-w-lg mx-auto lg:max-w-2xl 2xl:max-w-[1200px]">
       <h1 className="font-bold text-3xl mb-4">Dev2Win</h1>
       <div className="max-w-md">
         <Stepper currentStep={currentStep} complete={complete} steps={steps} />
       </div>
-      <h2 className="text-xl font-semibold my-6">Experience level</h2>
+      <h2 className="text-xl font-semibold my-6">Career Path</h2>
 
       {/* <div className="w-[80%] my-1">
         <label
@@ -85,10 +89,20 @@ function StepTwoForm({
           options={options}
           value={selectedOptions}
           onChange={handleSelect}
+          components={animatedComponents}
+          theme={(theme) => ({
+            ...theme,
+            borderRadius: 0,
+            colors: {
+              ...theme.colors,
+              primary25: 'primary75',
+              primary: 'neutral50',
+            },
+          })}
           placeholder="Select options..."
         />
       </div>
-      <div className="w-[80%] my-1">
+      <div className="w-[80%] my-1  2xl:my-6">
         <label
           htmlFor="expertise"
           className="font-semibold text-gray-700 text-sm"
@@ -98,6 +112,16 @@ function StepTwoForm({
         <Select
           isMulti
           options={IndustryOptions}
+          components={animatedComponents}
+          theme={(theme) => ({
+            ...theme,
+            borderRadius: 0,
+            colors: {
+              ...theme.colors,
+              primary25: 'primary75',
+              primary: 'neutral50',
+            },
+          })}
           value={selectedIndustry}
           onChange={handleIndustry}
           placeholder="Select options..."
@@ -116,7 +140,7 @@ function StepTwoForm({
           name="experience_level"
           value={formData.experience_level}
           onChange={handleFormChange}
-          className="my-1 px-2 py-1 text-sm text-gray-700 block w-full border border-gray-300 rounded-md shadow-sm focus:outline-black/20"
+          className="my-1 px-2 py-[10px] text-sm text-gray-700 block w-full border border-gray-300 rounded-md shadow-sm focus:outline-black/20"
           required
         >
           <option value="" className="text-gray-400">
@@ -141,7 +165,7 @@ function StepTwoForm({
           value={formData.availability}
           
           onChange={handleFormChange}
-          className="my-1 px-2 py-1 text-sm text-gray-700 block w-full border border-gray-300 rounded-md shadow-sm focus:outline-black/20"
+          className="my-1 px-2 py-[10px] text-sm text-gray-700 block w-full border border-gray-300 rounded-md shadow-sm focus:outline-black/20"
           required
         >
          

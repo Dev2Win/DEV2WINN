@@ -17,7 +17,7 @@ type FormTwo = {
 
 function StepFourForm({onSubmit, onPrevious, currentStep, complete, steps} : FormTwo) {
   return (
-    <div className='flex flex-col justify-center items-center h-screen max-w-md sm:mx-auto '>
+    <div className='flex flex-col justify-center items-center h-screen max-w-lg lg:max-w-2xl mx-auto '>
       <h1>User name</h1>
       <div className='max-w-md mt-4'>
          <Stepper currentStep={currentStep} complete={complete} steps={steps}/>
