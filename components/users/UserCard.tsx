@@ -1,7 +1,7 @@
 'use client';
 import Image from 'next/image';
 import React, { useState } from 'react';
-import image from '../../public/images/aboutImage.webp';
+import image from '../../public/images/avatar-2.jpeg';
 import { useUser } from '@clerk/nextjs';
 
 const UserCard = ({ data }: any) => {
@@ -32,26 +32,47 @@ const UserCard = ({ data }: any) => {
   };
 
   return (
-    <div className="overflow-hidden rounded-lg bg-white shadow-md">
-      <Image src={image} alt={data.name} className="h-48 w-full object-cover" />
-      <div className="p-4">
-        <h3 className="mb-1 text-lg font-semibold">{data?.userId?.firstName}</h3>
-        <p className="mb-2 text-gray-600 text-[1rem] font-normal">{data?.email}</p>
-        <p className="mb-4 text-gray-500">{data?.email}</p>
-        <div className="flex items-center justify-between">
-          <span className="text-sm text-gray-600">
-            <p className='text-[13px] text-gray-400'>Experience</p>
-            <p className='font-bold'>{data?.experience_level} year{data.experience_level !== 1 ? 's' : ''}</p>
-          </span>
-          <button
-            className="bg-purple-1/40 p-[7px] text-white rounded-lg"
-            onClick={handleConnect}
-          >
-            { checkConnection ? 'connected' : 'connect'}
-          </button>
-        </div>
+    // <div className="overflow-hidden rounded-lg bg-white shadow-md">
+    //   <Image src={image} alt={data.name} className="h-48 w-full object-cover" />
+    //   <div className="p-4">
+    //     <h3 className="mb-1 text-lg font-semibold">{data?.userId?.firstName}</h3>
+    //     <p className="mb-2 text-gray-600 text-[1rem] font-normal">{data?.email}</p>
+    //     <p className="mb-4 text-gray-500">{data?.email}</p>
+    //     <div className="flex items-center justify-between">
+    //       <span className="text-sm text-gray-600">
+    //         <p className='text-[13px] text-gray-400'>Experience</p>
+    //         <p className='font-bold'>{data?.experience_level} year{data.experience_level !== 1 ? 's' : ''}</p>
+    //       </span>
+    //       <button
+    //         className="bg-purple-1/40 p-[7px] text-white rounded-lg"
+    //         onClick={handleConnect}
+    //       >
+    //         { checkConnection ? 'connected' : 'connect'}
+    //       </button>
+    //     </div>
+    //   </div>
+    // </div>
+
+
+    <div className="min-w-fit rounded-lg bg-white shadow-md border border-gray-200">
+    <Image src={image} alt={data.name} className="h-48 w-[14rem] object-cover" />
+    <div className="p-4">
+      <h3 className="mb-1 text-lg font-semibold">{data.name}</h3>
+      <p className="mb-2 text-gray-600 text-[1rem] font-normal">{data?.email}</p>
+      <div className="flex items-center justify-between">
+        <span className="text-sm text-gray-600">
+          <p className='text-[13px] text-gray-400'>Experience</p>
+          <p className='font-bold'>{data?.experience} year{data.experience_level !== 1 ? 's' : ''}</p>
+        </span>
+        <button
+          className="bg-purple-1/60 p-[6px] text-white rounded-md font-bold text-sm"
+          onClick={handleConnect}
+        >
+          { checkConnection ? 'connect' : 'connectd'}
+        </button>
       </div>
     </div>
+  </div>
   );
 };
 
