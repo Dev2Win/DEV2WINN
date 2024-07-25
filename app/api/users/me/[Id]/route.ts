@@ -3,22 +3,17 @@ import { connectToDB } from '@/lib/db';
 import Mentee from '@/models/Mentee';
 import Mentor from '@/models/Mentor';
 import User from '@/models/User';
-import { auth, currentUser } from '@clerk/nextjs/server';
+import { auth } from '@clerk/nextjs/server';
 import { NextResponse } from 'next/server';
 
-export const GET = async (req:any, { params }:any) => {
+export const GET = async (req: any, { params }: any) => {
   try {
     await connectToDB();
-    const res = auth();
-    const re = currentUser();
-    console.log('ioioio', res);
-    console.log('jdjdd', re);
+    const { sessionClaims } = auth();
 
-    const { Id } = params; // Extract userId from params
+    // Extract userId from params
 
-    console.log('User ID from params:', Id);
-
-    const user = await User.findById(Id);
+    const user = await User.findById(sessionClaims?.userId);
     console.log(user);
 
     if (!user) {
