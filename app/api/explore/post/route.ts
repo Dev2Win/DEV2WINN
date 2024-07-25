@@ -3,7 +3,7 @@ import Post from '@/models/Post';
 import { NextResponse } from 'next/server';
 
 // Create a post
-export const POST = async (req) => {
+export const POST = async (req: any) => {
   await connectToDB();
 
   try {
@@ -15,7 +15,7 @@ export const POST = async (req) => {
     });
     const newPost = await post.save();
     return NextResponse.json({ message: 'SUCCESS', newPost });
-  } catch (err) {
+  } catch (err: any) {
     return NextResponse.json({ message: err.message });
   }
 };
@@ -27,13 +27,13 @@ export const GET = async () => {
   try {
     const posts = await Post.find().populate('comments.user', 'username email');
     return NextResponse.json({ message: 'SUCCESS', posts });
-  } catch (err) {
+  } catch (err: any) {
     return NextResponse.json({ message: err.message });
   }
 };
 
 // Delete a post
-export const DELETE = async (req) => {
+export const DELETE = async (req: any) => {
   await connectToDB();
 
   try {
@@ -45,13 +45,13 @@ export const DELETE = async (req) => {
 
     await post.remove();
     return NextResponse.json({ message: 'SUCCESS' });
-  } catch (err) {
+  } catch (err: any) {
     return NextResponse.json({ message: err.message });
   }
 };
 
 // Update a post
-export const PATCH = async (req) => {
+export const PATCH = async (req: any) => {
   await connectToDB();
 
   try {
@@ -67,7 +67,7 @@ export const PATCH = async (req) => {
 
     const updatedPost = await post.save();
     return NextResponse.json({ message: 'SUCCESS', updatedPost });
-  } catch (err) {
+  } catch (err: any) {
     return NextResponse.json({ message: err.message });
   }
 };
