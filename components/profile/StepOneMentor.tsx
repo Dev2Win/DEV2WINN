@@ -5,6 +5,7 @@ import { FormValues } from '@/app/profile/mentor/page';
 import Stepper from './Stepper';
 import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
+import ProfileImageUpload from './ProfileImageUpload';
 
 type FormOne = {
   onNext: () => void;
@@ -43,7 +44,8 @@ function StepOneMentor({
       <div className="max-w-md">
         <Stepper currentStep={currentStep} complete={complete} steps={steps} />
       </div>
-      <h2 className="my-4 text-xl font-semibold">Personal Details</h2>
+      {/* <h2 className="my-4 text-xl font-semibold">Personal Details</h2> */}
+      <ProfileImageUpload />
       <div className="w-[80%] 2xl:my-6">
         <label
           htmlFor="title"

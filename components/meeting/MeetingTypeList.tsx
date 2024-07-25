@@ -13,6 +13,7 @@ import { Textarea } from '../ui/textarea';
 import ReactDatePicker from 'react-datepicker';
 import { useToast } from '../ui/use-toast';
 import { Input } from '../ui/input';
+import SheduleList from './SheduleList';
 
 const initialValues = {
   dateTime: new Date(),
@@ -117,6 +118,9 @@ const MeetingTypeList = () => {
               }
             />
           </div>
+          <div className="">
+            <SheduleList />
+          </div>
           <div className="flex w-full flex-col gap-2.5">
             <label className="text-base font-normal leading-[22.4px] ">
               Select Date and Time
@@ -129,7 +133,7 @@ const MeetingTypeList = () => {
               timeIntervals={15}
               timeCaption="time"
               dateFormat="MMMM d, yyyy h:mm aa"
-              className="w-full rounded bg-dark-3 text-white p-2 focus:outline-none"
+              className="w-full rounded bg-dark-3 p-2 text-white focus:outline-none"
             />
           </div>
         </MeetingModal>
@@ -177,3 +181,6 @@ const MeetingTypeList = () => {
 };
 
 export default MeetingTypeList;
+
+// an imput to receive connections so u can add them to meetings
+// display of every scheduled meeting details
