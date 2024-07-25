@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 export default function ScheduleList() {
   const [searchTerm, setSearchTerm] = useState('');
   const [showItems, setShowItems] = useState(false);
-  const [selectedItems, setSelectedItems] = useState([]);
+  const [selectedItems, setSelectedItems] = useState<any>([]);
   const [items] = useState([
     { id: 1, label: 'Apple' },
     { id: 2, label: 'Banana' },
@@ -27,23 +27,23 @@ export default function ScheduleList() {
     );
   }, [items, searchTerm]);
 
-  const handleItemSelect = (item) => {
-    if (!selectedItems.some((i) => i.id === item.id)) {
+  const handleItemSelect = (item: any) => {
+    if (!selectedItems.some((i: any) => i.id === item.id)) {
       setSelectedItems([...selectedItems, item]);
       setSearchTerm('');
       setShowItems(false);
     }
   };
 
-  const handleItemRemove = (item) => {
-    setSelectedItems(selectedItems.filter((i) => i.id !== item.id));
+  const handleItemRemove = (item: any) => {
+    setSelectedItems(selectedItems.filter((i: any) => i.id !== item.id));
   };
 
   return (
     <div className="w-full max-w-md">
       <div className="relative">
         <div className="flex flex-wrap items-center rounded-md border bg-white p-2">
-          {selectedItems.map((item) => (
+          {selectedItems.map((item: any) => (
             <div
               key={item.id}
               className="bg-primary text-primary-foreground mb-2 mr-2 flex items-center space-x-2 rounded-full px-3 py-1 text-sm"
@@ -88,7 +88,7 @@ export default function ScheduleList() {
   );
 }
 
-function XIcon(props) {
+function XIcon(props: any) {
   return (
     <svg
       {...props}

@@ -3,13 +3,13 @@ import { GoBook } from 'react-icons/go';
 import { LuUsers2 } from 'react-icons/lu';
 import { BiNotepad } from 'react-icons/bi';
 import Link from 'next/link';
-import { Course } from '@/app/(root)/dashboard/page';
+// import { Course } from '@/app/(root)/dashboard/page';
 
-type CardProps = {
-  card: Course;
-};
+// type CardProps = {
+//   card: Course;
+// };
 
-const QuestionCard = ({ card }: CardProps) => {
+const QuestionCard = ({ card }: any) => {
   return (
     <Link
       href={`/dashboard/explore/${card.id}`}
