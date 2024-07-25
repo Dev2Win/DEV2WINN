@@ -121,7 +121,7 @@ const ContentCard = () => {
     (async () => {
       try {
         const res = await fetch(
-          `http://localhost:3001/api/users/me/${user?.publicMetadata?.userId}`,
+          `https://dev-2-winn.vercel.app/users/me/${user?.publicMetadata?.userId}`,
           {
             method: 'GET',
             headers: {
