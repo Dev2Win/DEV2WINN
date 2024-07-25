@@ -11,9 +11,11 @@ import SocialLinks from './SocialLinks';
 import Reviews from './Reviews';
 import useStore from '@/lib/store';
 import GeneralModal from '../reusables/GeneralModal';
+import { useUser } from '@clerk/nextjs';
 
 // eslint-disable-next-line camelcase
-const get_all_users = process.env.GET_ALL_USERS || "https://dev-2-winn.vercel.app/api/users"
+// const get_all_users =
+//   process.env.GET_ALL_USERS || 'http://localhost:3000/api/users';
 
 const ContentCard = () => {
   const [profileData, setProfileData] = useState<any>([]);
@@ -42,6 +44,9 @@ const ContentCard = () => {
   //     endYear: string,
   //   });
   // };
+  const { user } = useUser();
+
+  console.log(user);
 
   const memoizedExperiences = useMemo(() => experiences, [experiences]);
   const memoizedEducation = useMemo(() => education, [education]);
@@ -112,22 +117,21 @@ const ContentCard = () => {
   //   console.log(formData);
   // };
 
-
-
   useEffect(() => {
     (async () => {
       try {
-        const res = await fetch(get_all_users, {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
+        const res = await fetch(
+          `http://localhost:3001/api/users/me/${user?.publicMetadata?.userId}`,
+          {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+            },
           },
-        });
+        );
         const profileInfo: any = await res.json();
         setProfileData(profileInfo?.user);
         // setUserDetails(profileInfo?.user)
-        
-       
       } catch (error) {}
     })();
   }, []);
@@ -193,7 +197,6 @@ const ContentCard = () => {
           isOpen={showModal}
           onClose={() => setShowModal(!showModal)}
           title="Edit Profile"
-          
         >
           <Tabs
             tabs={[

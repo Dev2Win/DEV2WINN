@@ -39,7 +39,11 @@ export const mentorSidebar = [
     label: 'Home',
   },
 
- 
+  {
+    imgURL: '/icons/previous.svg',
+    route: '/dashboard/explore',
+    label: 'Explore',
+  },
   {
     imgURL: '/icons/previous.svg',
     route: '/dashboard/chat',
@@ -74,5 +78,3 @@ export const avatarImages = [
   '/images/avatar-4.png',
   '/images/avatar-5.png',
 ];
-
-
