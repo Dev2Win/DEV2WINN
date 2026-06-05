@@ -1,0 +1,95 @@
+import React from 'react';
+import BackgroundComp from './BackgroundComp';
+
+const Background: React.FC = () => {
+  const expertise = ['Product', 'Engineering'];
+  const disciplines = ['UX Design', 'UI/ Visual Design'];
+  const industries = ['Start-up', 'Web3'];
+
+  return (
+    <div>
+      <BackgroundComp
+        expertise={expertise}
+        disciplines={disciplines}
+        industries={industries}
+      />
+      {/* Other components */}
+    </div>
+  );
+};
+
+export default Background;
+
+
+import React from 'react';
+
+const Background = () => {
+  return (
+    <div className="mt-8">
+      <h1>Background</h1>
+      <div className="border flex  flex-col rounded-lg gap-y-6 px-4 py-8">
+        <div className="flex justify-between">
+          <p>Expertise</p>
+          <div className="inline-flex gap-x-2">
+            <button className="bg-purple-1 w-24 py-2 text-sm font-bold rounded-md text-white ">
+              Product
+            </button>
+            <button className="bg-red-400 w-24 max-md:hidden py-2 text-sm font-bold rounded-md text-white ">
+              Engineering
+            </button>
+            <button className="w-12 border font-bold text-sm rounded-md py-2 ">
+              +2
+            </button>
+          </div>
+        </div>
+        <hr className="mx-2"></hr>
+        <div className="flex justify-between">
+          <p>Disciplines</p>
+          <div className="inline-flex gap-x-2">
+            <button className=" w-24 py-2 text-sm font-bold rounded-md border ">
+              UX Design
+            </button>
+            <button className="bg-red-400 w-24 max-md:hidden py-2 text-sm font-bold rounded-md text-white ">
+              UI/Visual
+            </button>
+            <button className="w-12 border font-bold text-sm rounded-md py-2 ">
+              +2
+            </button>
+          </div>
+        </div>
+        <hr className="mx-2"></hr>
+        <div className="flex justify-between">
+          <p>Expertise</p>
+          <div className="inline-flex gap-x-2">
+            <button className="bg-purple-1 w-24 py-2 text-sm font-bold rounded-md text-white ">
+              Product
+            </button>
+            <button className="bg-red-400 w-24 max-md:hidden py-2 text-sm font-bold rounded-md text-white ">
+              Engineering
+            </button>
+            <button className="w-12 border font-bold text-sm rounded-md py-2 ">
+              +2
+            </button>
+          </div>
+        </div>
+        <hr className="mx-2"></hr>
+        <div className="flex justify-between">
+          <p>Expertise</p>
+          <div className="inline-flex gap-x-2">
+            <button className="bg-purple-1 w-24 py-2 text-sm font-bold rounded-md text-white ">
+              Product
+            </button>
+            <button className="bg-red-400 w-24 max-md:hidden py-2 text-sm font-bold rounded-md text-white ">
+              Engineering
+            </button>
+            <button className="w-12 border font-bold text-sm rounded-md py-2 ">
+              +2
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Background;
