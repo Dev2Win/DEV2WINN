@@ -9,9 +9,13 @@ __pycache__/
 *.py[cod]
 .venv/
 venv/
+dev2win/
 .pytest_cache/
 .mypy_cache/
 .ruff_cache/
+*.egg-info/
+.coverage
+htmlcov/
 
 # Builds
 dist/
@@ -42,6 +46,10 @@ Thumbs.db
 
 # Docker / data volumes
 .docker-data/
+ai/.rag/
+ai/.agent/
+*.faiss
+*.index
 
 # Coverage
 coverage/

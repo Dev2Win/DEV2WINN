@@ -8,6 +8,7 @@ import { env } from './config/env.js';
 import { errorHandler } from './lib/errors.js';
 import { healthRouter } from './modules/health/health.routes.js';
 import { usersRouter } from './modules/users/users.routes.js';
+import { matchingRouter } from './modules/matching/matching.routes.js';
 
 /**
  * Builds the Express app. Each domain is a Router (module) mounted here — the
@@ -32,6 +33,7 @@ export function buildApp() {
   // Domain modules
   app.use(healthRouter);
   app.use(usersRouter);
+  app.use(matchingRouter);
   // app.use(authRouter);    // Phase 1
   // app.use(mentorsRouter); // Phase 2
   // ...
