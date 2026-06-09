@@ -176,6 +176,11 @@ async def list_sessions(user_id: str) -> dict[str, Any]:
     return {"sessions": memory_store.list_sessions(user_id)}
 
 
+@router.get("/agent/users/{user_id}/sessions/{conversation_id}")
+async def get_session(user_id: str, conversation_id: str) -> dict[str, Any]:
+    return {"session": memory_store.get_session(user_id, conversation_id)}
+
+
 @router.patch("/agent/users/{user_id}/sessions/{conversation_id}")
 async def rename_session(user_id: str, conversation_id: str, req: RenameSessionRequest) -> dict[str, Any]:
     return {"session": memory_store.rename_session(user_id, conversation_id, req.name)}

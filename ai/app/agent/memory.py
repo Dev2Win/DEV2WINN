@@ -65,6 +65,14 @@ class ConversationMemoryStore:
         sessions.sort(key=lambda item: item.get("updated_at") or "", reverse=True)
         return sessions
 
+    def get_session(self, user_id: str, conversation_id: str, limit: int = 80) -> dict[str, Any]:
+        path = self.session_path(user_id, conversation_id)
+        if not path.exists():
+            return self._session_detail(self._load_raw(path, user_id, conversation_id), limit=limit)
+        with self._lock:
+            data = json.loads(path.read_text())
+        return self._session_detail(data, limit=limit)
+
     def rename_session(self, user_id: str, conversation_id: str, name: str) -> dict[str, Any]:
         path = self.session_path(user_id, conversation_id)
         with self._lock:
@@ -133,6 +141,12 @@ class ConversationMemoryStore:
             "updated_at": turns[-1]["created_at"] if turns else data.get("updated_at"),
             "turn_count": len(turns),
         }
+
+    def _session_detail(self, data: dict[str, Any], limit: int = 80) -> dict[str, Any]:
+        turns = data.get("turns", [])
+        summary = self._session_summary(data)
+        summary["turns"] = turns[-limit:]
+        return summary
 
 
 memory_store = ConversationMemoryStore()

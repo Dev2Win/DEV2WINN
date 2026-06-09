@@ -223,3 +223,18 @@ def test_chat_sessions_can_be_renamed_and_soft_deleted(tmp_path, monkeypatch):
     assert deleted["deleted"] is True
     assert memory.memory_store.list_sessions("u1") == []
     assert memory.memory_store.load("u1", "session-1") == []
+
+
+def test_session_detail_endpoint_returns_stored_turns(tmp_path, monkeypatch):
+    from app.agent import memory
+
+    monkeypatch.setattr(memory.memory_store, "root", tmp_path)
+    memory.memory_store.append_turns("u1", "session-2", "Need a React plan", "Start with components.")
+
+    response = client.get("/v1/agent/users/u1/sessions/session-2")
+
+    assert response.status_code == 200
+    body = response.json()["session"]
+    assert body["conversation_id"] == "session-2"
+    assert [turn["role"] for turn in body["turns"]] == ["user", "assistant"]
+    assert body["turns"][1]["content"] == "Start with components."

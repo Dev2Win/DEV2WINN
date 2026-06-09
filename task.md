@@ -13,7 +13,7 @@
 - Anything blocked → `[!]` with the blocker and who can unblock.
 
 **Legend:** `[ ]` todo · `[~]` in progress · `[x]` done · `[!]` blocked
-**Status key (current phase):** P0 — Foundations 🚧
+**Status key (current phase):** P2 — Users & profiles ✅
 
 ---
 
@@ -39,23 +39,23 @@
 **Status:** server fully verified against real MySQL; client/ai boot-check remains.
 
 ## Phase 1 — Auth & identity ⏳
-- [ ] User/session/credential schema + procedures (`sp_user_*`, `sp_session_*`)
-- [ ] Register (argon2id) + login + logout
-- [ ] Cookie session (httpOnly/Secure/SameSite) + Redis store + sliding TTL
-- [ ] CSRF (double-submit) for cookie mutations
-- [ ] OAuth: Google (arctic/oslo)
-- [ ] OAuth: GitHub
-- [ ] Account linking by verified email
-- [ ] RBAC roles (`mentee|mentor|admin`) + Nest guards
-- [ ] Password reset (token via email worker)
-- [ ] Web: auth context, login/signup screens (reuse design), protected routes
+- [x] User/session/credential schema + procedures (`sp_user_*`, `sp_session_*`) — 2026-06-09: added OAuth account + password reset token procedures, avatar persistence, public profile reads, and role-safe profile mutations
+- [x] Register (argon2id) + login + logout — 2026-06-09: dedicated `/login` + `/signup` routes now backed by the custom server auth/session contract
+- [x] Cookie session (httpOnly/Secure/SameSite) + Redis store + sliding TTL — 2026-06-09: signed cookie session + public CSRF cookie + sliding Redis TTL in place
+- [x] CSRF (double-submit) for cookie mutations — 2026-06-09: enforced across logout, profile/avatar updates, onboarding saves, and matching feedback
+- [x] OAuth: Google — 2026-06-09: start/callback flow, verified-email account linking, and session issuance implemented; provider smoke depends on real env credentials
+- [x] OAuth: GitHub — 2026-06-09: start/callback flow, verified-email account linking, and session issuance implemented; provider smoke depends on real env credentials
+- [x] Account linking by verified email — 2026-06-09: OAuth identities now attach to existing users by verified email before creating new accounts
+- [x] RBAC roles (`mentee|mentor|admin`) + Nest guards — 2026-06-09: Express role middleware added; public admin signup and self-promotion removed
+- [x] Password reset (token via email worker) — 2026-06-09: reset request/confirm endpoints, single-use token flow, and queued worker job implemented
+- [x] Web: auth context, login/signup screens (reuse design), protected routes — 2026-06-09: homepage auth widget replaced by dedicated auth pages and protected app routes
 
 ## Phase 2 — Users & profiles ⏳
-- [ ] User + mentor + mentee schema/procedures (clean, required fields, real `role`)
-- [ ] Onboarding flow — **persisted** (role select → role-specific steps)
-- [ ] Profile read/update endpoints + SDK
-- [ ] Image upload (S3/Cloudinary signed upload)
-- [ ] Mentor & mentee directories (cursor pagination + filters)
+- [x] User + mentor + mentee schema/procedures (clean, required fields, real `role`) — 2026-06-09: extended role-specific schemas with experience/industry/education/CV fields plus safe role transitions
+- [x] Onboarding flow — **persisted** (role select → role-specific steps) — 2026-06-09: protected step-based onboarding route implemented for mentor and mentee paths
+- [x] Profile read/update endpoints + SDK — 2026-06-09: added typed client API helpers plus self/public profile surfaces
+- [x] Image upload (S3/Cloudinary signed upload) — 2026-06-09: signed Cloudinary avatar upload endpoint + client upload/save flow implemented; smoke depends on real Cloudinary env
+- [x] Mentor & mentee directories (cursor pagination + filters) — 2026-06-09: directory endpoints now support cursor pagination + search/language/tag filters and power dedicated UI routes
 
 ## Phase 3 — Matching engine ⏳
 - [x] FastAPI matching endpoint (TF-IDF + cosine + structured filters) — 2026-06-06: hybrid scorer + `/v1/recommendations`
@@ -63,7 +63,7 @@
 - [ ] Qdrant collection + upsert on profile change (via worker)
 - [x] Hybrid scoring + cold-start heuristics — 2026-06-06: filters, rule boosts, feedback component, explainable reasons
 - [x] Recommender benchmark/eval harness — 2026-06-07: seeded precision@k/MRR/nDCG + latency eval under `ai/scripts/eval_matching.py`
-- [~] Recommendations API in `api` (cache in Redis) + dashboard wiring — 2026-06-07: Express proxy + Redis cache added; dashboard wiring pending
+- [x] Recommendations API in `api` (cache in Redis) + dashboard wiring — 2026-06-08: homepage recommendations panel wired to Express matching API with feedback actions
 - [x] Feedback signal capture (accepted/dismissed matches) — 2026-06-07: stored-procedure-backed `/v1/matching/feedback`
 
 ## Phase 4 — Sessions & booking ⏳
@@ -121,11 +121,14 @@
 |------|-------|---------|-------|
 | Phase 0 scaffold | Claude | 2026-06-04 | client/server/ai + db + docker-compose done. Server (Express/JS) fully verified vs real MySQL: 5/5 tests, boots, smoke-tested. CI + worker done. Remaining: client/ai boot-check, server eslint, ai pytest |
 | Phase 8 AI service | Codex | 2026-06-06 | Claude Sonnet 4 tool loop, Anthropic MCP connector config, registry, LMS/user/web tools, AI DB connector, local FAISS RAG with Google embeddings, token-efficiency layer, pytest + HTTP smoke green |
-| Phase 3 recommender | Codex | 2026-06-06 | Hybrid mentor↔mentee ranker, reverse recommendations, Express proxy; AI/server tests + HTTP E2E smoke green |
+| Phase 3 recommender | Codex | 2026-06-06 | Hybrid mentor↔mentee ranker, reverse recommendations, Express proxy, homepage dashboard wiring now fed by persisted role profiles/directories; AI/server tests + HTTP E2E smoke green |
 | Phase 3 cache/feedback | Codex | 2026-06-07 | Redis recommendation cache + stored-procedure feedback endpoint added; migration written, local MySQL 3307 unavailable for apply |
 | Phase 3 eval | Codex | 2026-06-07 | Matching eval harness added; seeded benchmark: precision@1=1.00, precision@3=1.00, MRR=1.00, nDCG@3=1.00, ~1.38 ms/case |
 | Phase 8 chat UI | Codex | 2026-06-07 | Next AI mentor chat first screen + SSE proxy; client typecheck/build and proxy smoke green |
 | Phase 8 document upload RAG | Codex | 2026-06-07 | Multipart document upload endpoint, TXT/MD/PDF/DOCX extraction, recursive token chunker with overlap, user/session scoped FAISS ingestion, UI attach flow |
+| Phase 8 session memory UX | Codex | 2026-06-08 | Added session detail endpoint + client transcript reload for saved AI chats |
+| Phase 1 auth completion | Codex | 2026-06-09 | Added OAuth start/callback flows, verified-email account linking, password reset token flow, worker email queue job, protected client auth routes, RBAC middleware, public admin lockout; server tests + client build/typecheck green |
+| Phase 2 profile completion | Codex | 2026-06-09 | Added step-based protected onboarding, typed client SDK, avatar signed upload flow, public/self profile reads, and paginated/filterable mentor/mentee directories; server tests + client build/typecheck green |
 
 ## Blocked
 | Task | Blocker | Needs |
@@ -141,6 +144,7 @@
 | 2026-06-05 | MySQL container on host port **3307** (host 3306 was taken by a local MySQL); removed `--default-authentication-plugin` flag (unsupported/removed in MySQL 8.4) | Real conflicts hit during P0 bring-up |
 | 2026-06-06 | AI RAG uses **Google Generative AI embeddings + local FAISS** instead of Qdrant for the current build; Claude Sonnet 4 remains the main tool-loop model; web search uses Gemini Google Search grounding; optional Anthropic MCP connector supports remote MCP toolsets | User requested Google Generative AI, local FAISS, Claude 4 Sonnet, Anthropic MCPs, LMS/user/web-search tools |
 | 2026-06-06 | AI DB connector defaults to main API calls and keeps direct MySQL stored-procedure access disabled unless explicitly enabled with an allowlist | Preserve stored-procedure-first data boundary while satisfying AI data/tool needs |
+| 2026-06-09 | Public signup is limited to `mentor` and `mentee`; `admin` is now non-public only. OAuth and Cloudinary flows are implemented but require real provider credentials for live smoke. | Close self-escalation risk while finishing P1/P2 without inventing fake provider secrets |
 
 ## Follow-ups / parking lot
 - Decide: keep Stream vs migrate to LiveKit (self-host) — revisit at P4.

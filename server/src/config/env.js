@@ -19,6 +19,14 @@ const EnvSchema = z.object({
 
   SESSION_SECRET: z.string().min(16).default('dev-only-session-secret-change-me'),
   COOKIE_DOMAIN: z.string().default('localhost'),
+  OAUTH_REDIRECT_BASE: z.string().url().default('http://localhost:4000'),
+  GOOGLE_CLIENT_ID: z.string().default(''),
+  GOOGLE_CLIENT_SECRET: z.string().default(''),
+  GITHUB_CLIENT_ID: z.string().default(''),
+  GITHUB_CLIENT_SECRET: z.string().default(''),
+  CLOUDINARY_CLOUD_NAME: z.string().default(''),
+  CLOUDINARY_API_KEY: z.string().default(''),
+  CLOUDINARY_API_SECRET: z.string().default(''),
 
   SERVICE_JWT_SECRET: z.string().default('dev-only-service-secret'),
   AI_URL: z.string().url().default('http://localhost:8000'),

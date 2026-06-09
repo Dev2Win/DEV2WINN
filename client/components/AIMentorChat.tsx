@@ -1,6 +1,7 @@
 'use client';
 
 import { FormEvent, useEffect, useMemo, useRef, useState } from 'react';
+import type { AuthUser } from '../lib/types';
 
 type ChatMessage = {
   role: 'user' | 'assistant';
@@ -23,13 +24,19 @@ type ChatSession = {
   turn_count: number;
 };
 
+type StoredTurn = {
+  role: 'user' | 'assistant';
+  content: string;
+  tool_events?: ToolEvent[];
+};
+
 const starterPrompts = [
   'Build me a frontend roadmap for React and TypeScript.',
   'Find a mentor fit for a junior backend learner.',
   'What course lesson should I study next?',
 ];
 
-export function AIMentorChat() {
+export function AIMentorChat({ user }: { user: AuthUser }) {
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
       role: 'assistant',
@@ -38,7 +45,6 @@ export function AIMentorChat() {
     },
   ]);
   const [input, setInput] = useState('');
-  const [userId, setUserId] = useState('demo-user');
   const [sessionId, setSessionId] = useState(`session-${Date.now()}`);
   const [pending, setPending] = useState(false);
   const [uploading, setUploading] = useState(false);
@@ -58,11 +64,11 @@ export function AIMentorChat() {
   );
 
   useEffect(() => {
-    void loadSessions(userId);
-  }, [userId]);
+    void loadSessions(user.id);
+  }, [user.id]);
 
-  async function loadSessions(activeUserId = userId) {
-    const response = await fetch(`/api/ai/sessions?user_id=${encodeURIComponent(activeUserId.trim() || 'demo-user')}`);
+  async function loadSessions(activeUserId = user.id) {
+    const response = await fetch(`/api/ai/sessions?user_id=${encodeURIComponent(activeUserId)}`);
     if (!response.ok) return;
     const body = await response.json();
     setSessions(Array.isArray(body.sessions) ? body.sessions : []);
@@ -83,16 +89,49 @@ export function AIMentorChat() {
     setLearnerSkills([]);
   }
 
-  function selectSession(session: ChatSession) {
+  async function selectSession(session: ChatSession) {
     setSessionId(session.conversation_id);
     conversationId.current = session.conversation_id;
-    setMessages([
-      {
-        role: 'assistant',
-        content: `Loaded chat: ${session.name}`,
-      },
-    ]);
-    setToolEvents([]);
+    const response = await fetch(
+      `/api/ai/sessions/${encodeURIComponent(session.conversation_id)}?user_id=${encodeURIComponent(
+        user.id,
+      )}`,
+    );
+    if (!response.ok) {
+      setMessages([
+        {
+          role: 'assistant',
+          content: `I could not load ${session.name} right now.`,
+        },
+      ]);
+      setToolEvents([]);
+      return;
+    }
+
+    const body = await response.json().catch(() => null);
+    const turns = Array.isArray(body?.session?.turns) ? (body.session.turns as StoredTurn[]) : [];
+    if (!turns.length) {
+      setMessages([
+        {
+          role: 'assistant',
+          content: `Loaded chat: ${session.name}`,
+        },
+      ]);
+      setToolEvents([]);
+      return;
+    }
+
+    setMessages(
+      turns
+        .filter((turn) => (turn.role === 'user' || turn.role === 'assistant') && typeof turn.content === 'string')
+        .map((turn) => ({
+          role: turn.role,
+          content: turn.content,
+        })),
+    );
+    const latestAssistantTurn = [...turns].reverse().find((turn) => turn.role === 'assistant');
+    setToolEvents(Array.isArray(latestAssistantTurn?.tool_events) ? latestAssistantTurn.tool_events : []);
+    setLearnerSkills([]);
   }
 
   async function renameSession(session: ChatSession) {
@@ -102,7 +141,7 @@ export function AIMentorChat() {
       method: 'PATCH',
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify({
-        user_id: userId.trim() || 'demo-user',
+        user_id: user.id,
         conversation_id: session.conversation_id,
         name: name.trim(),
       }),
@@ -117,7 +156,7 @@ export function AIMentorChat() {
       method: 'DELETE',
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify({
-        user_id: userId.trim() || 'demo-user',
+        user_id: user.id,
         conversation_id: session.conversation_id,
       }),
     });
@@ -140,7 +179,7 @@ export function AIMentorChat() {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify({
-          user_id: userId.trim() || 'demo-user',
+          user_id: user.id,
           conversation_id: conversationId.current,
           message: trimmed,
           history,
@@ -162,7 +201,7 @@ export function AIMentorChat() {
       ]);
       setToolEvents(Array.isArray(result.tool_events) ? result.tool_events : []);
       setLearnerSkills(Array.isArray(result.learner?.skills) ? result.learner.skills : []);
-      await loadSessions();
+      await loadSessions(user.id);
     } catch (err) {
       setMessages((current) => [
         ...current,
@@ -188,7 +227,7 @@ export function AIMentorChat() {
 
     const form = new FormData();
     form.append('file', selectedFile);
-    form.append('user_id', userId.trim() || 'demo-user');
+    form.append('user_id', user.id);
     form.append('conversation_id', conversationId.current);
     form.append('title', selectedFile.name);
     form.append('chunk_tokens', '750');
@@ -225,7 +264,7 @@ export function AIMentorChat() {
   }
 
   return (
-    <main className="min-h-screen bg-slate-50 text-slate-950">
+    <section className="min-h-screen bg-slate-50 text-slate-950">
       <div className="mx-auto flex min-h-screen w-full max-w-6xl flex-col px-4 py-4 sm:px-6">
         <header className="flex items-center justify-between border-b border-slate-200 pb-3">
           <div>
@@ -302,15 +341,10 @@ export function AIMentorChat() {
             <div className="rounded border border-slate-200 bg-white p-3">
               <h2 className="text-sm font-semibold">Session</h2>
               <div className="mt-3 space-y-2">
-                <label className="block text-xs font-medium text-slate-600" htmlFor="user-id">
-                  User
-                </label>
-                <input
-                  id="user-id"
-                  value={userId}
-                  onChange={(event) => setUserId(event.target.value)}
-                  className="min-h-9 w-full rounded border border-slate-300 px-2 text-sm outline-none focus:border-slate-700"
-                />
+                <div className="rounded bg-slate-50 px-3 py-2 text-sm text-slate-700">
+                  <div className="text-xs font-medium text-slate-500">Signed-in user</div>
+                  <div className="mt-1 font-medium">{user.email}</div>
+                </div>
                 <label className="block text-xs font-medium text-slate-600" htmlFor="session-id">
                   Chat session
                 </label>
@@ -341,7 +375,7 @@ export function AIMentorChat() {
                     >
                       <button
                         type="button"
-                        onClick={() => selectSession(session)}
+                        onClick={() => void selectSession(session)}
                         className="block w-full truncate text-left font-medium text-slate-800"
                       >
                         {session.name}
@@ -427,7 +461,7 @@ export function AIMentorChat() {
           </aside>
         </section>
       </div>
-    </main>
+    </section>
   );
 }
 

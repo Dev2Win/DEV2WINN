@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import { MatchBody, MatchingFeedbackBody, RecommendationBody } from '../../contracts/matching.js';
+import { requireAuth, requireCsrf } from '../../lib/auth.js';
 import { Errors } from '../../lib/errors.js';
 import { matchingService } from './matching.service.js';
 
@@ -23,11 +24,15 @@ matchingRouter.post('/v1/matching/match', async (req, res) => {
   res.json(result);
 });
 
-matchingRouter.post('/v1/matching/feedback', async (req, res) => {
+matchingRouter.post('/v1/matching/feedback', requireAuth, requireCsrf, async (req, res) => {
   const parsed = MatchingFeedbackBody.safeParse(req.body);
   if (!parsed.success) {
     throw Errors.validation('Invalid matching feedback payload', parsed.error.flatten());
   }
-  const feedback = await matchingService.recordFeedback(parsed.data);
+  const feedback = await matchingService.recordFeedback({
+    ...parsed.data,
+    actorUserId: req.auth.user.id,
+    actorRole: req.auth.user.role,
+  });
   res.status(201).json({ feedback });
 });
